@@ -60,12 +60,9 @@
 @property(nonatomic)int receiveGamerLevel;
 @property(nonatomic)int receiveGamerMoney;
 @property(nonatomic)BOOL isFirstTryToConnect;
--(void)showHideImage;
 
 @property(nonatomic,strong)NSMutableArray *arrayOfCardOnTheTable;
 
-@property(nonatomic)int firstPrivateCard;
-@property(nonatomic)int secondPrivateCard;
 @property(nonatomic)BOOL isSendedRateToServer;
 @property(nonatomic)int minRate;
 @property(nonatomic)int amountRate;
@@ -83,12 +80,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *showBestCombinationButton;
 @property (strong, nonatomic) IBOutlet UIButton *makeScreenshortButton;
 
-@property(nonatomic,strong)NSArray *arrayOfProgressBar;
-@property(nonatomic,strong)NSArray *arrayOfMoneyLabel;
-@property(nonatomic,strong)NSArray *arrayOfNameLabel;
-@property(nonatomic,strong)NSArray *arrayOfImage;
-@property(nonatomic,strong)NSArray *arrayOfRates;
-@property(nonatomic,strong)NSArray *arrayImageOfPrivateCards;
+
 @property(nonatomic, strong)NSArray *arrayOfCombination;
 
 @property(nonatomic,strong)EAColourfulProgressView *currentProgressBar;
@@ -102,6 +94,8 @@
 @property(nonatomic)BOOL isBlind;
 @property(nonatomic)BOOL isModalViewControllerShouldBeShowed;
 @property(nonatomic)int countOfShowedCard;
+
+-(void)showHideImage;
 
 @end
 
@@ -120,20 +114,6 @@
 }
 
 -(void)generalSettings {
-    _arrayOfProgressBar = @[_generalGamerProgressBar, _secondGamerProgressBar, _theardGamerProgressBar, _fourthGamerProgressBar]; //need made for 10 gamers !
-    
-    _arrayOfMoneyLabel = @[_firstGamerMoneyLabel, _secondGamerMoneyLabel, _theardGamerMoneyLabel, _forthGamerMoneyLabel, _fifeGamerMoneyLabel, _sixGamerMoneyLabel, _sevenGamerMoneyLabel, _eightGamerMoneyLabel, _nineGamerMoneyLabel, _tenGamerMoneyLabel];
-    
-    _arrayOfNameLabel = @[_firstGamerNameLabel, _secondGamerNameLabel, _theardGamerNameLabel, _fourthGamerNameLabel, _fifeGamerNameLabel, _sixGamerNameLabel, _sevenGamerNameLabel, _eightGamerNameLabel, _nineGamerNameLabel, _tenGamerNameLabel];
-    
-    _arrayOfImage = @[_firstGamerImage, _secondGamerImage, _theardGamerImage, _fourthGamerImage, _fifeGamerImage, _sixGamerImage, _sevenGamerImage, _eightGamerImage, _nineGamerImage, _tenGamerImage];
-    
-    _arrayOfRates = @[_rateGeneralGamerLabel, _rateSecondGamerLabel, _rateTheardUserLabel, _rateFourthGamerLabel, _rateFifeGamerLabel, _rateSixGamerLabel, _rateSevenGamerLabel, _rateEightGamerLabel, _rateNineGamerLabel, _rateTenGamerLabel];
-    
-    _arrayImageOfPrivateCards = @[_firstPrivateCardImage, _secondPrivateCardImage, _firstPrivateCardSecondGamerImage, _secondPrivateCardSecondGamerImage,
-                                  _firstPrivateCardTheardGamerImage, _secondPrivateCardTheardGamerImage, _firstPrivateCardFourthGamerImage, _secondPrivateCardFourthGamerImage];
-
-    
     
     _arrayOfCombination = @[@"High Card", @"Pair", @"Two Pair", @"ThreeofaKind", @"Straight", @"Flush", @"FullHouse", @"FourofaKind", @"StraightFlush"];
     [[UIAccelerometer sharedAccelerometer]setDelegate:self];
@@ -173,10 +153,6 @@
     _currentProgressBar = nil;
     _isBlind = YES;
     
-    _generalGamerProgressBar.currentValue = 60;
-    _secondGamerProgressBar.currentValue = 60;
-    _theardGamerProgressBar.currentValue = 60;
-    
     [_firstCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
     [_secondCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
     [_theardCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
@@ -186,21 +162,21 @@
     _rateSlider.minimumValue = 300.0;
 }
 
+#define COUNT_GAMERS 10
+
 -(void)setCornersParametersForView {
-    [_quitButton.layer setMasksToBounds:YES];
-    [_quitButton.layer setCornerRadius:15];
    
     UIView *view;
     
-    for(int i=0; i < 10; i++) {
-        view = [_arrayOfMoneyLabel objectAtIndex:i];
-        [self roundCornerRadius:view];
-        
-        view = [_arrayOfNameLabel objectAtIndex:i];
-        [self roundCornerRadius:view];
-        
-        view = [_arrayOfImage objectAtIndex:i];
-        [self roundCornerRadius:view];
+    for(int i=0; i < COUNT_GAMERS; i++) {
+//        view = [_arrayOfMoneyLabel objectAtIndex:i];
+//        [self roundCornerRadius:view];
+//        
+//        view = [_arrayOfNameLabel objectAtIndex:i];
+//        [self roundCornerRadius:view];
+//        
+//        view = [_arrayOfImage objectAtIndex:i];
+//        [self roundCornerRadius:view];
     }
     //-----------setting buttons corner radius !
     [_checkButton.layer setMasksToBounds:YES];
@@ -225,10 +201,6 @@
     [_showBestCombinationButton.layer setCornerRadius:10];
     //-----------
     
-    _secondPrivateCardImage.transform = CGAffineTransformMakeRotation(0.3925); //corner of rotate !
-    _secondPrivateCardSecondGamerImage.transform = CGAffineTransformMakeRotation(0.3925);
-    _secondPrivateCardTheardGamerImage.transform = CGAffineTransformMakeRotation(0.3925);
-    _secondPrivateCardFourthGamerImage.transform = CGAffineTransformMakeRotation(0.3925);
 }
 
 -(void)roundCornerRadius:(UIView*)view {
@@ -293,15 +265,6 @@
     
 }
 
-- (IBAction)quitClick:(id)sender {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    [self playSound:@"Pass"];
-    [connect sendData:@"-2"];
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
-
-
 -(NSString*)currentTime {
     NSDate *currentDate = [NSDate date];
     
@@ -364,15 +327,7 @@
         [nameLabel setAlpha:0.0];
         [image setAlpha:0.0];
     }
-    progress = [_arrayOfProgressBar objectAtIndex:0];
-    [progress setAlpha:0.0];
-    progress = [_arrayOfProgressBar objectAtIndex:1];
-    [progress setAlpha:0.0];
-    progress = [_arrayOfProgressBar objectAtIndex:2];
-    [progress setAlpha:0.0];
-    progress = [_arrayOfProgressBar objectAtIndex:3];
-    [progress setAlpha:0.0];
-
+    
     for(UIImageView *image in _arrayImageOfPrivateCards) {
         [image setAlpha:0.0];
     }
@@ -976,38 +931,38 @@
 -(void)gettingWinnerGamerTwoCard {
     ConnectionToServer *connect= [ConnectionToServer sharedInstance];
     
-    if(connect.numberOfAttribut < 2)
-      [connect sendData:@"received"];
-    
-    if(connect.numberOfAttribut == 0) { _firstWinnerPrivateCard = connect.receivedIntValue; }
-    if(connect.numberOfAttribut == 1) { _secondWinnerPrivateCard = connect.receivedIntValue; }
-    if(connect.numberOfAttribut == 2) { _bestPriority = connect.receivedIntValue; NSLog(@"best priority : %d", _bestPriority); }
-    
-    connect.numberOfAttribut += 1;
-    if(connect.numberOfAttribut < 3) [connect readDataWithTagLongTime:GET_WINNER_CADR andDurationWaiting:LONG_TIME_OUT];
-    else {
-        connect.numberOfAttribut = 0;
-        
-         [_messageFromServerLabel setText:[_arrayOfCombination objectAtIndex:_bestPriority-1]]; //show name of best combination
-        
-         NSString *firstPicture = [[NSString alloc]initWithFormat:@"cards/%i.png", _firstWinnerPrivateCard];
-         NSString *secondPicture = [[NSString alloc] initWithFormat:@"cards/%i.png", _secondWinnerPrivateCard];
-        
-        Gamer *gamer;
-        int i = 0;
-        for(i=0; i < [_gamersArray count]; i++) {
-            gamer = [_gamersArray objectAtIndex:i];
-            if([gamer.name isEqualToString:_nameOfWinner]) {
-                gamer.firstPrivateCard = _firstWinnerPrivateCard;
-                gamer.secondPrivateCard = _secondWinnerPrivateCard;
-                gamer = [self showWinnersCard:i andFirstCard:firstPicture andSecondCard:secondPicture andGamer:gamer];
-                [_gamersArray replaceObjectAtIndex:i withObject:gamer];
-                break;
-            }
-        }
-        [self showBestCombination:i];
+//    if(connect.numberOfAttribut < 2)
+//      [connect sendData:@"received"];
+//    
+//    if(connect.numberOfAttribut == 0) { _firstWinnerPrivateCard = connect.receivedIntValue; }
+//    if(connect.numberOfAttribut == 1) { _secondWinnerPrivateCard = connect.receivedIntValue; }
+//    if(connect.numberOfAttribut == 2) { _bestPriority = connect.receivedIntValue; NSLog(@"best priority : %d", _bestPriority); }
+//    
+//    connect.numberOfAttribut += 1;
+//    if(connect.numberOfAttribut < 3) [connect readDataWithTagLongTime:GET_WINNER_CADR andDurationWaiting:LONG_TIME_OUT];
+//    else {
+//        connect.numberOfAttribut = 0;
+//        
+//         [_messageFromServerLabel setText:[_arrayOfCombination objectAtIndex:_bestPriority-1]]; //show name of best combination
+//        
+//         NSString *firstPicture = [[NSString alloc]initWithFormat:@"cards/%i.png", _firstWinnerPrivateCard];
+//         NSString *secondPicture = [[NSString alloc] initWithFormat:@"cards/%i.png", _secondWinnerPrivateCard];
+//        
+//        Gamer *gamer;
+//        int i = 0;
+//        for(i=0; i < [_gamersArray count]; i++) {
+//            gamer = [_gamersArray objectAtIndex:i];
+//            if([gamer.name isEqualToString:_nameOfWinner]) {
+//                gamer.firstPrivateCard = _firstWinnerPrivateCard;
+//                gamer.secondPrivateCard = _secondWinnerPrivateCard;
+//                gamer = [self showWinnersCard:i andFirstCard:firstPicture andSecondCard:secondPicture andGamer:gamer];
+//                [_gamersArray replaceObjectAtIndex:i withObject:gamer];
+//                break;
+//            }
+//        }
+//        [self showBestCombination:i];
         /*need rendering scene, show alpha cards !!!!*/
-    }
+//   }
 }
 
 -(void)showBestCombination:(int)number {
