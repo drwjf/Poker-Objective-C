@@ -53,7 +53,7 @@
 
 
 
-@interface AnimationOnTheTable () <ConnectionToServerDelegate, UIAccelerometerDelegate>
+@interface AnimationOnTheTable () <UIAccelerometerDelegate>
 
 @property(nonatomic)int countGamersOnTheTable;
 @property(nonatomic,strong)NSString *receiveGamerName;
@@ -82,12 +82,6 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *showBestCombinationButton;
 @property (strong, nonatomic) IBOutlet UIButton *makeScreenshortButton;
-
-
-@property (strong, nonatomic) IBOutlet EAColourfulProgressView *generalGamerProgressBar;
-@property (strong, nonatomic) IBOutlet EAColourfulProgressView *secondGamerProgressBar;
-@property (strong, nonatomic) IBOutlet EAColourfulProgressView *theardGamerProgressBar;
-@property (strong, nonatomic) IBOutlet EAColourfulProgressView *fourthGamerProgressBar;
 
 @property(nonatomic,strong)NSArray *arrayOfProgressBar;
 @property(nonatomic,strong)NSArray *arrayOfMoneyLabel;
@@ -215,14 +209,14 @@
     [_pasButton.layer setMasksToBounds:YES];
     [_pasButton.layer setCornerRadius:10];
     
-    [_qualButton.layer setMasksToBounds:YES];
-    [_qualButton.layer setCornerRadius:10];
+    [_callButton.layer setMasksToBounds:YES];
+    [_callButton.layer setCornerRadius:10];
     
-    [_raiseButton.layer setMasksToBounds:YES];
-    [_raiseButton.layer setCornerRadius:10];
+    [_raiseBetButton.layer setMasksToBounds:YES];
+    [_raiseBetButton.layer setCornerRadius:10];
     //-----------
-    [_qualButton.layer setMasksToBounds:YES];
-    [_qualButton.layer setCornerRadius:10];
+    [_callButton.layer setMasksToBounds:YES];
+    [_callButton.layer setCornerRadius:10];
     
     [_makeScreenshortButton.layer setMasksToBounds:YES];
     [_makeScreenshortButton.layer setCornerRadius:10];
@@ -751,16 +745,16 @@
 }
 
 -(void)lockAllBetButtons {
-    [_raiseButton setEnabled:NO];
-    [_qualButton setEnabled:NO];
+    [_raiseBetButton setEnabled:NO];
+    [_callButton setEnabled:NO];
     [_checkButton setEnabled:NO];
     [_pasButton setEnabled:NO];
     [_rateSlider setEnabled:NO];
 }
 
 -(void)unlockAllBetButton {
-    [_raiseButton setEnabled:YES];
-    [_qualButton setEnabled:YES];
+    [_raiseBetButton setEnabled:YES];
+    [_callButton setEnabled:YES];
     [_checkButton setEnabled:YES];
     [_pasButton setEnabled:YES];
     [_rateSlider setEnabled:YES];
@@ -859,13 +853,6 @@
         else return NO;
     }
 }
-
-
--(void)gameLoop {
-    
-    
-}
-
 
 -(void)gameEngine{
     [self changeProgressBar:_numberOfGeneralGamer*2];
@@ -1033,7 +1020,6 @@
     
     //проверка на затемнение карт на столе
     for (i=0; i < [_arrayOfCardOnTheTable count]; i++) {
-        NSLog(@"best %d card : %@", i, [_arrayBestCard objectAtIndex:i]);
         flag = NO;
         for(j=0; j < [_arrayBestCard count]; j++) {
             number1 = [_arrayOfCardOnTheTable objectAtIndex:i];
@@ -1164,38 +1150,7 @@
 
 //test method
 -(void)updateInfo {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    [connect sendData:@"received"];                                    //!!!!!!!!!
-    switch (connect.numberOfAttribut) { //count gamers - attribut
-        case 0:
-            NSLog(@"COUNT GAMER : %i", connect.receivedIntValue);
-            [connect readDataWithTag:GET_GAMER_NAME];
-            break;
-        case 1:
-            [connect readDataWithTag:GET_GAMER_MONEY];
-            break;
-        case 2:
-            [connect readDataWithTag:GET_GAMER_LEVEL]; //[connect readDataWithTag:GET_INT_VALUE];
-            break;
-        case 3:
-            _countGamersOnTheTable++;
-            [self addPlayerToGameList:connect.gameName andMoney:connect.gamerMoney andLevel:connect.gamerLevel];
-            if(_countGamersOnTheTable < connect.countGamers) {
-                connect.numberOfAttribut = 1;
-                [connect readDataWithTag:GET_GAMER_NAME];
-                return;
-            } else {
-                connect.numberOfAttribut = -1;
-                [connect readDataWithTagLongTime:GET_CARD andDurationWaiting:LONG_TIME_OUT*4];
-                return;
-            }
-            break;
-            
-        default:
-            NSLog(@"incoRRRRRRRRR!");
-            return;
-    }
-    connect.numberOfAttribut++;
+
 }
 
 -(void)renderGamer:(UIImageView*)image andLabel1:(UILabel*)label1 andSecondLabel:(UILabel*)label2 andRate:(UILabel*)label3 andNumber:(int)number {
@@ -1254,10 +1209,10 @@
     
     [_chatTextView setText:outStr];
     
-    NSLog(@"count : %i", _countGamersOnTheTable);
-    NSLog(@"%@", gamer.name);
-    NSLog(@"%i", gamer.money);
-    NSLog(@"%i", gamer.level);
+//    NSLog(@"count : %i", _countGamersOnTheTable);
+//    NSLog(@"%@", gamer.name);
+//    NSLog(@"%i", gamer.money);
+//    NSLog(@"%i", gamer.level);
     
     UILabel *gamerMoneyLabel = [_arrayOfMoneyLabel objectAtIndex:_numberOfCurrentGamer];
     UILabel *gamerNameLabel = [_arrayOfNameLabel objectAtIndex:_numberOfCurrentGamer];
@@ -1274,13 +1229,6 @@
     [_chatTextView setText:string];
 }
 
--(void)updateInfoAboutPlayer {}
-
-
-//If we connected to table
--(void)accept {
-
-}
 
 -(void)returnOnPreviusView {
     ConnectionToServer *connect = [ConnectionToServer sharedInstance];
@@ -1298,12 +1246,12 @@
 }
 
 -(void)viewWillAppearWithoutFirstStart:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f
-                                                  target:self
-                                                selector:@selector(updateProgressView:)
-                                                userInfo:nil
-                                                 repeats:YES];
+//    [super viewWillAppear:animated]; IncoRRECT method !
+//    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+//                                                  target:self
+//                                                selector:@selector(updateProgressView:)
+//                                                userInfo:nil
+//                                                 repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -1321,7 +1269,7 @@
 {
     NSInteger newCurrentValue;
     
-    if (self.currentProgressBar.currentValue == 0 && (![_currentProgressBar isEqual:nil])) {
+    if (self.currentProgressBar.currentValue == 0 && (_currentProgressBar != nil)) {
         newCurrentValue = self.currentProgressBar.maximumValue;
         [timer invalidate];
         timer = nil;
