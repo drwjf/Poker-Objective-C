@@ -153,11 +153,11 @@
     _currentProgressBar = nil;
     _isBlind = YES;
     
-    [_firstCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
-    [_secondCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
-    [_theardCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
-    [_fourthCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
-    [_fifeCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
+//    [_firstCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
+//    [_secondCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
+//    [_theardCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
+//    [_fourthCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
+//    [_fifeCard setImage:[UIImage imageNamed:@"shirt.jpg"]];
     
     _rateSlider.minimumValue = 300.0;
 }
@@ -222,13 +222,13 @@
     int selectedGamer = -1;
     int i = 0;
     
-    for(UIImageView *image in _arrayOfImage) {
-        if(touch.view == image) {
-            selectedGamer = i;
-            break;
-        }
-        i++;
-    }
+//    for(UIImageView *image in _arrayOfImage) {
+//        if(touch.view == image) {
+//            selectedGamer = i;
+//            break;
+//        }
+//        i++;
+//    }
     
     if(touch.view != _contentView) {
         [_contentView setAlpha:0.0];
@@ -292,13 +292,10 @@
         NSString *gamerMoney = [[NSString alloc] initWithFormat:@"%i $", gamer.money];
         NSString *gamerLevel = [[NSString alloc]  initWithFormat:@"%i", gamer.level];
         
-        _selectedGamerName.text = gamer.name;
-        _selectedGamerMoney.text = gamerMoney;
-        _selectedGamerLevel.text = gamerLevel;
-        
-        [_selectedGamerName reloadInputViews];
-        [_selectedGamerMoney reloadInputViews];
-        [_selectedGamerLevel reloadInputViews];
+//        _selectedGamerName.text = gamer.name;
+//        _selectedGamerMoney.text = gamerMoney;
+//        _selectedGamerLevel.text = gamerLevel;
+
     }
 }
 
@@ -317,10 +314,10 @@
     EAColourfulProgressView *progress;
     
     for(int i=0; i < 10; i++) {
-        moneyLabel = [_arrayOfMoneyLabel objectAtIndex:i];
-        nameLabel = [_arrayOfNameLabel objectAtIndex:i];
-        rateLabel = [_arrayOfRates objectAtIndex:i];
-        image = [_arrayOfImage objectAtIndex:i];
+//        moneyLabel = [_arrayOfMoneyLabel objectAtIndex:i];
+//        nameLabel = [_arrayOfNameLabel objectAtIndex:i];
+//        rateLabel = [_arrayOfRates objectAtIndex:i];
+//        image = [_arrayOfImage objectAtIndex:i];
         
         [moneyLabel setAlpha:0.0];
         [rateLabel setAlpha:0.0];
@@ -328,15 +325,15 @@
         [image setAlpha:0.0];
     }
     
-    for(UIImageView *image in _arrayImageOfPrivateCards) {
-        [image setAlpha:0.0];
-    }
-    
-    [self.firstCard setAlpha:0.0];
-    [self.secondCard setAlpha:0.0];
-    [self.theardCard setAlpha:0.0];
-    [self.fourthCard setAlpha:0.0];
-    [self.fifeCard setAlpha:0.0];
+//    for(UIImageView *image in _arrayImageOfPrivateCards) {
+//        [image setAlpha:0.0];
+//    }
+//    
+//    [self.firstCard setAlpha:0.0];
+//    [self.secondCard setAlpha:0.0];
+//    [self.theardCard setAlpha:0.0];
+//    [self.fourthCard setAlpha:0.0];
+//    [self.fifeCard setAlpha:0.0];
 }
 
 -(void)getInfoAboutGamersOnTheTable {
@@ -374,31 +371,31 @@
 }
 
 -(void)passAction {
-
-    [self playSound:@"Pass"];
-    
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    [connect sendData:@"-1"];
-    
-    UIImageView *imageGeneralGamer = [_arrayOfImage objectAtIndex:_numberOfGeneralGamer];
-    UILabel *moneyGeneralGamer = [_arrayOfMoneyLabel objectAtIndex:_numberOfGeneralGamer];
-    UILabel *nameLabel = [_arrayOfNameLabel objectAtIndex:_numberOfGeneralGamer];
-    
-    [imageGeneralGamer setAlpha:0.6];
-    [moneyGeneralGamer setAlpha:0.6];
-    [nameLabel setAlpha:0.6];
-    
-    Gamer *gamer = [_gamersArray objectAtIndex:_numberOfGeneralGamer];
-    gamer.isGamed = NO;
-    _amountRate += gamer.rate;
-    
-    [_rateAmountAllGamersLabel setText:[[NSString alloc] initWithFormat:@"%d$", _amountRate]];
-    [_rateAmountAllGamersLabel reloadInputViews];
-    
-    [_gamersArray replaceObjectAtIndex:_numberOfGeneralGamer withObject:gamer];
-    _rateGeneralGamerLabel.text = @"0 $";
-    [self lockAllBetButtons];
-    [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+//
+//    [self playSound:@"Pass"];
+//    
+//    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+//    [connect sendData:@"-1"];
+//    
+//    UIImageView *imageGeneralGamer = [_arrayOfImage objectAtIndex:_numberOfGeneralGamer];
+//    UILabel *moneyGeneralGamer = [_arrayOfMoneyLabel objectAtIndex:_numberOfGeneralGamer];
+//    UILabel *nameLabel = [_arrayOfNameLabel objectAtIndex:_numberOfGeneralGamer];
+//    
+//    [imageGeneralGamer setAlpha:0.6];
+//    [moneyGeneralGamer setAlpha:0.6];
+//    [nameLabel setAlpha:0.6];
+//    
+//    Gamer *gamer = [_gamersArray objectAtIndex:_numberOfGeneralGamer];
+//    gamer.isGamed = NO;
+//    _amountRate += gamer.rate;
+//    
+//    [_rateAmountAllGamersLabel setText:[[NSString alloc] initWithFormat:@"%d$", _amountRate]];
+//    [_rateAmountAllGamersLabel reloadInputViews];
+//    
+//    [_gamersArray replaceObjectAtIndex:_numberOfGeneralGamer withObject:gamer];
+//    _rateGeneralGamerLabel.text = @"0 $";
+//    [self lockAllBetButtons];
+//    [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
 }
 
 - (IBAction)clickCheck:(id)sender {
@@ -412,7 +409,7 @@
             [connect sendData:outStr];
         
         NSString *outSt = [[NSString alloc] initWithFormat:@"%d $", _minRate];
-        [[_arrayOfRates objectAtIndex:_numberOfGeneralGamer] setText:outSt];
+        //[[_arrayOfRates objectAtIndex:_numberOfGeneralGamer] setText:outSt];
         _isSendedRateToServer = !_isSendedRateToServer;
         [self lockAllBetButtons];
         [self playSound:@"Check"];
@@ -462,7 +459,7 @@
 }
 
 -(void)startProgressBarAtNumber:(int)number {
-    _currentProgressBar = [_arrayOfProgressBar objectAtIndex:number];
+   // _currentProgressBar = [_arrayOfProgressBar objectAtIndex:number];
     _numberOfCurrentProgressView = number;
     _currentProgressBar.currentValue = 60;
     [_currentProgressBar  setAlpha:1.0];
@@ -488,7 +485,7 @@
         _minRate = [subStr intValue];
         NSString *outStr = [[NSString alloc] initWithFormat:@"Check or raise ? minRate : %d", _minRate];
         [self playSound:@"Check"];
-        _messageFromServerLabel.text = outStr;
+      //  _messageFromServerLabel.text = outStr;
         _isSendedRateToServer = !_isSendedRateToServer;
         [self unlockAllBetButton];
         
@@ -504,8 +501,8 @@
 //        _minRate = 0;
 //        [_gamersArray replaceObjectAtIndex:_numberOfGeneralGamer withObject:gamer];
         
-        _messageFromServerLabel.text = outStr;
-        [_messageFromServerLabel reloadInputViews];
+//        _messageFromServerLabel.text = outStr;
+//        [_messageFromServerLabel reloadInputViews];
         [self updateGeneralGamerMoney];
         [connect sendData:@"received"];
     
@@ -589,10 +586,10 @@
                 if(valueRate != -1)
                         gamer.rate = valueRate;
                 else {
-                    _amountRate += gamer.rate;
-                    _rateAmountAllGamersLabel.text = [[NSString alloc] initWithFormat:@"%d $", _amountRate];
-                    [_rateAmountAllGamersLabel reloadInputViews];
-                    gamer.rate = -1;
+//                    _amountRate += gamer.rate;
+//                    _rateAmountAllGamersLabel.text = [[NSString alloc] initWithFormat:@"%d $", _amountRate];
+//                    [_rateAmountAllGamersLabel reloadInputViews];
+//                    gamer.rate = -1;
                 }
                 
                 if(gamer.rate != -1) {
@@ -626,15 +623,15 @@
             [_gamersArray replaceObjectAtIndex:i withObject:gamer];
         }
     }
-    _rateAmountAllGamersLabel.text = [[NSString alloc] initWithFormat:@"%d $", _amountRate];
-    
-    _rateGeneralGamerLabel.text = @"0 $";
-    _rateSecondGamerLabel.text = @"0 $";
-    _rateTheardUserLabel.text = @"0 $";
-    _rateFourthGamerLabel.text = @"0 $";
-    _rateFifeGamerLabel.text = @"0 $";
-    _rateSixGamerLabel.text = @"0 $";
-    _rateSevenGamerLabel.text = @"0 $";
+//    _rateAmountAllGamersLabel.text = [[NSString alloc] initWithFormat:@"%d $", _amountRate];
+//    
+//    _rateGeneralGamerLabel.text = @"0 $";
+//    _rateSecondGamerLabel.text = @"0 $";
+//    _rateTheardUserLabel.text = @"0 $";
+//    _rateFourthGamerLabel.text = @"0 $";
+//    _rateFifeGamerLabel.text = @"0 $";
+//    _rateSixGamerLabel.text = @"0 $";
+//    _rateSevenGamerLabel.text = @"0 $";
 }
 
 -(void)updateGeneralGamerMoney { //-1 используется для того, чтобы маневрированть: игрок получил деньги или отдал...
@@ -659,15 +656,15 @@
         [userDefaults setInteger:newMoney forKey:@"money"];
         outStr = [[NSString alloc] initWithFormat:@"%@ $", [userDefaults objectForKey:@"money"]];
         
-        UILabel *moneyLabel = [_arrayOfMoneyLabel objectAtIndex:_numberOfGeneralGamer];
-        UILabel *rateLabel = [_arrayOfRates objectAtIndex:_numberOfGeneralGamer];
-        
-        [rateLabel setText:newRate];
-        [rateLabel reloadInputViews];
-        [rateLabel setAlpha:1.0];
-        
-        [moneyLabel setText:outStr];
-        [moneyLabel reloadInputViews];
+////        UILabel *moneyLabel = [_arrayOfMoneyLabel objectAtIndex:_numberOfGeneralGamer];
+////        UILabel *rateLabel = [_arrayOfRates objectAtIndex:_numberOfGeneralGamer];
+//        
+//        [rateLabel setText:newRate];
+//        [rateLabel reloadInputViews];
+//        [rateLabel setAlpha:1.0];
+//        
+//        [moneyLabel setText:outStr];
+//        [moneyLabel reloadInputViews];
     }
 }
 
@@ -678,25 +675,25 @@
 }
 
 -(void)showCardsOnTheTable {
-    [self playSound:@"Cards"];
-    [UIView animateWithDuration:3.0 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
-        [self.firstCard setAlpha:0.1];
-        [self.secondCard setAlpha:0.1];
-        [self.theardCard setAlpha:0.1];
-        [self.fourthCard setAlpha:0.1];
-        [self.fifeCard setAlpha:0.1];
-        
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:3.0 animations:^{
-            [self.firstCard setAlpha:1];
-            [self.secondCard setAlpha:1];
-            [self.theardCard setAlpha:1];
-            [self.fourthCard setAlpha:1];
-            [self.fifeCard setAlpha:1];
-        } completion:^(BOOL finished) {
-            
-        }];
-    }];
+//    [self playSound:@"Cards"];
+//    [UIView animateWithDuration:3.0 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
+//        [self.firstCard setAlpha:0.1];
+//        [self.secondCard setAlpha:0.1];
+//        [self.theardCard setAlpha:0.1];
+//        [self.fourthCard setAlpha:0.1];
+//        [self.fifeCard setAlpha:0.1];
+//        
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:3.0 animations:^{
+//            [self.firstCard setAlpha:1];
+//            [self.secondCard setAlpha:1];
+//            [self.theardCard setAlpha:1];
+//            [self.fourthCard setAlpha:1];
+//            [self.fifeCard setAlpha:1];
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//    }];
 }
 
 -(void)lockAllBetButtons {
@@ -751,45 +748,45 @@
 }
 
 -(void)changeProgressBar:(int)numberOfGeneralCard {
-    NSString *firstPicture = [[NSString alloc]initWithFormat:@"cards/%i.png", _firstPrivateCard];
-    NSLog(@"path to firstPicture : %@", firstPicture);
-    NSString *secondPicture = [[NSString alloc]initWithFormat:@"cards/%i.png", _secondPrivateCard];
-    NSLog(@"path to second picture : %@", secondPicture);
-            UIImageView *image1 = [_arrayImageOfPrivateCards objectAtIndex:numberOfGeneralCard];
-            UIImageView *image2 = [_arrayImageOfPrivateCards objectAtIndex:numberOfGeneralCard+1];
-    
-    [image1 setImage:[UIImage imageNamed:firstPicture]];
-    [image2 setImage:[UIImage imageNamed:secondPicture]];
-    
-    [UIView animateWithDuration:3.0 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
-        
-        [self.firstCard setAlpha:0.1];
-        [self.secondCard setAlpha:0.1];
-        [self.theardCard setAlpha:0.1];
-        [self.fourthCard setAlpha:0.1];
-        [self.fifeCard setAlpha:0.1];
-        image1.center = image1.center;
-        image2.center = image2.center;
-        
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1.0 animations:^{
-            [self.firstCard setAlpha:1];
-            [self.secondCard setAlpha:1];
-            [self.theardCard setAlpha:1];
-            [self.fourthCard setAlpha:1];
-            [self.fifeCard setAlpha:1];
-            [image1 setAlpha:1.0];
-            [image2 setAlpha:1.0];
-            
-            image1.center = image1.center;
-            image2.center = image2.center;
-        } completion:^(BOOL finished) {
-            
-       }];
-        
-//        _firstPrivateCardImage.center = CGPointMake(470.0, 560.0);
-//        _secondPrivateCardImage.center = CGPointMake(500.0, 560.0);
-    }];
+//    NSString *firstPicture = [[NSString alloc]initWithFormat:@"cards/%i.png", _firstPrivateCard];
+//    NSLog(@"path to firstPicture : %@", firstPicture);
+//    NSString *secondPicture = [[NSString alloc]initWithFormat:@"cards/%i.png", _secondPrivateCard];
+//    NSLog(@"path to second picture : %@", secondPicture);
+//            UIImageView *image1 = [_arrayImageOfPrivateCards objectAtIndex:numberOfGeneralCard];
+//            UIImageView *image2 = [_arrayImageOfPrivateCards objectAtIndex:numberOfGeneralCard+1];
+//    
+//    [image1 setImage:[UIImage imageNamed:firstPicture]];
+//    [image2 setImage:[UIImage imageNamed:secondPicture]];
+//    
+//    [UIView animateWithDuration:3.0 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
+//        
+//        [self.firstCard setAlpha:0.1];
+//        [self.secondCard setAlpha:0.1];
+//        [self.theardCard setAlpha:0.1];
+//        [self.fourthCard setAlpha:0.1];
+//        [self.fifeCard setAlpha:0.1];
+//        image1.center = image1.center;
+//        image2.center = image2.center;
+//        
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:1.0 animations:^{
+//            [self.firstCard setAlpha:1];
+//            [self.secondCard setAlpha:1];
+//            [self.theardCard setAlpha:1];
+//            [self.fourthCard setAlpha:1];
+//            [self.fifeCard setAlpha:1];
+//            [image1 setAlpha:1.0];
+//            [image2 setAlpha:1.0];
+//            
+//            image1.center = image1.center;
+//            image2.center = image2.center;
+//        } completion:^(BOOL finished) {
+//            
+//       }];
+//        
+////        _firstPrivateCardImage.center = CGPointMake(470.0, 560.0);
+////        _secondPrivateCardImage.center = CGPointMake(500.0, 560.0);
+//    }];
     
     [self receiveRateFromServer];
 }
@@ -839,8 +836,8 @@
     NSString *winnerName = [connect.receiveString substringFromIndex:i+1];
     NSString *tempString = [[NSString alloc] initWithFormat:@"%@\n[%@] %@ is winner !", _chatTextView.text, [self currentTime], winnerName];
     [_chatTextView setText:tempString];
-    [_messageFromServerLabel setText:tempString];
-    [_messageFromServerLabel reloadInputViews];
+//    [_messageFromServerLabel setText:tempString];
+//    [_messageFromServerLabel reloadInputViews];
     [_chatTextView reloadInputViews];
     _nameOfWinner = winnerName;
     connect.numberOfAttribut = 0;
@@ -877,7 +874,7 @@
         }
         i++;
     }
-    [_rateAmountAllGamersLabel setText:@"0 $"];
+   // [_rateAmountAllGamersLabel setText:@"0 $"];
     [self modifyMoneyOfWinner:i];
     Gamer *gamer = [_gamersArray objectAtIndex:i];
     NSString *name = [[NSString alloc] initWithFormat:@"[%@] %@ is winn with unnamed cards !",[self currentTime], gamer.name];
@@ -915,9 +912,9 @@
     UIImageView *image1;
     UIImageView *image2;
     
-    image1 = [_arrayImageOfPrivateCards objectAtIndex:value*2];
-    image2 = [_arrayImageOfPrivateCards objectAtIndex:value*2 + 1];
-    
+//    image1 = [_arrayImageOfPrivateCards objectAtIndex:value*2];
+//    image2 = [_arrayImageOfPrivateCards objectAtIndex:value*2 + 1];
+//    
     gamer.firstCard = image1;
     gamer.secondCard= image2;
     [image1 setAlpha:1.0];
@@ -971,7 +968,7 @@
     UIImageView *temp;
     NSNumber *number1, *number2;
     Gamer *gamer = [_gamersArray objectAtIndex:number];
-    NSArray *array = @[_firstCard, _secondCard, _theardCard, _fourthCard, _fifeCard];
+   // NSArray *array = @[_firstCard, _secondCard, _theardCard, _fourthCard, _fifeCard];
     
     //проверка на затемнение карт на столе
     for (i=0; i < [_arrayOfCardOnTheTable count]; i++) {
@@ -983,7 +980,7 @@
         }
         if(flag == NO) {
             NSLog(@"zatemnena : %d", [number1 intValue]);
-            temp = [array objectAtIndex:i];
+           // temp = [array objectAtIndex:i];
             [temp setAlpha:0.6]; //Затемняем
         }
     }
@@ -1013,8 +1010,8 @@
     }
     _minRate = _amountRate;
     NSLog(@"number : %d  |   amount rate : %d", number, _amountRate);
-    [_rateAmountAllGamersLabel setText:@"0 $"];
-    [_rateAmountAllGamersLabel reloadInputViews];
+//    [_rateAmountAllGamersLabel setText:@"0 $"];
+//    [_rateAmountAllGamersLabel reloadInputViews];
     [self modifyMoneyOfWinner:number];
     _timer = nil;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:15.0f
@@ -1043,25 +1040,25 @@
 }
 
 -(void)showNextCard:(int)numberInArray{
-    NSArray *array = @[_firstCard, _secondCard, _theardCard, _fourthCard, _fifeCard];
-    UIImageView *point = [array objectAtIndex:numberInArray];
-    
-    NSString *firstPict = [[NSString alloc]initWithFormat:@"cards/%@.png", ([_arrayOfCardOnTheTable objectAtIndex:numberInArray])];
-    NSLog(@"карта : %@", firstPict);
-    
-    [UIView animateWithDuration:1.0 delay:0.01 usingSpringWithDamping:0.01 initialSpringVelocity:0.01 options:0 animations:^{
-        point.transform = CGAffineTransformMakeScale(1.0, 1.0);
-    } completion:^(BOOL finished) {
-        point.transform = CGAffineTransformMakeScale(0.01, 1.0);
-    }];
-    
-    [UIView animateWithDuration:1.0 animations:^{
-        //_firstCard.center = CGPointMake(0.0f, 0.0f);
-        point.transform = CGAffineTransformMakeScale(0.01, 1.0);
-    } completion:^(BOOL finished) {
-        [point setImage:[UIImage imageNamed:firstPict]];
-        point.transform = CGAffineTransformMakeScale(1.0, 1.0);
-    }];
+//    //NSArray *array = @[_firstCard, _secondCard, _theardCard, _fourthCard, _fifeCard];
+//    UIImageView *point = [array objectAtIndex:numberInArray];
+//    
+//    NSString *firstPict = [[NSString alloc]initWithFormat:@"cards/%@.png", ([_arrayOfCardOnTheTable objectAtIndex:numberInArray])];
+//    NSLog(@"карта : %@", firstPict);
+//    
+//    [UIView animateWithDuration:1.0 delay:0.01 usingSpringWithDamping:0.01 initialSpringVelocity:0.01 options:0 animations:^{
+//        point.transform = CGAffineTransformMakeScale(1.0, 1.0);
+//    } completion:^(BOOL finished) {
+//        point.transform = CGAffineTransformMakeScale(0.01, 1.0);
+//    }];
+//    
+//    [UIView animateWithDuration:1.0 animations:^{
+//        //_firstCard.center = CGPointMake(0.0f, 0.0f);
+//        point.transform = CGAffineTransformMakeScale(0.01, 1.0);
+//    } completion:^(BOOL finished) {
+//        [point setImage:[UIImage imageNamed:firstPict]];
+//        point.transform = CGAffineTransformMakeScale(1.0, 1.0);
+//    }];
 }
 
 -(void)getCards {
@@ -1080,12 +1077,12 @@
         [_arrayOfCardOnTheTable addObject:value];
         [connection readDataWithTag:GET_CARD];
     } else {
-        NSLog(@"value == %i", connection.receivedIntValue);
-        if(connection.numberOfAttribut == FIRST_PRIVATE_CARD) { _firstPrivateCard = connection.receivedIntValue; [connection readDataWithTag:GET_CARD]; }
-        else if(connection.numberOfAttribut == SECOND_PRIVATE_CARD)
-        {  _secondPrivateCard = connection.receivedIntValue; [self gameEngine]; return; }
-        else
-        { return; }
+//        NSLog(@"value == %i", connection.receivedIntValue);
+//        if(connection.numberOfAttribut == FIRST_PRIVATE_CARD) { _firstPrivateCard = connection.receivedIntValue; [connection readDataWithTag:GET_CARD]; }
+//        else if(connection.numberOfAttribut == SECOND_PRIVATE_CARD)
+//        {  _secondPrivateCard = connection.receivedIntValue; [self gameEngine]; return; }
+//        else
+//        { return; }
 
     }
 }
@@ -1136,47 +1133,47 @@
 }
 
 -(void)selectParam:(int)value {
-    UILabel *gamerMoneyLabel = [_arrayOfMoneyLabel objectAtIndex:value];
-    UILabel *gamerNameLabel = [_arrayOfNameLabel objectAtIndex:value];
-    UILabel *gamerRate = [_arrayOfRates objectAtIndex:value];
-    UIImageView *image = [_arrayOfImage objectAtIndex:value];
-    
-    [self renderGamer:image andLabel1:gamerNameLabel andSecondLabel:gamerMoneyLabel andRate:gamerRate andNumber:value];
+//    UILabel *gamerMoneyLabel = [_arrayOfMoneyLabel objectAtIndex:value];
+//    UILabel *gamerNameLabel = [_arrayOfNameLabel objectAtIndex:value];
+//    UILabel *gamerRate = [_arrayOfRates objectAtIndex:value];
+//    UIImageView *image = [_arrayOfImage objectAtIndex:value];
+//    
+//    [self renderGamer:image andLabel1:gamerNameLabel andSecondLabel:gamerMoneyLabel andRate:gamerRate andNumber:value];
 }
 
 -(void)addPlayerToGameList:(NSString*)name andMoney:(int)money andLevel:(int)level {
-    Gamer *gamer = [[Gamer alloc] initWithInfo:name andMoney:money andLevel:level];
-    gamer.firstCard = [_arrayImageOfPrivateCards objectAtIndex:_numberOfCurrentGamer*2];
-    gamer.secondCard = [_arrayImageOfPrivateCards objectAtIndex:_numberOfCurrentGamer*2 + 1];
-    [_gamersArray addObject:gamer];
-    
-    if([gamer.name isEqualToString:_genGamer.name]) { //if this gamer am I ?
-        _numberOfGeneralGamer = _numberOfCurrentGamer;
-        
-        if(_bufferImage != nil) {
-            UIImageView *image = [_arrayOfImage objectAtIndex:_numberOfGeneralGamer];
-            [image setImage:_bufferImage];
-        }
+//    Gamer *gamer = [[Gamer alloc] initWithInfo:name andMoney:money andLevel:level];
+//    gamer.firstCard = [_arrayImageOfPrivateCards objectAtIndex:_numberOfCurrentGamer*2];
+//    gamer.secondCard = [_arrayImageOfPrivateCards objectAtIndex:_numberOfCurrentGamer*2 + 1];
+//    [_gamersArray addObject:gamer];
+//    
+//    if([gamer.name isEqualToString:_genGamer.name]) { //if this gamer am I ?
+//        _numberOfGeneralGamer = _numberOfCurrentGamer;
+//        
+//        if(_bufferImage != nil) {
+//            UIImageView *image = [_arrayOfImage objectAtIndex:_numberOfGeneralGamer];
+//            [image setImage:_bufferImage];
+//        }
     }
-    
-    NSString *outChatString = [[NSString alloc] initWithFormat:@"%@ joined to the game", gamer.name];
-    NSString *outStr = [[NSString alloc] initWithFormat:@"%@\n[%@] %@", _chatTextView.text, [self currentTime], outChatString];
-    
-    [_chatTextView setText:outStr];
-    
-//    NSLog(@"count : %i", _countGamersOnTheTable);
-//    NSLog(@"%@", gamer.name);
-//    NSLog(@"%i", gamer.money);
-//    NSLog(@"%i", gamer.level);
-    
-    UILabel *gamerMoneyLabel = [_arrayOfMoneyLabel objectAtIndex:_numberOfCurrentGamer];
-    UILabel *gamerNameLabel = [_arrayOfNameLabel objectAtIndex:_numberOfCurrentGamer];
-    UILabel *gamerRate = [_arrayOfRates objectAtIndex:_numberOfCurrentGamer];
-    UIImageView *image = [_arrayOfImage objectAtIndex:_numberOfCurrentGamer];
-    _numberOfCurrentGamer++;
-    [self renderGamer:image andLabel1:gamerNameLabel andSecondLabel:gamerMoneyLabel andRate:gamerRate andNumber:_numberOfCurrentGamer-1];
+//    
+//    NSString *outChatString = [[NSString alloc] initWithFormat:@"%@ joined to the game", gamer.name];
+//    NSString *outStr = [[NSString alloc] initWithFormat:@"%@\n[%@] %@", _chatTextView.text, [self currentTime], outChatString];
+//    
+//    [_chatTextView setText:outStr];
+//    
+////    NSLog(@"count : %i", _countGamersOnTheTable);
+////    NSLog(@"%@", gamer.name);
+////    NSLog(@"%i", gamer.money);
+////    NSLog(@"%i", gamer.level);
+//    
+//    UILabel *gamerMoneyLabel = [_arrayOfMoneyLabel objectAtIndex:_numberOfCurrentGamer];
+//    UILabel *gamerNameLabel = [_arrayOfNameLabel objectAtIndex:_numberOfCurrentGamer];
+//    UILabel *gamerRate = [_arrayOfRates objectAtIndex:_numberOfCurrentGamer];
+//    UIImageView *image = [_arrayOfImage objectAtIndex:_numberOfCurrentGamer];
+//    _numberOfCurrentGamer++;
+//    [self renderGamer:image andLabel1:gamerNameLabel andSecondLabel:gamerMoneyLabel andRate:gamerRate andNumber:_numberOfCurrentGamer-1];
    // [self selectParam:_countGamersOnTheTable];
-}
+
 
 - (IBAction)SendMessagClick:(id)sender {
     NSString *string = [[NSString alloc] initWithFormat:@"%@\n[%@] %@", [_chatTextView text], [self currentTime],_inputTextFeld.text];

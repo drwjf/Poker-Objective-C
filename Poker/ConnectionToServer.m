@@ -8,23 +8,6 @@
 
 #import "ConnectionToServer.h"
 
-#define GET_ACCEPT 0
-#define GET_STRING 1
-#define GET_INT_VALUE 2
-#define GET_GAMER_NAME    3
-#define GET_GAMER_MONEY   4
-#define GET_GAMER_LEVEL   5
-#define GET_COUNT_GAMERS  6
-
-
-//#define GET_REQUEST_FROM_SERVER 7
-#define GET_GAME_STATUS 7
-#define GET_CARD 8
-#define GET_RATE_FROM_SERVER 9
-#define GET_WINNERS_NAME 10
-#define GET_BEST_CARD_COMBINATION 11
-#define GET_WINNER_CADR 12
-
 
 #define TIME_OUT 3
 #define LONG_TIME_OUT 60
@@ -156,7 +139,7 @@ static ConnectionToServer *mySinglConnection = nil;
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     if(tag == DID_WRITE_RESPONSE) {
-        [self readDataWithTagLongTime:GET_ACCEPT andDurationWaiting:LONG_TIME_OUT];
+        //[self readDataWithTagLongTime:GET_ACCEPT andDurationWaiting:LONG_TIME_OUT];
     }
     
     DDLogInfo(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
@@ -166,93 +149,6 @@ static ConnectionToServer *mySinglConnection = nil;
 {
     
     DDLogInfo(@"socket:%p didReadData:withTag:%ld", sock, tag);
-    
-    if(tag == GET_ACCEPT || tag == GET_STRING || tag == GET_GAME_STATUS || tag == GET_RATE_FROM_SERVER || tag == GET_GAMER_NAME || tag == GET_WINNERS_NAME || tag == GET_GAMER_MONEY) {
-        _receiveString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        switch (tag) {
-            case GET_ACCEPT:
-                [self.delegate accept];
-                break;
-                
-            case GET_STRING:
-                [self.delegate updateInfo];
-                break;
-                
-            case GET_GAMER_MONEY:
-                _gamerMoney = [_receiveString intValue];
-                [self.delegate updateInfo];
-                break;
-                
-            case GET_WINNERS_NAME:
-                NSLog(@"GET_WINNERS_NAME Called");
-                [self.delegate parseServerResponseAboutWinner];
-                break;
-                
-            case GET_GAME_STATUS: //IF COUNT GAMERS ON THE TABLE 10, we should wait(0); DON'T MADE IN SERVER !!!!!!!!!//////////////////////////
-                            if([_receiveString isEqualToString:@"GAME_IS_STARTED"])
-                            {
-                                NSLog(@"server : gamer is started");
-                                _numberOfAttribut = -1;
-                                [self.delegate getCards];
-                            }
-                
-                            if([_receiveString isEqualToString:@"PLEASE_WAIT"]) { NSLog(@"server : please wait");  [self.delegate waitingResponseFromServerAboutGameStatus];  }
-                break; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                
-            case GET_RATE_FROM_SERVER:
-                if(_countOfGameCycl < 5) {
-                    _numberOfAttribut++;
-                    _numberOfAttribut = _numberOfAttribut % _countGamers;
-                    [self.delegate parseServerResponse:_receiveString];
-                } 
-                break;
-            case GET_GAMER_NAME:
-                        _gameName = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        [self.delegate updateInfo];
-                break;
-                
-            default:
-                break;
-        }
-    }
-    if(tag == GET_INT_VALUE || tag == GET_COUNT_GAMERS || tag == GET_GAMER_LEVEL || tag == GET_CARD || tag == GET_BEST_CARD_COMBINATION || tag == GET_WINNER_CADR) {
-
-       const uint8_t *bytes = [data bytes]; // pointer to the bytes in data
-        int value = bytes[0]; // first byte
-        _receivedIntValue = value;
-        switch (tag) {
-            case GET_COUNT_GAMERS:
-                _countGamers = _receivedIntValue;
-                            if(_countGamers > 0) [self.delegate updateInfo];
-                            else [self.delegate waitingResponseFromServer];
-                break;
-                
-            case GET_GAMER_LEVEL:
-                _gamerLevel = _receivedIntValue;
-                 [self.delegate updateInfo];
-                break;
-                
-            case GET_CARD:
-                [self.delegate getCards];
-                break;
-                
-            case GET_WINNER_CADR:
-                [self.delegate gettingWinnerGamerTwoCard];
-                break;
-                
-            case GET_BEST_CARD_COMBINATION:
-                [self.delegate gettingBestCombination];
-                break;
-                
-            case GET_INT_VALUE:
-                [self.delegate updateInfo];
-                break;
-                
-            default:
-                break;
-        }
-        
-    }
     
     NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     DDLogInfo(@"HTTP Response:\n%@", httpResponse);

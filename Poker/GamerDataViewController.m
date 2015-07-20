@@ -46,6 +46,9 @@ static NSString* kAppId = @"639088652858131";
     [self setViewParameters];
     _buffImage = nil;
     [_enableAcceslerometerSwitcher setOn:NO animated:YES];
+
+    
+    
 #if (TARGET_IPHONE_SIMULATOR)
     [_enableAcceslerometerSwitcher setEnabled:NO];
 #endif
@@ -76,15 +79,20 @@ static NSString* kAppId = @"639088652858131";
 
 - (IBAction)sendMessageClick:(id)sender {
 #if (TARGET_IPHONE_SIMULATOR)
-    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Success !"
-                                                      message:@"Благодарственное письмо отправлено !"
-                                                     delegate:self
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [myAlert show];
+    [[self createAlertViewAboutSuccesefullSendingMail] show];
     return;
-#endif
+#else
     [self createEmail];
+#endif
+}
+
+- (UIAlertView *)createAlertViewAboutSuccesefullSendingMail {
+    return ([[UIAlertView alloc] initWithTitle:@"Success !"
+                               message:@"Благодарственное письмо отправлено !"
+                              delegate:self
+                     cancelButtonTitle:@"OK"
+                     otherButtonTitles:nil]);
+    
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
@@ -158,7 +166,7 @@ static NSString* kAppId = @"639088652858131";
     ConnectionToServer *connection = [ConnectionToServer sharedInstance];
     connection.delegate = self;
     
-    [connection sendDataWithTag:@"I_WONNA_GO_TO_TABLE" andTag:DID_WRITE_RESPONSE];
+    //[connection sendDataWithTag:@"I_WONNA_GO_TO_TABLE" andTag:DID_WRITE_RESPONSE];
 }
 
 -(void)checkDefaultParameters{
@@ -191,12 +199,30 @@ static NSString* kAppId = @"639088652858131";
 }
 
 
--(NSString*)returnIntValueFromId:(NSString*)key {
+- (void)setNewGamerName       {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *outStr = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:key]];
-    
-    return outStr;
+    [userDefaults setObject:_gamerName.text forKey:@"name"];
 }
+
+- (NSString *)getPlayersMoney {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [NSString stringWithFormat:@"%@", [userDefaults objectForKey:@"money"]];
+}
+- (NSString *)getPlayersLevel {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [NSString stringWithFormat:@"%@", [userDefaults objectForKey:@"level"]];
+}
+- (NSString *)getPlayersName  {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"name"];
+}
+
+//-(NSString*)returnIntValueFromId:(NSString*)key {
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString *outStr = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:key]];
+//    
+//    return outStr;
+//}
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     #if (TARGET_IPHONE_SIMULATOR)
@@ -234,48 +260,33 @@ static NSString* kAppId = @"639088652858131";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-    -(void)updateInfo{
+- (void)updateInfo
+{
         ConnectionToServer *connect = [ConnectionToServer sharedInstance];
         connect.numberOfAttribut++;
-        switch (connect.numberOfAttribut) {
-            case 1:
-                if([connect.receiveString isEqualToString:@"NAME?"]) {
-                    NSLog(@"server : %@", connect.receiveString);
-                    [connect sendData:_gamerName.text];
-                    NSLog(@"client : %@",_gamerName.text);
-                    [connect readDataWithTag:GET_STRING];
-                }
-                break;
-            case 2:
-                if([connect.receiveString isEqualToString:@"money?"]) {
-                    NSLog(@"server : %@", connect.receiveString);
-                    [connect sendData:[self returnIntValueFromId:@"money"]];
-                    NSLog(@"client : %@", [self returnIntValueFromId:@"money"]);
-                    [connect readDataWithTag:GET_STRING];
-                }
-                break;
-                
-            case 3:
-                if([connect.receiveString isEqualToString:@"level?"]) {
-                    NSLog(@"server : %@", connect.receiveString);
-                    [connect sendData:[self returnIntValueFromId:@"level"]];
-                    NSLog(@"client : %@", [self returnIntValueFromId:@"level"]);
-                    
-                    connect.numberOfAttribut = 0;
-                    
-                    [connect readDataWithTag:GET_ACCEPT]; //J;blfем ответа, что данные доставлены...
-                }
-                
-            default:
-                break;
-        }
+        
 }
 
--(void)setNewGamerName {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:_gamerName.text forKey:@"name"];
+- (NSData *)createJSONInformationAboutPlayer
+{
+    NSDictionary *data = @{
+                           @"name"  : [self getPlayersName],
+                           @"money" : [self getPlayersMoney],
+                           @"level" : [self getPlayersLevel],
+    };
+    NSError *error = nil;
     
+    if([NSJSONSerialization isValidJSONObject:data]) {
+        
+        NSData *json = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
+        if (json != nil && error == nil) {
+            NSLog(@"JSON info : %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
+            return json;
+        }
+    }
+    return nil;
 }
+
 
 -(void)accept{
     ConnectionToServer *connect = [ConnectionToServer sharedInstance];
@@ -286,26 +297,23 @@ static NSString* kAppId = @"639088652858131";
         [self sendInfoAboutMySelf];
     } else if([string isEqualToString:@"received"]) {
         [self performSegueWithIdentifier:@"mySecondSegue" sender:self];
-    } else {
-        UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Error :("
-                                                          message:@"Check connection to WiFi and repeat again"
-                                                         delegate:self
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [myAlert show];
-    }
+    } else  [[self createAlertViewAboutError] show];
+}
+
+- (UIAlertView *)createAlertViewAboutError {
+    return ([[UIAlertView alloc] initWithTitle:@"Error :("
+                                        message:@"Check connection to WiFi and repeat again"
+                                       delegate:self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil]);
 }
 
 -(void)sendInfoAboutMySelf {
     ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    connect.numberOfAttribut = 0;
-    [connect sendData:@"received"];
-    [connect readDataWithTag: GET_STRING];
+    
 }
 
--(void)updateInfoAboutPlayer{
-   
-}
+
 
 
 #pragma mark UIImagePickerController delegate
@@ -320,7 +328,6 @@ static NSString* kAppId = @"639088652858131";
         [_imageOfGamer reloadInputViews];
     }
 }
-
 -(BOOL)isPhotoLibraryAvaible {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
 }
