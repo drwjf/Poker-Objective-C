@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yEq-nY-L4F">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yEq-nY-L4F">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -111,7 +111,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="goToGameTable:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="qsv-2N-0Qo"/>
+                                    <action selector="requestToInvitationInTheGame:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="iQR-uv-fYj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wH0-ne-jkB">
@@ -186,7 +186,7 @@
                         <outlet property="playButton" destination="Cm2-Bs-PNW" id="U2C-SG-jni"/>
                         <outlet property="rulesOfPokerTextView" destination="j3d-GE-7Y8" id="5UZ-iL-ja2"/>
                         <outlet property="sendMessageButton" destination="wH0-ne-jkB" id="LuN-dA-2S1"/>
-                        <segue destination="adU-1z-w2n" kind="push" identifier="mySecondSegue" id="kpy-RD-bxj"/>
+                        <segue destination="adU-1z-w2n" kind="show" identifier="mySecondSegue" id="kpy-RD-bxj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wl5-BG-OIo" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -9,6 +9,9 @@
 #import "ConnectionToServer.h"
 
 
+#define GET_INVITE_TO_THE_GAME 0
+#define GET_ACCEPT 1
+
 #define TIME_OUT 3
 #define LONG_TIME_OUT 60
 
@@ -30,13 +33,11 @@ static ConnectionToServer *mySinglConnection = nil;
         _mainQueue = nil;
         _asyncSocket = nil;
         _isConnected = NO;
-        _countGamers = 0;
-        _numberOfAttribut = 0;
     }
     return self;
 }
 
-+(ConnectionToServer*)sharedInstance {
++ (id)sharedInstance {
     @synchronized(self) {
         if(mySinglConnection == nil) {
             mySinglConnection = [[ConnectionToServer alloc] init];
@@ -47,22 +48,9 @@ static ConnectionToServer *mySinglConnection = nil;
 
 
 //-------------------SENDING--------------------------------------------
--(void)sendData:(NSString*)data {
-    NSData *myData = [data dataUsingEncoding:NSUTF8StringEncoding];
-    [_asyncSocket writeData:myData withTimeout:1 tag:10];
-}
 
--(void)sendDataWithTag:(NSString*)data andTag:(int)tag {
-    NSData *myData = [data dataUsingEncoding:NSUTF8StringEncoding];
-    [_asyncSocket writeData:myData withTimeout:1 tag:tag];
-}
-
-
-
--(void)sendSomeIntValue:(int)intValue {
-    int value = intValue;
-    NSData *myData = [NSData dataWithBytes:&value length:sizeof(value)];
-    [_asyncSocket writeData:myData withTimeout:-1 tag:10];
+-(void)sendDataWithTag:(NSData *)data andTag:(int)tag {
+    [_asyncSocket writeData:data withTimeout:1 tag:tag];
 }
 
 //---------------------------------------------------------------------
@@ -72,7 +60,7 @@ static ConnectionToServer *mySinglConnection = nil;
 -(void)readDataWithTag:(int)tag {
         NSLog(@"%@, tag : %d", THIS_METHOD, tag);
         NSMutableData *myData = [[NSMutableData alloc] init];
-        [_asyncSocket readDataWithTimeout:TIME_OUT buffer:myData bufferOffset:0 tag:tag];
+        [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
 }
 
 
@@ -138,8 +126,18 @@ static ConnectionToServer *mySinglConnection = nil;
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    if(tag == DID_WRITE_RESPONSE) {
-        //[self readDataWithTagLongTime:GET_ACCEPT andDurationWaiting:LONG_TIME_OUT];
+    if(tag == GET_INVITE_TO_THE_GAME) {
+        [self readDataWithTag:GET_INVITE_TO_THE_GAME];
+    }
+    switch (tag) {
+        case GET_INVITE_TO_THE_GAME:
+            [self readDataWithTag:GET_INVITE_TO_THE_GAME];
+            break;
+        case GET_ACCEPT:
+            [self.delegate2 segueToGeneralViewController];
+            
+        default:
+            break;
     }
     
     DDLogInfo(@"socket:%p didWriteDataWithTag:%ld", sock, tag);
@@ -147,8 +145,16 @@ static ConnectionToServer *mySinglConnection = nil;
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    
     DDLogInfo(@"socket:%p didReadData:withTag:%ld", sock, tag);
+    self.downloadedData = data;
+    switch (tag) {
+        case GET_INVITE_TO_THE_GAME:
+            [self.delegate2 parseResponseFromServer];
+            break;
+            
+        default:
+            break;
+    }
     
     NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     DDLogInfo(@"HTTP Response:\n%@", httpResponse);

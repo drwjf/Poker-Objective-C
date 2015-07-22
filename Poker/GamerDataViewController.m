@@ -17,18 +17,14 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
 
-#define GET_ACCEPT 0
-#define GET_STRING 1
-#define GET_INT_VALUE 2
-#define GET_GAMER_NAME    3
-#define GET_GAMER_MONEY   4
-#define GET_GAMER_LEVEL   5
-#define GET_COUNT_GAMERS_ON_THE_TABLE  6
+#define GET_INVITE_TO_THE_GAME 0
+#define GET_ACCEPT 1
+
 
 #define GET_REQUEST_FROM_SERVER 7
 #define DID_WRITE_RESPONSE 101
 
-@interface GamerDataViewController () <ConnectionToServerDelegate>
+@interface GamerDataViewController () <ConnectionToServerDelegateForGamerDataViewConntroller>
 
 -(void)checkDefaultParameters;
 @property(nonatomic,strong)UIImage *buffImage;
@@ -37,8 +33,6 @@
 @end
 
 @implementation GamerDataViewController
-
-static NSString* kAppId = @"639088652858131";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -129,7 +123,6 @@ static NSString* kAppId = @"639088652858131";
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;
-        
         //Тема письма
         [picker setSubject:@"Poker messager"];
         
@@ -162,11 +155,11 @@ static NSString* kAppId = @"639088652858131";
     }
 }
 
-- (IBAction)goToGameTable:(id)sender {
+- (IBAction)requestToInvitationInTheGame:(id)sender {
     ConnectionToServer *connection = [ConnectionToServer sharedInstance];
-    connection.delegate = self;
-    
-    //[connection sendDataWithTag:@"I_WONNA_GO_TO_TABLE" andTag:DID_WRITE_RESPONSE];
+    connection.delegate2 = self;
+
+    [connection sendDataWithTag:[self createJSONRequestAboutInvitationInGame] andTag:GET_INVITE_TO_THE_GAME];
 }
 
 -(void)checkDefaultParameters{
@@ -251,7 +244,6 @@ static NSString* kAppId = @"639088652858131";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark ConnectionToServer Delegate Methods
@@ -260,12 +252,7 @@ static NSString* kAppId = @"639088652858131";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)updateInfo
-{
-        ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-        connect.numberOfAttribut++;
-        
-}
+
 
 - (NSData *)createJSONInformationAboutPlayer
 {
@@ -287,18 +274,58 @@ static NSString* kAppId = @"639088652858131";
     return nil;
 }
 
-
--(void)accept{
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    NSString *string = [[NSString alloc] initWithString:connect.receiveString];
-    
-    if([string isEqualToString:@"YOU_ADDED_TO_GAME_LIST"]) {
-        [self setNewGamerName];
-        [self sendInfoAboutMySelf];
-    } else if([string isEqualToString:@"received"]) {
-        [self performSegueWithIdentifier:@"mySecondSegue" sender:self];
-    } else  [[self createAlertViewAboutError] show];
+- (NSData *)createJSONRequestAboutInvitationInGame {
+    NSDictionary *data = @{  @"request" : @"play"  };
+    NSError *error = nil;
+    if([NSJSONSerialization isValidJSONObject:data]) {
+        
+        NSData *json = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
+        if (json != nil && error == nil) {
+            NSLog(@"JSON info : %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
+            return json;
+        }
+    }
+    return nil;
 }
+
+- (NSDictionary *)convertToJSON:(NSData *)data {
+    NSError *error = nil;
+    id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    
+    if(error) {
+        NSLog(@"Error of NSJSONSerialization !");
+    }
+    
+    if([object isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = object;
+        return dictionary;
+    } else { return nil; }
+}
+
+
+- (void)parseResponseFromServer {
+    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connect.downloadedData]];
+    
+    if(!dictionary) {
+        NSLog(@"Downloaded data isn't a JSON !");
+        return;
+    }
+    
+    NSString *title = [NSString stringWithString:dictionary[@"title"]];
+    
+    if([title isEqualToString:@"inviteToTheGame"]) {
+        BOOL isInGame = (BOOL)dictionary[@"inGame"];
+        BOOL isNeedToSendInformation = (BOOL)dictionary[@"Information"];
+        if(isInGame && isNeedToSendInformation) {
+            [self setNewGamerName];
+            [connect sendDataWithTag:[self createJSONInformationAboutPlayer] andTag:GET_ACCEPT];
+        }
+    }
+}
+
+
+- (void)segueToGeneralViewController { [self performSegueWithIdentifier:@"mySecondSegue" sender:self]; }
 
 - (UIAlertView *)createAlertViewAboutError {
     return ([[UIAlertView alloc] initWithTitle:@"Error :("
@@ -308,12 +335,13 @@ static NSString* kAppId = @"639088652858131";
                               otherButtonTitles:nil]);
 }
 
--(void)sendInfoAboutMySelf {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    
+#pragma mark ConnectionToServerDelegateForGamerDataViewController
+
+- (void)sendInfoAboutPlayer
+{
+    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+    [connection sendDataWithTag:[self createJSONInformationAboutPlayer] andTag:GET_ACCEPT];
 }
-
-
 
 
 #pragma mark UIImagePickerController delegate

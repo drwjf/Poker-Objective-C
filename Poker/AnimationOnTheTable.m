@@ -338,7 +338,7 @@
 
 -(void)getInfoAboutGamersOnTheTable {
     ConnectionToServer * connection = [ConnectionToServer sharedInstance];
-    [connection sendData:@"GIVE_ME_COUNT_PLAYERS_ON_THE_TABLE"];
+   // [connection sendData:@"GIVE_ME_COUNT_PLAYERS_ON_THE_TABLE"];
     [connection readDataWithTagLongTime:GET_COUNT_GAMERS_ON_THE_TABLE andDurationWaiting:LONG_TIME_OUT*4];
 }
 
@@ -355,7 +355,7 @@
         NSString *bind = [[NSString alloc] initWithFormat:@"%d", _minRate];
         _minRate -= gamer.rate;
         ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-        [connect sendData:bind];
+       // [connect sendData:bind];
         _isSendedRateToServer = !_isSendedRateToServer;
         [self updateGeneralGamerMoney];
         [self lockAllBetButtons];
@@ -406,7 +406,7 @@
         ConnectionToServer *connect = [ConnectionToServer sharedInstance];
         
             NSString *outStr = [[NSString alloc] initWithFormat:@"%d", _minRate];
-            [connect sendData:outStr];
+         //   [connect sendData:outStr];
         
         NSString *outSt = [[NSString alloc] initWithFormat:@"%d $", _minRate];
         //[[_arrayOfRates objectAtIndex:_numberOfGeneralGamer] setText:outSt];
@@ -436,7 +436,7 @@
         
         
         ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-        [connect sendData:bind];
+        //[connect sendData:bind];
         _isSendedRateToServer = !_isSendedRateToServer;
         [self updateGeneralGamerMoney];
         [self lockAllBetButtons];
@@ -467,147 +467,147 @@
 }
 
 -(void)parseServerResponse:(NSString*)string {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    
-    
-    NSLog(@"Called parseServer ...");
-    NSLog(@"received string : %@", connect.receiveString);
-    char lastSymbol = [connect.receiveString characterAtIndex:[connect.receiveString length]-1];
-    char prevLastSymbol =[connect.receiveString characterAtIndex:[connect.receiveString length]-2];
-    char firstSymbol = [connect.receiveString characterAtIndex:0];
-    [self lockAllBetButtons];
-    
-    if( !(lastSymbol == '?' && (prevLastSymbol >= '0' && prevLastSymbol <= '9')) )
-    [self stopCurrentProgressBar];
-    
-    if(lastSymbol == '?' && (prevLastSymbol >= '0' && prevLastSymbol <= '9')) { //server send to client min. RATE
-        NSString *subStr = [connect.receiveString substringToIndex:[connect.receiveString length]-1];
-        _minRate = [subStr intValue];
-        NSString *outStr = [[NSString alloc] initWithFormat:@"Check or raise ? minRate : %d", _minRate];
-        [self playSound:@"Check"];
-      //  _messageFromServerLabel.text = outStr;
-        _isSendedRateToServer = !_isSendedRateToServer;
-        [self unlockAllBetButton];
-        
-        _numberOfCurrentGamer = _numberOfGeneralGamer;
-        //ПРОСТО ЖДЁМ ОТПРАВКИ СООБЩЕНИЯ СЕРВЕРУ(кнопки), О НАШИХ НАМЕРЕНИЯХ
-    } else if(firstSymbol == '-') {
-        _minRate = [connect.receiveString intValue];
-    
-        NSString *outStr = [[NSString alloc] initWithFormat:@"You made blind : %d $ Check or raise ?", _minRate];
-    
-//        Gamer *gamer = [_gamersArray objectAtIndex:_numberOfGeneralGamer];
-//        gamer.rate = _minRate;
-//        _minRate = 0;
-//        [_gamersArray replaceObjectAtIndex:_numberOfGeneralGamer withObject:gamer];
-        
-//        _messageFromServerLabel.text = outStr;
-//        [_messageFromServerLabel reloadInputViews];
-        [self updateGeneralGamerMoney];
-        [connect sendData:@"received"];
-    
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
-       // _isSendedRateToServer = !_isSendedRateToServer;
-    } else if([string isEqual:@"showAllCards"]) {
-        [connect sendData:@"received"];
-        [self collectBindAllGamers];
-        
-        if(_countOfShowedCard != 0 ) _countOfShowedCard++;
-        
-        for(int i=_countOfShowedCard; i<5; i++) [self showNextCard:i];
-            
-        connect.numberOfAttribut = 0;
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
-        return;
-    } else if([string isEqual:@"showCard"]) {
-        [connect sendData:@"received"];
-        connect.numberOfAttribut = 0;
-        connect.countOfGameCycl++;  //сервер сообщил, что все уже поменялись письками.
-        
-        
-        if(connect.countOfGameCycl == 1) {
-            [self playSound:@"ShowCard"];
-            _countOfShowedCard += 2;
-            for(int i=0; i<3; i++) [self showNextCard:i];
-        }
-        if(connect.countOfGameCycl == 2) { [self playSound:@"ShowCard"]; [self showNextCard:3];  _countOfShowedCard++; }
-        if(connect.countOfGameCycl == 3) { [self playSound:@"ShowCard"];  [self showNextCard:4]; _countOfShowedCard++; }
-        [self collectBindAllGamers];
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4]; //Цикл завершился, ждём запроса от сервера о след. мин. ставке
-    } else if([string isEqual:@"DATA_ABOUT_WINNER"]) {
-        [connect sendData:@"received"];
-        [self collectBindAllGamers];
-        connect.numberOfAttribut = 0;
-        [connect readDataWithTagLongTime:GET_WINNERS_NAME andDurationWaiting:LONG_TIME_OUT*4];
-        return;
-    } else if(firstSymbol == '!') {
-        if([_contentView alpha] == 1.0) {
-            [_contentView setAlpha:0.0];
-            _isModalViewControllerShouldBeShowed = YES;
-        }
-        
-        NSString *nameOfCurrentGamer = [connect.receiveString substringFromIndex:1];
-        int i=0;
-        for(Gamer *gamer in _gamersArray) {
-            if([gamer.name isEqualToString:nameOfCurrentGamer]) break;
-            i++;
-        }
-        [self startProgressBarAtNumber:i];
-        [connect sendData:@"received"];
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
-    } else { // Definition, why is make rate !
-        int i=0;
-        
-        for(i=0; i < [connect.receiveString length]; i++) {
-            if([connect.receiveString characterAtIndex:i] == ':') break;
-        }
-        
-        NSString *nameGamer = [connect.receiveString substringToIndex:i];
-        NSString *rate = [connect.receiveString substringFromIndex:i+1];
-        int valueRate = [rate intValue]; // rate some gamer.
-        
-        if(valueRate > _minRate)
-            _minRate = valueRate; //update bind.
-        
-        int j=0;
-        for(Gamer *gam in _gamersArray) {
-            if([gam.name isEqualToString:nameGamer]) break;
-            j++;
-        }
-        
-        if(connect.countOfGameCycl == 0 && _minRate == bigBlind && _isBlind == YES) {
-            _numberOfCurrentGamer = j;
-            _numberOfCurrentGamer %= _countGamersOnTheTable;
-            _isBlind = NO;
-            [self startProgressBarAtNumber:_numberOfCurrentGamer];
-        }
-            Gamer *gamer = [_gamersArray objectAtIndex:j];
-            int tmp = gamer.rate;
-                if(valueRate != -1)
-                        gamer.rate = valueRate;
-                else {
-//                    _amountRate += gamer.rate;
-//                    _rateAmountAllGamersLabel.text = [[NSString alloc] initWithFormat:@"%d $", _amountRate];
-//                    [_rateAmountAllGamersLabel reloadInputViews];
-//                    gamer.rate = -1;
-                }
-                
-                if(gamer.rate != -1) {
-                    gamer.money -= gamer.rate;
-                    gamer.money += tmp;
-                    [_gamersArray replaceObjectAtIndex:j withObject:gamer];
-                } else  {
-                    gamer.isGamed = NO;
-                    gamer.rate = 0;
-                    [_gamersArray replaceObjectAtIndex:j withObject:gamer];
-                }
-                [self selectParam:j];
-        [connect sendData:@"received"];
-        
-        
-        
-            [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
-    }
+//    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+//    
+//    
+//    NSLog(@"Called parseServer ...");
+//    NSLog(@"received string : %@", connect.receiveString);
+//    char lastSymbol = [connect.receiveString characterAtIndex:[connect.receiveString length]-1];
+//    char prevLastSymbol =[connect.receiveString characterAtIndex:[connect.receiveString length]-2];
+//    char firstSymbol = [connect.receiveString characterAtIndex:0];
+//    [self lockAllBetButtons];
+//    
+//    if( !(lastSymbol == '?' && (prevLastSymbol >= '0' && prevLastSymbol <= '9')) )
+//    [self stopCurrentProgressBar];
+//    
+//    if(lastSymbol == '?' && (prevLastSymbol >= '0' && prevLastSymbol <= '9')) { //server send to client min. RATE
+//        NSString *subStr = [connect.receiveString substringToIndex:[connect.receiveString length]-1];
+//        _minRate = [subStr intValue];
+//        NSString *outStr = [[NSString alloc] initWithFormat:@"Check or raise ? minRate : %d", _minRate];
+//        [self playSound:@"Check"];
+//      //  _messageFromServerLabel.text = outStr;
+//        _isSendedRateToServer = !_isSendedRateToServer;
+//        [self unlockAllBetButton];
+//        
+//        _numberOfCurrentGamer = _numberOfGeneralGamer;
+//        //ПРОСТО ЖДЁМ ОТПРАВКИ СООБЩЕНИЯ СЕРВЕРУ(кнопки), О НАШИХ НАМЕРЕНИЯХ
+//    } else if(firstSymbol == '-') {
+//        _minRate = [connect.receiveString intValue];
+//    
+//        NSString *outStr = [[NSString alloc] initWithFormat:@"You made blind : %d $ Check or raise ?", _minRate];
+//    
+////        Gamer *gamer = [_gamersArray objectAtIndex:_numberOfGeneralGamer];
+////        gamer.rate = _minRate;
+////        _minRate = 0;
+////        [_gamersArray replaceObjectAtIndex:_numberOfGeneralGamer withObject:gamer];
+//        
+////        _messageFromServerLabel.text = outStr;
+////        [_messageFromServerLabel reloadInputViews];
+//        [self updateGeneralGamerMoney];
+//        [connect sendData:@"received"];
+//    
+//        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+//       // _isSendedRateToServer = !_isSendedRateToServer;
+//    } else if([string isEqual:@"showAllCards"]) {
+//        [connect sendData:@"received"];
+//        [self collectBindAllGamers];
+//        
+//        if(_countOfShowedCard != 0 ) _countOfShowedCard++;
+//        
+//        for(int i=_countOfShowedCard; i<5; i++) [self showNextCard:i];
+//            
+//        connect.numberOfAttribut = 0;
+//        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+//        return;
+//    } else if([string isEqual:@"showCard"]) {
+//        [connect sendData:@"received"];
+//        connect.numberOfAttribut = 0;
+//        connect.countOfGameCycl++;  //сервер сообщил, что все уже поменялись письками.
+//        
+//        
+//        if(connect.countOfGameCycl == 1) {
+//            [self playSound:@"ShowCard"];
+//            _countOfShowedCard += 2;
+//            for(int i=0; i<3; i++) [self showNextCard:i];
+//        }
+//        if(connect.countOfGameCycl == 2) { [self playSound:@"ShowCard"]; [self showNextCard:3];  _countOfShowedCard++; }
+//        if(connect.countOfGameCycl == 3) { [self playSound:@"ShowCard"];  [self showNextCard:4]; _countOfShowedCard++; }
+//        [self collectBindAllGamers];
+//        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4]; //Цикл завершился, ждём запроса от сервера о след. мин. ставке
+//    } else if([string isEqual:@"DATA_ABOUT_WINNER"]) {
+//        [connect sendData:@"received"];
+//        [self collectBindAllGamers];
+//        connect.numberOfAttribut = 0;
+//        [connect readDataWithTagLongTime:GET_WINNERS_NAME andDurationWaiting:LONG_TIME_OUT*4];
+//        return;
+//    } else if(firstSymbol == '!') {
+//        if([_contentView alpha] == 1.0) {
+//            [_contentView setAlpha:0.0];
+//            _isModalViewControllerShouldBeShowed = YES;
+//        }
+//        
+//        NSString *nameOfCurrentGamer = [connect.receiveString substringFromIndex:1];
+//        int i=0;
+//        for(Gamer *gamer in _gamersArray) {
+//            if([gamer.name isEqualToString:nameOfCurrentGamer]) break;
+//            i++;
+//        }
+//        [self startProgressBarAtNumber:i];
+//        [connect sendData:@"received"];
+//        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+//    } else { // Definition, why is make rate !
+//        int i=0;
+//        
+//        for(i=0; i < [connect.receiveString length]; i++) {
+//            if([connect.receiveString characterAtIndex:i] == ':') break;
+//        }
+//        
+//        NSString *nameGamer = [connect.receiveString substringToIndex:i];
+//        NSString *rate = [connect.receiveString substringFromIndex:i+1];
+//        int valueRate = [rate intValue]; // rate some gamer.
+//        
+//        if(valueRate > _minRate)
+//            _minRate = valueRate; //update bind.
+//        
+//        int j=0;
+//        for(Gamer *gam in _gamersArray) {
+//            if([gam.name isEqualToString:nameGamer]) break;
+//            j++;
+//        }
+//        
+//        if(connect.countOfGameCycl == 0 && _minRate == bigBlind && _isBlind == YES) {
+//            _numberOfCurrentGamer = j;
+//            _numberOfCurrentGamer %= _countGamersOnTheTable;
+//            _isBlind = NO;
+//            [self startProgressBarAtNumber:_numberOfCurrentGamer];
+//        }
+//            Gamer *gamer = [_gamersArray objectAtIndex:j];
+//            int tmp = gamer.rate;
+//                if(valueRate != -1)
+//                        gamer.rate = valueRate;
+//                else {
+////                    _amountRate += gamer.rate;
+////                    _rateAmountAllGamersLabel.text = [[NSString alloc] initWithFormat:@"%d $", _amountRate];
+////                    [_rateAmountAllGamersLabel reloadInputViews];
+////                    gamer.rate = -1;
+//                }
+//                
+//                if(gamer.rate != -1) {
+//                    gamer.money -= gamer.rate;
+//                    gamer.money += tmp;
+//                    [_gamersArray replaceObjectAtIndex:j withObject:gamer];
+//                } else  {
+//                    gamer.isGamed = NO;
+//                    gamer.rate = 0;
+//                    [_gamersArray replaceObjectAtIndex:j withObject:gamer];
+//                }
+//                [self selectParam:j];
+//        [connect sendData:@"received"];
+//        
+//        
+//        
+//            [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+//    }
 }
 
 -(void)collectBindAllGamers {
@@ -793,8 +793,7 @@
 
 -(void)receiveRateFromServer{
     ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    connect.countOfGameCycl=0;
-    connect.numberOfAttribut=0;
+    
     [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*3];
 }
 
@@ -826,44 +825,44 @@
 }
 
 -(void)parseServerResponseAboutWinner {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    int i=0;
-    
-    for(i=0; i < [connect.receiveString length]; i++) {
-        if([connect.receiveString characterAtIndex:i] == ':') break;
-    }
-    
-    NSString *winnerName = [connect.receiveString substringFromIndex:i+1];
-    NSString *tempString = [[NSString alloc] initWithFormat:@"%@\n[%@] %@ is winner !", _chatTextView.text, [self currentTime], winnerName];
-    [_chatTextView setText:tempString];
-//    [_messageFromServerLabel setText:tempString];
-//    [_messageFromServerLabel reloadInputViews];
-    [_chatTextView reloadInputViews];
-    _nameOfWinner = winnerName;
-    connect.numberOfAttribut = 0;
-    [connect sendData:@"received"];
-    NSLog(@"Called parse WINNER_GAMER !!!! ASK ABOUT BEST !!!");
-    [connect readDataWithTagLongTime:GET_BEST_CARD_COMBINATION andDurationWaiting:LONG_TIME_OUT];
+//    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+//    int i=0;
+//    
+//    for(i=0; i < [connect.receiveString length]; i++) {
+//        if([connect.receiveString characterAtIndex:i] == ':') break;
+//    }
+//    
+//    NSString *winnerName = [connect.receiveString substringFromIndex:i+1];
+//    NSString *tempString = [[NSString alloc] initWithFormat:@"%@\n[%@] %@ is winner !", _chatTextView.text, [self currentTime], winnerName];
+//    [_chatTextView setText:tempString];
+////    [_messageFromServerLabel setText:tempString];
+////    [_messageFromServerLabel reloadInputViews];
+//    [_chatTextView reloadInputViews];
+//    _nameOfWinner = winnerName;
+//    connect.numberOfAttribut = 0;
+//    [connect sendData:@"received"];
+//    NSLog(@"Called parse WINNER_GAMER !!!! ASK ABOUT BEST !!!");
+//    [connect readDataWithTagLongTime:GET_BEST_CARD_COMBINATION andDurationWaiting:LONG_TIME_OUT];
 }
 
 -(void)gettingBestCombination {
-    ConnectionToServer *connect= [ConnectionToServer sharedInstance];
-    int temp = connect.receivedIntValue;
-    
-    if(temp == 255) { //255 == -1(unsigned char)
-        [self showOneWinnerWithoutCombination];
-        return;
-    }
-    [connect sendData:@"received"];
-    
-    NSNumber *value = [[NSNumber alloc] initWithInt: temp];
-    [_arrayBestCard addObject:value];
-    connect.numberOfAttribut += 1;
-    if(connect.numberOfAttribut < 5) [connect readDataWithTagLongTime:GET_BEST_CARD_COMBINATION andDurationWaiting:LONG_TIME_OUT];
-    else {
-        connect.numberOfAttribut = 0;
-        [connect readDataWithTagLongTime:GET_WINNER_CADR andDurationWaiting:LONG_TIME_OUT];
-    }
+//    ConnectionToServer *connect= [ConnectionToServer sharedInstance];
+//    int temp = connect.receivedIntValue;
+//    
+//    if(temp == 255) { //255 == -1(unsigned char)
+//        [self showOneWinnerWithoutCombination];
+//        return;
+//    }
+//    [connect sendData:@"received"];
+//    
+//    NSNumber *value = [[NSNumber alloc] initWithInt: temp];
+//    [_arrayBestCard addObject:value];
+//    connect.numberOfAttribut += 1;
+//    if(connect.numberOfAttribut < 5) [connect readDataWithTagLongTime:GET_BEST_CARD_COMBINATION andDurationWaiting:LONG_TIME_OUT];
+//    else {
+//        connect.numberOfAttribut = 0;
+//        [connect readDataWithTagLongTime:GET_WINNER_CADR andDurationWaiting:LONG_TIME_OUT];
+//    }
 }
 
 -(void)showOneWinnerWithoutCombination {
@@ -900,7 +899,7 @@
     [_arrayBestCard removeAllObjects];
     [self stopCurrentProgressBar];
     ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    connect.numberOfAttribut = 0;
+    //connect.numberOfAttribut = 0;
     [_gamersArray removeAllObjects];
     [self hideAllGamers];
     
@@ -928,7 +927,7 @@
 -(void)gettingWinnerGamerTwoCard {
     ConnectionToServer *connect= [ConnectionToServer sharedInstance];
     
-//    if(connect.numberOfAttribut < 2)
+    
 //      [connect sendData:@"received"];
 //    
 //    if(connect.numberOfAttribut == 0) { _firstWinnerPrivateCard = connect.receivedIntValue; }
@@ -1063,20 +1062,20 @@
 
 -(void)getCards {
     
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
-    connection.numberOfAttribut += 1;
-    [connection sendData:@"received"];
-    
-    //if(connection.numberOfAttribut == -1) { [connection readDataWithTag:GET_CARD];  }
-    
-    NSLog(@"getting card %i : %i", connection.numberOfAttribut, connection.receivedIntValue);
-    
-    if(connection.numberOfAttribut < 5 && connection.numberOfAttribut >= 0) {
-        NSNumber *value = [[NSNumber alloc] initWithInt:connection.receivedIntValue];
-        NSLog(@"value == %@", value);
-        [_arrayOfCardOnTheTable addObject:value];
-        [connection readDataWithTag:GET_CARD];
-    } else {
+//    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+//    connection.numberOfAttribut += 1;
+//    [connection sendData:@"received"];
+//    
+//    //if(connection.numberOfAttribut == -1) { [connection readDataWithTag:GET_CARD];  }
+//    
+//    NSLog(@"getting card %i : %i", connection.numberOfAttribut, connection.receivedIntValue);
+//    
+//    if(connection.numberOfAttribut < 5 && connection.numberOfAttribut >= 0) {
+//        NSNumber *value = [[NSNumber alloc] initWithInt:connection.receivedIntValue];
+//        NSLog(@"value == %@", value);
+//        [_arrayOfCardOnTheTable addObject:value];
+//        [connection readDataWithTag:GET_CARD];
+//    } else {
 //        NSLog(@"value == %i", connection.receivedIntValue);
 //        if(connection.numberOfAttribut == FIRST_PRIVATE_CARD) { _firstPrivateCard = connection.receivedIntValue; [connection readDataWithTag:GET_CARD]; }
 //        else if(connection.numberOfAttribut == SECOND_PRIVATE_CARD)
@@ -1084,12 +1083,11 @@
 //        else
 //        { return; }
 
-    }
+//    }
 }
 
 -(void)waitingResponseFromServer {
     ConnectionToServer *connection = [ConnectionToServer sharedInstance];
-    [connection sendData:@"received"];
     [connection readDataWithTagLongTime:GET_COUNT_GAMERS_ON_THE_TABLE andDurationWaiting:LONG_TIME_OUT];
 }
 

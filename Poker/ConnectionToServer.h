@@ -30,6 +30,13 @@
 -(void)connected;
 @end
 
+@protocol ConnectionToServerDelegateForGamerDataViewConntroller
+
+- (void)parseResponseFromServer;
+- (void)segueToGeneralViewController;
+
+@end
+
 @interface ConnectionToServer : NSObject
 
 
@@ -40,33 +47,22 @@
 @property(nonatomic,strong)NSString *portTextField;
 //-----------------------------------------------------
 
-//-----------------Info about gamer--------------------
-@property(nonatomic,strong)NSString *gameName;
-@property(nonatomic)int gamerMoney;
-@property(nonatomic)int gamerLevel;
-//-----------------------------------------------------
-
-@property(nonatomic,strong)NSString *receiveString;
-@property(nonatomic)int receivedIntValue;
-@property(nonatomic)int countGamers;
-@property(nonatomic)int numberOfAttribut;
-@property(nonatomic)int countOfGameCycl;
+@property(nonatomic,strong) NSData *downloadedData;
 
 
 @property(nonatomic)BOOL isConnected;
 
 //-----------------Delegates---------------------------
 @property(nonatomic, assign) id<ConnectionToServerDelegate> delegate;
+@property(nonatomic, assign) id<ConnectionToServerDelegateForGamerDataViewConntroller> delegate2;
 //-----------------------------------------------------
 
 
-+(id) sharedInstance;
++ (id) sharedInstance;
 
 -(void)setParameters:(NSString*)ip andPort:(NSString*)myPort;
 -(void)connectToServer;
--(void)sendData:(NSString*)data;
--(void)sendDataWithTag:(NSString*)data andTag:(int)tag;
--(void)sendSomeIntValue:(int)intValue;
+-(void)sendDataWithTag:(NSData *)data andTag:(int)tag;
 //-(void)receiveDataWithCompletionBlock:(void (^)(NSString *name))copmpletionsBlock;
 -(void)readDataWithTag:(int)tag;
 -(void)readDataWithTagLongTime:(int)tag andDurationWaiting:(int)duration;
