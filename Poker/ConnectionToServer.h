@@ -12,7 +12,7 @@
 #import "DDTTYLogger.h"
 
 
-@protocol ConnectionToServerDelegate
+@protocol ConnectionToServerDelegateForPlayGameVC
 
 -(void)updateInfo;
 -(void)accept;
@@ -30,10 +30,17 @@
 -(void)connected;
 @end
 
-@protocol ConnectionToServerDelegateForGamerDataViewConntroller
+@protocol ConnectionToServerDelegateForGamerDataVC
 
 - (void)parseResponseFromServer;
 - (void)segueToGeneralViewController;
+
+@end
+
+@protocol ConnectionToServerDelegateForRootVC
+
+-(void)connected;
+-(void)returnOnPreviusView;
 
 @end
 
@@ -53,8 +60,9 @@
 @property(nonatomic)BOOL isConnected;
 
 //-----------------Delegates---------------------------
-@property(nonatomic, assign) id<ConnectionToServerDelegate> delegate;
-@property(nonatomic, assign) id<ConnectionToServerDelegateForGamerDataViewConntroller> delegate2;
+@property(nonatomic, assign) id<ConnectionToServerDelegateForPlayGameVC> delegateForPlayGameVC;
+@property(nonatomic, assign) id<ConnectionToServerDelegateForGamerDataVC> delegateForGamerVC;
+@property(nonatomic, assign) id<ConnectionToServerDelegateForRootVC> delegateForRootVC;
 //-----------------------------------------------------
 
 

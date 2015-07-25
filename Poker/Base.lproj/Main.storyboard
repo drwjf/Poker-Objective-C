@@ -68,7 +68,7 @@
                         <outlet property="generalImage" destination="YxS-4J-Ekq" id="4Ji-2N-tO6"/>
                         <outlet property="ipAdressTextField" destination="HvB-yP-2sS" id="3Bp-cd-5Dd"/>
                         <outlet property="portTextField" destination="Fan-pE-Y1n" id="efO-qx-22Z"/>
-                        <segue destination="hLE-3w-1Ce" kind="push" identifier="MySegue" id="iLZ-1C-URG"/>
+                        <segue destination="hLE-3w-1Ce" kind="show" identifier="segueToGamerDataVC" id="iLZ-1C-URG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -186,7 +186,7 @@
                         <outlet property="playButton" destination="Cm2-Bs-PNW" id="U2C-SG-jni"/>
                         <outlet property="rulesOfPokerTextView" destination="j3d-GE-7Y8" id="5UZ-iL-ja2"/>
                         <outlet property="sendMessageButton" destination="wH0-ne-jkB" id="LuN-dA-2S1"/>
-                        <segue destination="adU-1z-w2n" kind="show" identifier="mySecondSegue" id="kpy-RD-bxj"/>
+                        <segue destination="adU-1z-w2n" kind="show" identifier="segueToPlayVC" id="kpy-RD-bxj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wl5-BG-OIo" userLabel="First Responder" sceneMemberID="firstResponder"/>

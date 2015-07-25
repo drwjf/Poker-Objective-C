@@ -139,7 +139,7 @@
     //---------set parameters
     ConnectionToServer *connection = [ConnectionToServer sharedInstance];
     _isGameFinished = NO;
-    connection.delegate = self;
+    //connection.delegate = self;
     _gamersArray = [NSMutableArray new];
     _arrayOfCardOnTheTable = [NSMutableArray new];
     _arrayBestCard = [NSMutableArray new];

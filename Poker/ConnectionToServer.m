@@ -107,7 +107,7 @@ static ConnectionToServer *mySinglConnection = nil;
     DDLogInfo(@"method : %@", THIS_METHOD);
     DDLogInfo(@"socket:%p didConnectToHost:%@ port:%hu", sock, host, port);
     _isConnected = YES;
-    [self.delegate connected];
+    [self.delegateForRootVC connected];
 }
 
 - (void)socketDidSecure:(GCDAsyncSocket *)sock
@@ -134,7 +134,7 @@ static ConnectionToServer *mySinglConnection = nil;
             [self readDataWithTag:GET_INVITE_TO_THE_GAME];
             break;
         case GET_ACCEPT:
-            [self.delegate2 segueToGeneralViewController];
+            [self.delegateForGamerVC segueToGeneralViewController];
             
         default:
             break;
@@ -149,7 +149,7 @@ static ConnectionToServer *mySinglConnection = nil;
     self.downloadedData = data;
     switch (tag) {
         case GET_INVITE_TO_THE_GAME:
-            [self.delegate2 parseResponseFromServer];
+            [self.delegateForGamerVC parseResponseFromServer];
             break;
             
         default:
@@ -164,7 +164,7 @@ static ConnectionToServer *mySinglConnection = nil;
 {
     DDLogInfo(@"socketDidDisconnect:%p withError: %@", sock, err);
     _isConnected = NO;
-    [self.delegate returnOnPreviusView];
+    [self.delegateForRootVC returnOnPreviusView];
 }
 
 

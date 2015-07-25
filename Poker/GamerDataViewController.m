@@ -24,7 +24,7 @@
 #define GET_REQUEST_FROM_SERVER 7
 #define DID_WRITE_RESPONSE 101
 
-@interface GamerDataViewController () <ConnectionToServerDelegateForGamerDataViewConntroller>
+@interface GamerDataViewController () 
 
 -(void)checkDefaultParameters;
 @property(nonatomic,strong)UIImage *buffImage;
@@ -157,7 +157,7 @@
 
 - (IBAction)requestToInvitationInTheGame:(id)sender {
     ConnectionToServer *connection = [ConnectionToServer sharedInstance];
-    connection.delegate2 = self;
+    connection.delegateForGamerVC = self;
 
     [connection sendDataWithTag:[self createJSONRequestAboutInvitationInGame] andTag:GET_INVITE_TO_THE_GAME];
 }
@@ -325,7 +325,7 @@
 }
 
 
-- (void)segueToGeneralViewController { [self performSegueWithIdentifier:@"mySecondSegue" sender:self]; }
+- (void)segueToGeneralViewController { [self performSegueWithIdentifier:@"segueToPlayVC" sender:self]; }
 
 - (UIAlertView *)createAlertViewAboutError {
     return ([[UIAlertView alloc] initWithTitle:@"Error :("

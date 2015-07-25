@@ -11,7 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ConnectionToServer.h"
 
-@interface ViewController : UIViewController <AVAudioPlayerDelegate, ConnectionToServerDelegate>
+@interface ViewController : UIViewController <AVAudioPlayerDelegate, ConnectionToServerDelegateForRootVC>
 
 @property (strong, nonatomic) IBOutlet UIImageView *generalImage;
 @property (strong, nonatomic) IBOutlet UITextField *ipAdressTextField;
