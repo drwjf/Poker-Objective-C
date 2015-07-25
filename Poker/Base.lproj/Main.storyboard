@@ -55,7 +55,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pokeristka.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="YxS-4J-Ekq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pokeristka" translatesAutoresizingMaskIntoConstraints="NO" id="YxS-4J-Ekq">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="508"/>
                             </imageView>
                         </subviews>
@@ -144,9 +144,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="casinoRoyal.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="T1C-7Z-505">
-                                <rect key="frame" x="310" y="28" width="704" height="191"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-GE-7Y8">
                                 <rect key="frame" x="310" y="227" width="704" height="443"/>
                                 <color key="backgroundColor" red="0.90616367403314912" green="0.8808883906110504" blue="0.72662114679225753" alpha="1" colorSpace="calibratedRGB"/>
@@ -167,8 +164,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="erq-Xg-pW6">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="erq-Xg-pW6">
                                 <rect key="frame" x="16" y="59" width="274" height="263"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="casinoRoyal" translatesAutoresizingMaskIntoConstraints="NO" id="T1C-7Z-505">
+                                <rect key="frame" x="310" y="28" width="704" height="191"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.86183529005524862" green="0.74866753546970222" blue="0.64366519675584877" alpha="1" colorSpace="calibratedRGB"/>
@@ -193,10 +193,10 @@
             </objects>
             <point key="canvasLocation" x="1950" y="16"/>
         </scene>
-        <!--Animation On The Table-->
+        <!--Play Game View Controller-->
         <scene sceneID="Zlf-Ik-5g5">
             <objects>
-                <viewController id="adU-1z-w2n" customClass="AnimationOnTheTable" sceneMemberID="viewController">
+                <viewController id="adU-1z-w2n" customClass="PlayGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xr7-Tv-Qle"/>
                         <viewControllerLayoutGuide type="bottom" id="xdo-Mv-miD"/>
@@ -205,172 +205,22 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="QtC-Ig-Rcj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="QtC-Ig-Rcj">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="658"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Twp-ge-b47">
-                                <rect key="frame" x="405" y="326" width="65" height="87"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="Twp-ge-b47">
+                                <rect key="frame" x="407" y="296" width="65" height="87"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="s6s-wp-1sp">
-                                <rect key="frame" x="478" y="322" width="66" height="87"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="s6s-wp-1sp">
+                                <rect key="frame" x="481" y="296" width="66" height="87"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="FpO-Mj-0Yc">
-                                <rect key="frame" x="553" y="323" width="68" height="87"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="FpO-Mj-0Yc">
+                                <rect key="frame" x="555" y="296" width="68" height="87"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="woB-h5-RfC">
-                                <rect key="frame" x="629" y="322" width="69" height="88"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="woB-h5-RfC">
+                                <rect key="frame" x="631" y="295" width="69" height="88"/>
                             </imageView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="XrS-q0-g18">
-                                <rect key="frame" x="176" y="426" width="101" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhH-ht-NOd">
-                                <rect key="frame" x="176" y="426" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M0Y-dL-36s">
-                                <rect key="frame" x="176" y="539" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="E3y-Y4-Ff7">
-                                <rect key="frame" x="116" y="271" width="101" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rom-SQ-HSv">
-                                <rect key="frame" x="116" y="271" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYs-wY-GWl">
-                                <rect key="frame" x="116" y="384" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjC-NO-S2w">
-                                <rect key="frame" x="167" y="92" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jh-wi-GHn">
-                                <rect key="frame" x="167" y="205" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="PBC-0N-Gzw">
-                                <rect key="frame" x="351" y="63" width="101" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbe-u3-h9t">
-                                <rect key="frame" x="351" y="63" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIs-QK-3vF">
-                                <rect key="frame" x="351" y="176" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Yrx-fD-gZP">
-                                <rect key="frame" x="580" y="92" width="103" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X43-Gl-P2x">
-                                <rect key="frame" x="580" y="92" width="102" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOV-9t-jE9">
-                                <rect key="frame" x="580" y="205" width="103" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="XMg-xv-tpe">
-                                <rect key="frame" x="754" y="86" width="103" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1i-YI-56d">
-                                <rect key="frame" x="754" y="80" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbo-ee-Ly7">
-                                <rect key="frame" x="754" y="205" width="103" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="RhX-86-Vwj">
-                                <rect key="frame" x="871" y="262" width="101" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGz-QO-DoV">
-                                <rect key="frame" x="871" y="262" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mB-H4-mZf">
-                                <rect key="frame" x="871" y="373" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="dHx-Nr-8Z2">
-                                <rect key="frame" x="764" y="418" width="101" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOC-j1-qeO">
-                                <rect key="frame" x="764" y="531" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDb-0Z-YXE">
-                                <rect key="frame" x="764" y="414" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Jfl-Xh-c4w">
-                                <rect key="frame" x="582" y="447" width="101" height="134"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-Uy-NFM">
-                                <rect key="frame" x="582" y="442" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wch-iM-OHJ">
-                                <rect key="frame" x="582" y="562" width="101" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tableWithStavki.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Hlq-Ma-RgI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tableWithStavki" translatesAutoresizingMaskIntoConstraints="NO" id="Hlq-Ma-RgI">
                                 <rect key="frame" x="690" y="570" width="334" height="198"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzJ-Yi-SmC">
@@ -409,30 +259,14 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ge-2l-zZE">
                                 <rect key="frame" x="698" y="730" width="33" height="33"/>
                                 <color key="backgroundColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" backgroundImage="sample-1012-sticky-note.png">
+                                <state key="normal" backgroundImage="sample-1012-sticky-note">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="showCombinationClickButton:" destination="adU-1z-w2n" eventType="touchUpInside" id="PQb-lU-dIW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.49999999999999961" contentMode="redraw" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6zf-1Q-ks1">
-                                <rect key="frame" x="351" y="738" width="46" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Send">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="SendMessagClick:" destination="adU-1z-w2n" eventType="touchUpInside" id="jpG-rU-Vbt"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4rg-Ye-49a">
-                                <rect key="frame" x="2" y="738" width="341" height="30"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gg6-OC-x9M">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="gg6-OC-x9M">
                                 <rect key="frame" x="398" y="657" width="117" height="111"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="selectedUserName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOH-Z6-HeP">
@@ -456,8 +290,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0zo-Nc-qkV">
-                                <rect key="frame" x="451" y="504" width="61" height="76"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="0zo-Nc-qkV">
+                                <rect key="frame" x="449" y="504" width="61" height="76"/>
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" value="0.5" minValue="-0.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="ihS-cT-xwg">
                                 <rect key="frame" x="924" y="649" width="129" height="31"/>
@@ -475,92 +309,77 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="message from server" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQg-BT-DsW">
-                                <rect key="frame" x="398" y="418" width="234" height="21"/>
+                                <rect key="frame" x="400" y="391" width="234" height="21"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqG-9K-B8K">
-                                <rect key="frame" x="266" y="398" width="143" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ0-gq-zyb">
-                                <rect key="frame" x="243" y="337" width="139" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghM-Ws-FZw">
-                                <rect key="frame" x="462" y="275" width="106" height="30"/>
+                                <rect key="frame" x="449" y="247" width="125" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrl-vh-94e">
-                                <rect key="frame" x="617" y="234" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H93-9D-PVc">
-                                <rect key="frame" x="385" y="205" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCy-li-6lk">
-                                <rect key="frame" x="784" y="220" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpH-rS-Ajh">
-                                <rect key="frame" x="745" y="323" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4b-nR-i3A">
-                                <rect key="frame" x="632" y="418" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgl-P5-9Mq">
-                                <rect key="frame" x="709" y="405" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixc-YO-Srq">
-                                <rect key="frame" x="266" y="257" width="62" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="kPg-4Z-kRg">
-                                <rect key="frame" x="88" y="471" width="61" height="76"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="TRm-aY-ogK">
-                                <rect key="frame" x="116" y="471" width="61" height="77"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6sV-tu-70p">
-                                <rect key="frame" x="10" y="305" width="61" height="77"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="pr5-JI-nmG">
-                                <rect key="frame" x="47" y="305" width="61" height="77"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Km-jW-41A">
-                                <rect key="frame" x="103" y="120" width="61" height="77"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saC-BM-8Lh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="saC-BM-8Lh">
                                 <rect key="frame" x="481" y="504" width="61" height="76"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63Y-Eg-1bc">
                                 <rect key="frame" x="460" y="435" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mnu-x2-PED">
+                                <rect key="frame" x="276" y="398" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmE-ta-h56">
+                                <rect key="frame" x="241" y="317" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6m-2l-TGT">
+                                <rect key="frame" x="259" y="247" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyv-97-qdx">
+                                <rect key="frame" x="338" y="197" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7C-3x-fRf">
+                                <rect key="frame" x="581" y="197" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylf-dt-YER">
+                                <rect key="frame" x="690" y="237" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jh8-IA-7QD">
+                                <rect key="frame" x="731" y="304" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ab-9m-ole">
+                                <rect key="frame" x="709" y="376" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0i-yI-nQr">
+                                <rect key="frame" x="629" y="427" width="112" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -600,8 +419,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbl-Ec-WF1" customClass="EAColourfulProgressView">
-                                <rect key="frame" x="174" y="562" width="103" height="17"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2N-s2-3sS" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="160" y="543" width="101" height="15"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
                                         <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -610,7 +429,7 @@
                                         <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
-                                        <color key="value" red="1" green="0.57522516867060547" blue="0.11050047095353566" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
                                         <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
@@ -619,48 +438,13 @@
                                         <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
-                                        <integer key="value" value="60"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                        <integer key="value" value="60"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hCB-7I-488" customClass="EAColourfulProgressView">
-                                <rect key="frame" x="116" y="400" width="101" height="18"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
-                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
-                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
-                                        <color key="value" red="1" green="0.57522516869999996" blue="0.110500471" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
-                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
-                                        <integer key="value" value="2"/>
+                                        <integer key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
                                         <integer key="value" value="60"/>
@@ -670,8 +454,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeJ-wY-4vc" customClass="EAColourfulProgressView">
-                                <rect key="frame" x="167" y="227" width="101" height="14"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="klU-ev-Zyp" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="102" y="382" width="101" height="15"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
                                         <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -680,7 +464,7 @@
                                         <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
-                                        <color key="value" red="1" green="0.57522516869999996" blue="0.110500471" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
                                         <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
@@ -689,13 +473,13 @@
                                         <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
-                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
-                                        <integer key="value" value="2"/>
+                                        <integer key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
                                         <integer key="value" value="60"/>
@@ -705,11 +489,311 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6pK-Uh-X1R">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="syE-QR-YGa" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="168" y="230" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VfI-2R-7EM" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="345" y="174" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cwr-Mg-Ag8" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="578" y="180" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t7c-ns-4Vj" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="742" y="230" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fK-WW-Lnw" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="764" y="543" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HfB-Iw-bca" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="581" y="583" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="6pK-Uh-X1R">
                                 <rect key="frame" x="351" y="447" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="9dx-bd-uoM">
+                                <rect key="frame" x="160" y="409" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="D4p-tO-bF1">
+                                <rect key="frame" x="102" y="247" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="mCL-Fr-wMq">
+                                <rect key="frame" x="168" y="96" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="5Bc-xV-j9f">
+                                <rect key="frame" x="345" y="41" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="vKT-GO-6kW">
+                                <rect key="frame" x="578" y="41" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="lm0-gV-BYa">
+                                <rect key="frame" x="742" y="96" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="lgF-wD-wzY">
+                                <rect key="frame" x="826" y="261" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="fjU-UG-RTs">
+                                <rect key="frame" x="764" y="409" width="101" height="136"/>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="N0K-z3-0IE">
+                                <rect key="frame" x="581" y="447" width="101" height="136"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wfk-0y-SU6">
                                 <rect key="frame" x="351" y="447" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgj-Xq-REe">
+                                <rect key="frame" x="160" y="409" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFs-wL-ljB">
+                                <rect key="frame" x="102" y="247" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJ3-QE-MRV">
+                                <rect key="frame" x="168" y="96" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HnH-uD-28m">
+                                <rect key="frame" x="345" y="41" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwU-lk-dkV">
+                                <rect key="frame" x="578" y="41" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWX-56-lwM">
+                                <rect key="frame" x="742" y="96" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2c1-hq-9gQ">
+                                <rect key="frame" x="826" y="261" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fc4-nz-t0A">
+                                <rect key="frame" x="764" y="409" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IG5-GV-PZ3">
+                                <rect key="frame" x="582" y="447" width="101" height="21"/>
                                 <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -722,22 +806,79 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVt-QM-ieo">
+                                <rect key="frame" x="160" y="524" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt2-Eh-7d0">
+                                <rect key="frame" x="102" y="362" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWI-kB-Qby">
+                                <rect key="frame" x="168" y="211" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQV-So-utw">
+                                <rect key="frame" x="345" y="156" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ED4-8K-Twg">
+                                <rect key="frame" x="578" y="156" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fi-72-09J">
+                                <rect key="frame" x="742" y="211" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hr5-xz-n96">
+                                <rect key="frame" x="826" y="376" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMB-vZ-emW">
+                                <rect key="frame" x="764" y="524" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKi-9w-BXO">
+                                <rect key="frame" x="581" y="562" width="101" height="21"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.49999999999999994" contentMode="bottom" fixedFrame="YES" keyboardDismissMode="onDrag" text="Game is started !" translatesAutoresizingMaskIntoConstraints="NO" id="CfO-L4-Nmw">
-                                <rect key="frame" x="0.0" y="658" width="399" height="110"/>
+                                <rect key="frame" x="0.0" y="657" width="399" height="111"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="cbW-Ia-iBb">
-                                <rect key="frame" x="167" y="92" width="101" height="134"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="OyF-xc-EAx">
-                                <rect key="frame" x="331" y="326" width="66" height="87"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kxi-bH-a6g">
-                                <rect key="frame" x="70" y="120" width="61" height="77"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="OyF-xc-EAx">
+                                <rect key="frame" x="333" y="296" width="66" height="87"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8D-lE-XMP">
                                 <rect key="frame" x="698" y="578" width="96" height="43"/>
@@ -750,94 +891,75 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pokerHandCombination.gif" translatesAutoresizingMaskIntoConstraints="NO" id="ggH-6F-SLr">
-                                <rect key="frame" x="0.0" y="86" width="399" height="572"/>
+                                <rect key="frame" x="-70" y="-78" width="164" height="736"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-ZK-H17" customClass="EAColourfulProgressView">
-                                <rect key="frame" x="351" y="198" width="101" height="15"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
-                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
-                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
-                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
-                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
-                                        <integer key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
-                                        <integer key="value" value="60"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                        <integer key="value" value="60"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gbh-gd-vIj" customClass="EAColourfulProgressView">
-                                <rect key="frame" x="580" y="223" width="101" height="15"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
-                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
-                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
-                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
-                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
-                                        <integer key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
-                                        <integer key="value" value="60"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                        <integer key="value" value="60"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CNh-Ex-L6Z">
                                 <rect key="frame" x="754" y="730" width="39" height="33"/>
                                 <color key="backgroundColor" red="0.401959542" green="0.49942734519999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="photoLog.jpg">
+                                <state key="normal" image="photoLog">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="makeScreenshotClick:" destination="adU-1z-w2n" eventType="touchUpInside" id="c0h-Qa-bdg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.49999999999999961" contentMode="redraw" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6zf-1Q-ks1">
+                                <rect key="frame" x="345" y="731" width="52" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="SendMessagClick:" destination="adU-1z-w2n" eventType="touchUpInside" id="jpG-rU-Vbt"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4rg-Ye-49a">
+                                <rect key="frame" x="0.0" y="732" width="341" height="30"/>
+                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEM-Cb-tlG">
-                                <rect key="frame" x="319" y="237" width="382" height="182"/>
+                                <rect key="frame" x="319" y="245" width="382" height="182"/>
                                 <connections>
                                     <segue destination="dL0-l0-S9l" kind="embed" id="sTH-DX-qUp"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROV-il-DYb" customClass="EAColourfulProgressView">
+                                <rect key="frame" x="826" y="397" width="101" height="15"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="initialFillColor">
+                                        <color key="value" red="0.314731074" green="1" blue="0.053144025749999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="oneThirdFillColor">
+                                        <color key="value" red="1" green="0.84117959480000004" blue="0.1886260297" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="twoThirdsFillColor">
+                                        <color key="value" red="1" green="0.58250104260000002" blue="0.140642877" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="finalFillColor">
+                                        <color key="value" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="containerColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="labelTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderLineWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="currentValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                        <integer key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93400379834254144" green="0.88631226135576946" blue="0.66269799750595948" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -845,84 +967,107 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="ImageOfSelectedGamer" destination="gg6-OC-x9M" id="Zqk-1b-vg3"/>
+                        <outlet property="InputMessageTextField" destination="4rg-Ye-49a" id="DZe-Cc-wBA"/>
                         <outlet property="backgroundImage" destination="QtC-Ig-Rcj" id="RZn-qA-w2Q"/>
-                        <outlet property="callButton" destination="W8D-lE-XMP" id="kd4-p2-uo4"/>
+                        <outlet property="callButton" destination="W8D-lE-XMP" id="JlV-rc-faS"/>
                         <outlet property="chatTextView" destination="CfO-L4-Nmw" id="ms0-jq-CR7"/>
-                        <outlet property="checkButton" destination="NZ6-Zl-dRz" id="gLq-gm-yaZ"/>
+                        <outlet property="checkButton" destination="NZ6-Zl-dRz" id="l1R-xp-ka1"/>
                         <outlet property="combinationImage" destination="ggH-6F-SLr" id="oGi-Ff-go9"/>
+                        <outlet property="containerForScreenShortViewController" destination="fEM-Cb-tlG" id="Jre-td-I5r"/>
                         <outlet property="contentView" destination="fEM-Cb-tlG" id="oVd-tc-059"/>
-                        <outlet property="eightGamerImage" destination="RhX-86-Vwj" id="KKz-a1-3vj"/>
-                        <outlet property="eightGamerMoneyLabel" destination="8mB-H4-mZf" id="cE1-G7-yCh"/>
-                        <outlet property="eightGamerNameLabel" destination="pGz-QO-DoV" id="8sQ-oz-f9d"/>
                         <outlet property="fifeCard" destination="woB-h5-RfC" id="75n-To-6Ko"/>
-                        <outlet property="fifeGamerImage" destination="PBC-0N-Gzw" id="P0G-tm-Rro"/>
-                        <outlet property="fifeGamerMoneyLabel" destination="bIs-QK-3vF" id="8dU-7d-I4Q"/>
-                        <outlet property="fifeGamerNameLabel" destination="dbe-u3-h9t" id="9u5-OV-BHf"/>
                         <outlet property="firstCard" destination="OyF-xc-EAx" id="cUB-FR-9QX"/>
                         <outlet property="firstGamerImage" destination="6pK-Uh-X1R" id="duf-ys-MSx"/>
                         <outlet property="firstGamerMoneyLabel" destination="0gF-s9-zPd" id="XGP-uZ-lPj"/>
                         <outlet property="firstGamerNameLabel" destination="Wfk-0y-SU6" id="3gw-Ix-WeX"/>
-                        <outlet property="firstPrivateCardFourthGamerImage" destination="kxi-bH-a6g" id="TPd-bn-qkB"/>
                         <outlet property="firstPrivateCardImage" destination="0zo-Nc-qkV" id="K14-pF-T0P"/>
-                        <outlet property="firstPrivateCardSecondGamerImage" destination="kPg-4Z-kRg" id="A3A-3c-K6y"/>
-                        <outlet property="firstPrivateCardTheardGamerImage" destination="6sV-tu-70p" id="LsX-EN-5mU"/>
-                        <outlet property="forthGamerMoneyLabel" destination="6jh-wi-GHn" id="IO9-sO-THq"/>
                         <outlet property="fourthCard" destination="FpO-Mj-0Yc" id="hXH-FT-1qi"/>
-                        <outlet property="fourthGamerImage" destination="cbW-Ia-iBb" id="LnR-Qf-LK6"/>
-                        <outlet property="fourthGamerNameLabel" destination="MjC-NO-S2w" id="xy5-nJ-BVc"/>
-                        <outlet property="fourthGamerProgressBar" destination="FeJ-wY-4vc" id="YC1-ly-fcl"/>
                         <outlet property="generalGamerProgressBar" destination="i0X-XF-Old" id="Ux8-fk-iED"/>
+                        <outlet property="inputMessageTextField" destination="4rg-Ye-49a" id="iDw-dl-bW1"/>
                         <outlet property="inputTextFeld" destination="4rg-Ye-49a" id="jbR-Ru-usC"/>
-                        <outlet property="makeScreenshortButton" destination="CNh-Ex-L6Z" id="Lwl-hh-lLh"/>
+                        <outlet property="labelOfMoneyOnTheTAble" destination="ghM-Ws-FZw" id="8di-5t-bce"/>
+                        <outlet property="makeScreenshortButton" destination="CNh-Ex-L6Z" id="PvB-gQ-uJ7"/>
                         <outlet property="messageFromServerLabel" destination="DQg-BT-DsW" id="n22-XN-DfE"/>
-                        <outlet property="nineGamerImage" destination="dHx-Nr-8Z2" id="x46-K1-Skj"/>
-                        <outlet property="nineGamerMoneyLabel" destination="eOC-j1-qeO" id="x4V-iL-0WZ"/>
-                        <outlet property="nineGamerNameLabel" destination="tDb-0Z-YXE" id="VY9-ia-JBf"/>
                         <outlet property="pasButton" destination="tzJ-Yi-SmC" id="kHM-TG-8qV"/>
+                        <outlet property="passButton" destination="tzJ-Yi-SmC" id="Zpl-LM-oph"/>
                         <outlet property="raiseBetButton" destination="2Mb-Ds-UyH" id="WiU-U1-dey"/>
+                        <outlet property="raiseButton" destination="2Mb-Ds-UyH" id="2sW-6l-9UR"/>
                         <outlet property="rateAmountAllGamersLabel" destination="ghM-Ws-FZw" id="Wlx-AH-Hon"/>
-                        <outlet property="rateEightGamerLabel" destination="WpH-rS-Ajh" id="q0c-63-zpj"/>
-                        <outlet property="rateFifeGamerLabel" destination="hrl-vh-94e" id="Ry1-2i-7Kj"/>
-                        <outlet property="rateFourthGamerLabel" destination="ixc-YO-Srq" id="3N4-x8-bGQ"/>
                         <outlet property="rateGeneralGamerLabel" destination="63Y-Eg-1bc" id="qZH-8K-J78"/>
                         <outlet property="rateLabel" destination="BDV-d5-qfT" id="jjE-TG-5x0"/>
-                        <outlet property="rateNineGamerLabel" destination="mgl-P5-9Mq" id="D0y-rH-ClI"/>
-                        <outlet property="rateSecondGamerLabel" destination="JqG-9K-B8K" id="wEq-aB-PZu"/>
-                        <outlet property="rateSevenGamerLabel" destination="dCy-li-6lk" id="qid-kn-Vou"/>
-                        <outlet property="rateSixGamerLabel" destination="H93-9D-PVc" id="1o9-ES-aUc"/>
-                        <outlet property="rateSlider" destination="ihS-cT-xwg" id="Ymb-Ji-XQR"/>
-                        <outlet property="rateTenGamerLabel" destination="w4b-nR-i3A" id="QVg-Bd-JN7"/>
-                        <outlet property="rateTheardUserLabel" destination="GQ0-gq-zyb" id="NTa-36-0jJ"/>
+                        <outlet property="rateSlider" destination="ihS-cT-xwg" id="PvH-Zw-HXU"/>
                         <outlet property="secondCard" destination="Twp-ge-b47" id="nro-6e-BUF"/>
-                        <outlet property="secondGamerImage" destination="XrS-q0-g18" id="7eQ-aw-FfM"/>
-                        <outlet property="secondGamerMoneyLabel" destination="M0Y-dL-36s" id="CdE-Tp-CrB"/>
-                        <outlet property="secondGamerNameLabel" destination="jhH-ht-NOd" id="KkC-uA-hb2"/>
-                        <outlet property="secondGamerProgressBar" destination="dbl-Ec-WF1" id="P7H-zL-jvv"/>
-                        <outlet property="secondPrivateCardFourthGamerImage" destination="1Km-jW-41A" id="Rrr-9B-Vn9"/>
                         <outlet property="secondPrivateCardImage" destination="saC-BM-8Lh" id="Z5M-95-kcB"/>
-                        <outlet property="secondPrivateCardSecondGamerImage" destination="TRm-aY-ogK" id="yDB-yY-bnA"/>
-                        <outlet property="secondPrivateCardTheardGamerImage" destination="pr5-JI-nmG" id="VJ9-H2-4QW"/>
                         <outlet property="selectedGamerImage" destination="gg6-OC-x9M" id="BM5-dI-vhk"/>
                         <outlet property="selectedGamerLevel" destination="968-jG-7zo" id="Igx-b4-qvK"/>
                         <outlet property="selectedGamerMoney" destination="f4x-Ux-FpO" id="Fxr-mJ-vXN"/>
                         <outlet property="selectedGamerName" destination="OOH-Z6-HeP" id="EHY-bb-rAS"/>
                         <outlet property="sendMessageToChatButton" destination="6zf-1Q-ks1" id="zlx-XL-8bc"/>
-                        <outlet property="sevenGamerImage" destination="XMg-xv-tpe" id="39K-tw-Dfs"/>
-                        <outlet property="sevenGamerMoneyLabel" destination="kbo-ee-Ly7" id="jsC-FJ-95t"/>
-                        <outlet property="sevenGamerNameLabel" destination="B1i-YI-56d" id="iqL-dT-laO"/>
-                        <outlet property="showBestCombinationButton" destination="3ge-2l-zZE" id="3rb-T5-ONr"/>
+                        <outlet property="sendMessageToPlayersButton" destination="CfO-L4-Nmw" id="BRb-Qk-NZd"/>
+                        <outlet property="showBestCombinationButton" destination="3ge-2l-zZE" id="Fos-91-pMe"/>
                         <outlet property="showCombinationButton" destination="3ge-2l-zZE" id="4uV-HL-gVn"/>
-                        <outlet property="sixGamerImage" destination="Yrx-fD-gZP" id="Gwb-a0-meT"/>
-                        <outlet property="sixGamerMoneyLabel" destination="oOV-9t-jE9" id="DXp-E3-uzk"/>
-                        <outlet property="sixGamerNameLabel" destination="X43-Gl-P2x" id="oFk-dK-jKH"/>
-                        <outlet property="tenGamerImage" destination="Jfl-Xh-c4w" id="DMX-n2-lSM"/>
-                        <outlet property="tenGamerMoneyLabel" destination="wch-iM-OHJ" id="mfa-sb-pHz"/>
-                        <outlet property="tenGamerNameLabel" destination="D3Q-Uy-NFM" id="1CN-9w-tiO"/>
                         <outlet property="theardCard" destination="s6s-wp-1sp" id="6Nx-0q-c4i"/>
-                        <outlet property="theardGamerImage" destination="E3y-Y4-Ff7" id="PrY-sc-JS3"/>
-                        <outlet property="theardGamerMoneyLabel" destination="GYs-wY-GWl" id="tF3-ce-lHV"/>
-                        <outlet property="theardGamerNameLabel" destination="rom-SQ-HSv" id="IXI-xJ-UeV"/>
-                        <outlet property="theardGamerProgressBar" destination="hCB-7I-488" id="A6q-cw-zAF"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="6pK-Uh-X1R" id="icO-oW-sow"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="9dx-bd-uoM" id="CXk-xA-Mp2"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="D4p-tO-bF1" id="7lh-3G-GKg"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="mCL-Fr-wMq" id="sxx-a3-cc4"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="5Bc-xV-j9f" id="Egr-qa-RTx"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="vKT-GO-6kW" id="Nb3-lE-2H8"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="lm0-gV-BYa" id="F29-ij-gnp"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="lgF-wD-wzY" id="g83-8c-ox6"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="fjU-UG-RTs" id="PRL-OL-cDZ"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="Wfk-0y-SU6" id="di6-7k-3pg"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="Vgj-Xq-REe" id="qFb-Kj-eEz"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="BFs-wL-ljB" id="J63-aq-r66"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="xJ3-QE-MRV" id="ICX-Bt-MRi"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="HnH-uD-28m" id="xYu-3x-HSn"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="NwU-lk-dkV" id="BWs-yN-Kqe"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="wWX-56-lwM" id="Ls2-KL-i51"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="2c1-hq-9gQ" id="jwy-ab-Qfy"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="fc4-nz-t0A" id="yE3-ll-KvX"/>
+                        <outletCollection property="arrayOfLabelsPlayersNames" destination="IG5-GV-PZ3" id="SSs-S9-K60"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="0gF-s9-zPd" id="Yc6-vE-pjJ"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="wVt-QM-ieo" id="Mq1-45-UqT"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="Tt2-Eh-7d0" id="4ap-xy-izy"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="LWI-kB-Qby" id="eJF-Cp-Uok"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="UQV-So-utw" id="DKp-Wk-sdJ"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="ED4-8K-Twg" id="hNH-HB-548"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="4fi-72-09J" id="h5Z-my-qnx"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="Hr5-xz-n96" id="m2u-bQ-Pxg"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="oMB-vZ-emW" id="YVt-tj-2Md"/>
+                        <outletCollection property="arrayOfLabelsPlayersMoney" destination="BKi-9w-BXO" id="t1c-bd-yng"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="63Y-Eg-1bc" id="qsm-jw-jkR"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="Mnu-x2-PED" id="xVE-UT-mrZ"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="CmE-ta-h56" id="xGE-9F-zI0"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="i6m-2l-TGT" id="wU4-Is-NGc"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="zyv-97-qdx" id="Af4-Ga-sG8"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="e7C-3x-fRf" id="Hqr-Qe-MAE"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="ylf-dt-YER" id="gif-IG-FIY"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="jh8-IA-7QD" id="W5Q-OE-jfD"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="9Ab-9m-ole" id="hdF-hS-82z"/>
+                        <outletCollection property="arrayOfLabelsPlayersBet" destination="A0i-yI-nQr" id="ywz-iH-bum"/>
+                        <outletCollection property="arrayOfImageCardOnTheTable" destination="ggH-6F-SLr" id="QEj-L1-5GE"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="OyF-xc-EAx" id="v9x-As-5qM"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="Twp-ge-b47" id="XXV-v0-Suo"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="s6s-wp-1sp" id="mb3-Kt-bAt"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="FpO-Mj-0Yc" id="fCW-oT-fbt"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="woB-h5-RfC" id="8zc-ao-tbV"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="OyF-xc-EAx" id="H3G-vA-YYy"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="Twp-ge-b47" id="C5l-od-7Bj"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="s6s-wp-1sp" id="B88-vV-Aqf"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="FpO-Mj-0Yc" id="24T-qG-HZP"/>
+                        <outletCollection property="arrayOfImagesCardOnTheTable" destination="woB-h5-RfC" id="M6R-Va-Y6n"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="i0X-XF-Old" id="JOb-8F-bvb"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="a2N-s2-3sS" id="YB1-9G-u6P"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="klU-ev-Zyp" id="okS-oT-AL4"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="syE-QR-YGa" id="JiN-d1-QW8"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="VfI-2R-7EM" id="J0p-QN-Ddu"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="cwr-Mg-Ag8" id="C9D-8x-lQL"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="t7c-ns-4Vj" id="KRW-fo-5fp"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="ROV-il-DYb" id="xT4-jW-Uyu"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="7fK-WW-Lnw" id="1Iv-5W-vPR"/>
+                        <outletCollection property="arrayOfProgressBarPlayers" destination="HfB-Iw-bca" id="ytw-Uq-mCY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4YH-tc-j6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -941,9 +1086,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="382" height="182"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-9z-NiT">
-                                <rect key="frame" x="10" y="8" width="206" height="166"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6X-2R-0aJ">
                                 <rect key="frame" x="234" y="8" width="132" height="33"/>
                                 <color key="backgroundColor" red="0.4654168058" green="0.45183864210000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -980,6 +1122,9 @@
                                     <action selector="saveInLibraryAction:" destination="dL0-l0-S9l" eventType="touchUpInside" id="JhX-pi-ZN6"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-9z-NiT">
+                                <rect key="frame" x="10" y="8" width="206" height="166"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.78929838248729112" green="0.88520922672163627" blue="0.94498877762430944" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -1014,15 +1159,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background.jpg" width="1562" height="1217"/>
-        <image name="casinoRoyal.jpg" width="680" height="320"/>
-        <image name="defaultImage.jpg" width="400" height="400"/>
-        <image name="photoLog.jpg" width="183" height="165"/>
+        <image name="background" width="1562" height="1217"/>
+        <image name="casinoRoyal" width="680" height="320"/>
+        <image name="defaultImage" width="400" height="400"/>
+        <image name="photoLog" width="183" height="165"/>
         <image name="pokerHandCombination.gif" width="500" height="718"/>
-        <image name="pokeristka.jpg" width="700" height="350"/>
-        <image name="sample-1012-sticky-note.png" width="28" height="28"/>
-        <image name="shirt.jpg" width="295" height="407"/>
-        <image name="tableWithStavki.jpg" width="1920" height="1200"/>
+        <image name="pokeristka" width="700" height="350"/>
+        <image name="sample-1012-sticky-note" width="28" height="28"/>
+        <image name="shirt" width="295" height="407"/>
+        <image name="tableWithStavki" width="1920" height="1200"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

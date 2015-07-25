@@ -14,7 +14,6 @@
 @interface ViewController : UIViewController <AVAudioPlayerDelegate, ConnectionToServerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *generalImage;
-@property (strong, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) IBOutlet UITextField *ipAdressTextField;
 @property (strong, nonatomic) IBOutlet UITextField *portTextField;
 @property(nonatomic,strong)AVAudioPlayer *audioPlayer;
