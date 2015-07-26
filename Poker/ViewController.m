@@ -20,6 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _ipAdressTextField.text = @"192.168.1.6";
+    _portTextField.text = @"9999";
+    
 #if !(TARGET_IPHONE_SIMULATOR)
     [[UIAccelerometer sharedAccelerometer]setDelegate:self];
     

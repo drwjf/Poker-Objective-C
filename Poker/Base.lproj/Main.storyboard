@@ -34,10 +34,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="c3Q-B8-iUA">
-                                <rect key="frame" x="503" y="740" width="20" height="20"/>
-                                <color key="color" red="0.2547133815" green="0.19508021040000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0uY-92-rii">
                                 <rect key="frame" x="347" y="672" width="331" height="44"/>
                                 <color key="backgroundColor" red="0.5960819948762619" green="0.61607961238835696" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -186,12 +182,105 @@
                         <outlet property="playButton" destination="Cm2-Bs-PNW" id="U2C-SG-jni"/>
                         <outlet property="rulesOfPokerTextView" destination="j3d-GE-7Y8" id="5UZ-iL-ja2"/>
                         <outlet property="sendMessageButton" destination="wH0-ne-jkB" id="LuN-dA-2S1"/>
-                        <segue destination="adU-1z-w2n" kind="show" identifier="segueToPlayVC" id="kpy-RD-bxj"/>
+                        <segue destination="kjp-7Y-F12" kind="show" identifier="segueToPlayGameVC" id="aCG-B8-6FG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wl5-BG-OIo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1950" y="16"/>
+        </scene>
+        <!--Play Game View Controller-->
+        <scene sceneID="F82-hu-SBR">
+            <objects>
+                <viewController id="kjp-7Y-F12" customClass="PlayGameViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t6n-cW-swo"/>
+                        <viewControllerLayoutGuide type="bottom" id="hd2-ds-UAJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ukU-Co-FIu">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-uB-rEs">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="633"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tableWithStavki" translatesAutoresizingMaskIntoConstraints="NO" id="EMu-l9-weP">
+                                <rect key="frame" x="686" y="633" width="338" height="135"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" text="GAME" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
+                                <rect key="frame" x="0.0" y="633" width="421" height="135"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hdX-qc-yLm">
+                                <rect key="frame" x="4" y="730" width="324" height="30"/>
+                                <color key="backgroundColor" red="0.76961914519999997" green="0.82675059669999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzn-19-qPI">
+                                <rect key="frame" x="420" y="633" width="122" height="135"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="cQ9-jx-a3h">
+                                <rect key="frame" x="350" y="426" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="jc2-Ub-zqB">
+                                <rect key="frame" x="183" y="383" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="obh-HN-6aE">
+                                <rect key="frame" x="95" y="226" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="wbP-hN-rhQ">
+                                <rect key="frame" x="183" y="80" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="TRy-wR-pSf">
+                                <rect key="frame" x="350" y="28" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-3N-U1M">
+                                <rect key="frame" x="580" y="28" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="ne6-0f-Llx">
+                                <rect key="frame" x="753" y="87" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="nXE-px-gCC">
+                                <rect key="frame" x="825" y="242" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="Lj2-qG-hCZ">
+                                <rect key="frame" x="763" y="393" width="94" height="128"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="2gZ-xi-1H8">
+                                <rect key="frame" x="580" y="421" width="94" height="128"/>
+                            </imageView>
+                            <button opaque="NO" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
+                                <rect key="frame" x="336" y="730" width="76" height="29"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outletCollection property="arrayOfPlayersImages" destination="cQ9-jx-a3h" id="PuC-DM-pH2"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="jc2-Ub-zqB" id="aU0-Pr-z0C"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="obh-HN-6aE" id="hpK-h2-evG"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="wbP-hN-rhQ" id="gRU-hd-dcW"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="TRy-wR-pSf" id="ytC-2C-4T3"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="9sT-3N-U1M" id="7MD-X0-xee"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="ne6-0f-Llx" id="zle-p0-AZf"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="nXE-px-gCC" id="l5e-nE-Oe5"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="Lj2-qG-hCZ" id="Rpe-I8-tzi"/>
+                        <outletCollection property="arrayOfPlayersImages" destination="2gZ-xi-1H8" id="cim-Jv-l9U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbI-eU-Yx4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3121" y="22"/>
         </scene>
         <!--Play Game View Controller-->
         <scene sceneID="Zlf-Ik-5g5">
@@ -1072,7 +1161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4YH-tc-j6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3385" y="45"/>
+            <point key="canvasLocation" x="3879" y="1053"/>
         </scene>
         <!--Screenshort View Controller-->
         <scene sceneID="orW-h4-SwZ">

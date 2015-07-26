@@ -11,18 +11,16 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "AnimationOnTheTable.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <FBSDKShareKit/FBSDKShareKit.h>
+#import "PlayGameViewController.h"
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+//#import <FBSDKShareKit/FBSDKShareKit.h>
 
 
 #define GET_INVITE_TO_THE_GAME 0
 #define GET_ACCEPT 1
 
 
-#define GET_REQUEST_FROM_SERVER 7
-#define DID_WRITE_RESPONSE 101
 
 @interface GamerDataViewController () 
 
@@ -325,7 +323,7 @@
 }
 
 
-- (void)segueToGeneralViewController { [self performSegueWithIdentifier:@"segueToPlayVC" sender:self]; }
+- (void)segueToGeneralViewController { [self performSegueWithIdentifier:@"segueToPlayGameVC" sender:self]; }
 
 - (UIAlertView *)createAlertViewAboutError {
     return ([[UIAlertView alloc] initWithTitle:@"Error :("
@@ -383,12 +381,11 @@
 }
 
 #pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    AnimationOnTheTable *secVC = [segue destinationViewController];
-    secVC.isUseAccelerometer = [_enableAcceslerometerSwitcher isOn];
-    secVC.bufferImage = _buffImage;
-}
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    PlayGameViewController *secVC = [segue destinationViewController];
+//    secVC.isUseAccelerometer = [_enableAcceslerometerSwitcher isOn];
+//}
 
 
 @end
