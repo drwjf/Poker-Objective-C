@@ -402,6 +402,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-Vz-Ubc">
+                                <rect key="frame" x="368" y="284" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="UZw-jr-f7S">
+                                <rect key="frame" x="420" y="284" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-OS-l74">
+                                <rect key="frame" x="472" y="284" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="AFS-G6-PBE">
+                                <rect key="frame" x="524" y="284" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="gUF-l9-loF">
+                                <rect key="frame" x="576" y="284" width="44" height="64"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -436,6 +451,11 @@
                         <outletCollection property="arrayOfLabelsPlayersNames" destination="bxt-rz-K39" id="QCo-cO-e6N"/>
                         <outletCollection property="arrayOfLabelsPlayersNames" destination="Tk6-mx-vqy" id="Fmo-8f-vl6"/>
                         <outletCollection property="arrayOfLabelsPlayersNames" destination="VrH-ve-FPS" id="9mq-7I-uNx"/>
+                        <outletCollection property="arrayOfImagesCardsOnTheTable" destination="9oU-Vz-Ubc" id="UBv-dj-WZE"/>
+                        <outletCollection property="arrayOfImagesCardsOnTheTable" destination="UZw-jr-f7S" id="kXW-vb-9Zb"/>
+                        <outletCollection property="arrayOfImagesCardsOnTheTable" destination="NM0-OS-l74" id="PpR-1p-RDT"/>
+                        <outletCollection property="arrayOfImagesCardsOnTheTable" destination="AFS-G6-PBE" id="461-ym-1GQ"/>
+                        <outletCollection property="arrayOfImagesCardsOnTheTable" destination="gUF-l9-loF" id="Naw-1s-x7R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbI-eU-Yx4" userLabel="First Responder" sceneMemberID="firstResponder"/>
