@@ -417,6 +417,66 @@
                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="gUF-l9-loF">
                                 <rect key="frame" x="576" y="284" width="44" height="64"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="re0-sH-DoA">
+                                <rect key="frame" x="442" y="479" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="6fm-8e-Iwx">
+                                <rect key="frame" x="459" y="479" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="hf0-8L-8aA">
+                                <rect key="frame" x="275" y="447" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="HoW-T1-m7i">
+                                <rect key="frame" x="290" y="447" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="L8C-X4-edU">
+                                <rect key="frame" x="188" y="274" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="jge-zb-rX0">
+                                <rect key="frame" x="203" y="274" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="fIO-4y-TRx">
+                                <rect key="frame" x="275" y="129" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="7JE-sB-ZHf">
+                                <rect key="frame" x="290" y="129" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="iii-p2-PtS">
+                                <rect key="frame" x="442" y="92" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="2co-bG-Vnz">
+                                <rect key="frame" x="459" y="92" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="cJb-QU-6c2">
+                                <rect key="frame" x="673" y="92" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="Kgk-Ts-Cg8">
+                                <rect key="frame" x="691" y="92" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="xSr-Ab-ZoO">
+                                <rect key="frame" x="691" y="173" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="20i-ii-uU8">
+                                <rect key="frame" x="713" y="173" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="XUP-eS-lvP">
+                                <rect key="frame" x="753" y="274" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="BnJ-sX-0fB">
+                                <rect key="frame" x="773" y="274" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="cxF-sG-ZEO">
+                                <rect key="frame" x="704" y="435" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="Jjh-Ot-iPc">
+                                <rect key="frame" x="542" y="463" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="hxy-c5-z86">
+                                <rect key="frame" x="720" y="435" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="889-4f-BJ6">
+                                <rect key="frame" x="528" y="463" width="44" height="64"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -456,6 +516,26 @@
                         <outletCollection property="arrayOfImagesCardsOnTheTable" destination="NM0-OS-l74" id="PpR-1p-RDT"/>
                         <outletCollection property="arrayOfImagesCardsOnTheTable" destination="AFS-G6-PBE" id="461-ym-1GQ"/>
                         <outletCollection property="arrayOfImagesCardsOnTheTable" destination="gUF-l9-loF" id="Naw-1s-x7R"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="6fm-8e-Iwx" id="dkh-Rl-TpK"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="re0-sH-DoA" id="bIv-je-8jV"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="HoW-T1-m7i" id="0jV-Cm-jXl"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="hf0-8L-8aA" id="2BR-81-xE5"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="jge-zb-rX0" id="mZ7-aR-857"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="L8C-X4-edU" id="rxW-5B-KEc"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="7JE-sB-ZHf" id="AQU-5S-DW6"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="fIO-4y-TRx" id="wHi-8z-VqC"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="2co-bG-Vnz" id="ZKJ-7J-oPA"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="iii-p2-PtS" id="eB3-Qr-y41"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="Kgk-Ts-Cg8" id="yKJ-4z-OOw"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="cJb-QU-6c2" id="978-IV-yJt"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="20i-ii-uU8" id="RcA-Kh-wf0"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="xSr-Ab-ZoO" id="35i-72-RAh"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="BnJ-sX-0fB" id="hUE-qF-h8E"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="XUP-eS-lvP" id="YbW-p4-gIq"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="hxy-c5-z86" id="WyA-j0-9af"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="cxF-sG-ZEO" id="tbq-TQ-b7k"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="Jjh-Ot-iPc" id="EAG-Qi-6Y1"/>
+                        <outletCollection property="arrayOfImagesPrivatePlayersCard" destination="889-4f-BJ6" id="QaW-ft-oFM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbI-eU-Yx4" userLabel="First Responder" sceneMemberID="firstResponder"/>
