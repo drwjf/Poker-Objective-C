@@ -13,13 +13,17 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfPlayersImages;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersMoneys;
+
+
+
 //@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfPlayersImages;
 //@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersNames;
 //@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersMoney;
 //@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersBet;
 //@property (strong, nonatomic) IBOutletCollection(EAColourfulProgressView) NSArray *arrayOfProgressBarPlayers;
 //@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesCardOnTheTable;
-//
+
 //@property (weak, nonatomic) IBOutlet UILabel *labelOfMoneyOnTheTAble;
 
 @end
