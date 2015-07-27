@@ -49,23 +49,6 @@
     [_playButton.layer setMasksToBounds:YES];
     [_playButton.layer setCornerRadius:50];
     
-    [_rulesOfPokerTextView.layer setMasksToBounds:YES];
-    [_rulesOfPokerTextView.layer setCornerRadius:20];
-    
-    [_gamerMoneyLabel.layer setMasksToBounds:YES];
-    [_gamerMoneyLabel.layer setCornerRadius:10];
-    
-    [_gamersLevel.layer setMasksToBounds:YES];
-    [_gamersLevel.layer setCornerRadius:10];
-    
-    [_enableAccelerometerLabel.layer setMasksToBounds:YES];
-    [_enableAccelerometerLabel.layer setCornerRadius:10];
-    
-    [_sendMessageButton.layer setMasksToBounds:YES];
-    [_sendMessageButton.layer setCornerRadius:20];
-    
-    [_imageOfGamer.layer setMasksToBounds:YES];
-    [_imageOfGamer.layer setCornerRadius:10];
 }
 
 - (IBAction)sendMessageClick:(id)sender {
@@ -175,6 +158,7 @@
         
         NSString *gamerMoney = [[NSString alloc ] initWithFormat:@"Money : %@ $", [userDefaults objectForKey:@"money"]];
         [_gamerMoneyLabel setText:gamerMoney];
+        
         
         NSString *gamLevel = [[NSString alloc] initWithFormat:@"Level : %@", [userDefaults objectForKey:@"level"]];
         [_gamersLevel setText:gamLevel];
