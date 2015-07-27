@@ -204,9 +204,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-uB-rEs">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="633"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tableWithStavki" translatesAutoresizingMaskIntoConstraints="NO" id="EMu-l9-weP">
-                                <rect key="frame" x="686" y="633" width="338" height="135"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" text="GAME" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
                                 <rect key="frame" x="0.0" y="633" width="421" height="135"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -220,9 +217,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzn-19-qPI">
-                                <rect key="frame" x="420" y="633" width="122" height="135"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="cQ9-jx-a3h">
                                 <rect key="frame" x="350" y="426" width="94" height="128"/>
                             </imageView>
@@ -476,6 +470,9 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="889-4f-BJ6">
                                 <rect key="frame" x="528" y="463" width="44" height="64"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fishki" translatesAutoresizingMaskIntoConstraints="NO" id="EMu-l9-weP">
+                                <rect key="frame" x="420" y="633" width="604" height="135"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1511,6 +1508,7 @@
         <image name="background" width="1562" height="1217"/>
         <image name="casinoRoyal" width="680" height="320"/>
         <image name="defaultImage" width="400" height="400"/>
+        <image name="fishki" width="521" height="291"/>
         <image name="photoLog" width="183" height="165"/>
         <image name="pokerHandCombination.gif" width="500" height="718"/>
         <image name="pokeristka" width="700" height="350"/>
