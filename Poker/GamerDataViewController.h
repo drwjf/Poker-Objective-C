@@ -10,8 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "ConnectionToServer.h"
 
-@interface GamerDataViewController : UIViewController <AVAudioPlayerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface GamerDataViewController : UIViewController <AVAudioPlayerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMailComposeViewControllerDelegate, ConnectionToServerDelegateForGamerDataVC>
 
 @property (strong, nonatomic) IBOutlet UITextField *gamerName;
 

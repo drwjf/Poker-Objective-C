@@ -7,7 +7,6 @@
 //
 
 #import "GamerDataViewController.h"
-#import "ConnectionToServer.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>

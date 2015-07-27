@@ -22,14 +22,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesPrivatePlayersCard;
 
 @property (nonatomic) int countOfPlayersOnTheTable;
-//@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfPlayersImages;
-//@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersNames;
-//@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersMoney;
-//@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersBet;
-//@property (strong, nonatomic) IBOutletCollection(EAColourfulProgressView) NSArray *arrayOfProgressBarPlayers;
-//@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesCardOnTheTable;
 
-//@property (weak, nonatomic) IBOutlet UILabel *labelOfMoneyOnTheTAble;
 
 
 @end
@@ -95,15 +88,22 @@
     }
 }
 
-#define CORNER_RADIUS_CARD 3
+#define CORNER_RADIUS_CARD 4
 
 - (void)changeCornerRadiusOfCards: (int)countOfPlayers
 {
     for(UIImageView *cardOnTheTable in self.arrayOfImagesCardsOnTheTable)
         [self setCornerRadius:cardOnTheTable andRadius:CORNER_RADIUS_CARD];
     
-    for (int i=0; i<countOfPlayers; i++)
-        [self setCornerRadius:[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i*2] andRadius:CORNER_RADIUS_CARD];
+    for (int i=0; i < countOfPlayers * 2; i += 2) {
+        [self setCornerRadius:[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i] andRadius:CORNER_RADIUS_CARD];
+        [self setCornerRadius:[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i+1] andRadius:CORNER_RADIUS_CARD];
+    }
+    
+}
+
+- (void)parseMessageFromServer {
+    
 }
 
 

@@ -14,18 +14,20 @@
 
 @protocol ConnectionToServerDelegateForPlayGameVC
 
--(void)updateInfo;
--(void)accept;
--(void)updateInfoAboutPlayer;
--(void)returnOnPreviusView;
--(void)waitingResponseFromServer;
--(void)getCards;
--(void)waitingResponseFromServerAboutGameStatus;
--(void)parseServerResponse:(NSString*)string;
--(void)showNextCard:(int)numberInArray;
--(void)parseServerResponseAboutWinner;
--(void)gettingBestCombination;
--(void)gettingWinnerGamerTwoCard;
+- (void)parseMessageFromServer;
+
+//-(void)updateInfo;
+//-(void)accept;
+//-(void)updateInfoAboutPlayer;
+//-(void)returnOnPreviusView;
+//-(void)waitingResponseFromServer;
+//-(void)getCards;
+//-(void)waitingResponseFromServerAboutGameStatus;
+//-(void)parseServerResponse:(NSString*)string;
+//-(void)showNextCard:(int)numberInArray;
+//-(void)parseServerResponseAboutWinner;
+//-(void)gettingBestCombination;
+//-(void)gettingWinnerGamerTwoCard;
 
 -(void)connected;
 @end

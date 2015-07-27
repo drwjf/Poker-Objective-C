@@ -136,6 +136,7 @@ static ConnectionToServer *mySinglConnection = nil;
         case GET_ACCEPT:
             [self.delegateForGamerVC segueToGeneralViewController];
             
+            break;
         default:
             break;
     }

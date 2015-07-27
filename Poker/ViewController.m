@@ -24,8 +24,6 @@
     _portTextField.text = @"9999";
     
 #if !(TARGET_IPHONE_SIMULATOR)
-    [[UIAccelerometer sharedAccelerometer]setDelegate:self];
-    
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
     [[SoundManager sharedManager] playSound:@"JamesBond" looping:NO];
