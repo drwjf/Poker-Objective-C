@@ -45,8 +45,6 @@
 }
 
 -(void)setViewParameters {
-    [_gamerMoneyLabel setAttributedText:[self attributedStringForGamerMoney]];
-    [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
     
     [_playButton.layer setMasksToBounds:YES];
     [_playButton.layer setCornerRadius:50];
@@ -165,21 +163,37 @@
     }
 }
 
+#define DEFAULT_LENGTH 8
+#define DEFAULT_SIZE 30
+
+- (int)sizeForAttributedTextGamerMoney{
+    int length = [[self getPlayersMoney] length];
+    return (DEFAULT_SIZE - 2*(length - DEFAULT_LENGTH));
+}
+
 
 - (NSAttributedString *)attributedStringForGamerMoney {
     UIColor *darkGreen = [UIColor colorWithRed:0.0 green:107.0f / 255.0f blue:41.0f / 255.0f alpha:1.0];
-
+    
+    
     NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:[self prepareGamerMoneyBeforeRendering] attributes:@{
-         NSFontAttributeName : [UIFont systemFontOfSize:30.0],
+         NSFontAttributeName : [UIFont systemFontOfSize: [self sizeForAttributedTextGamerMoney]],
          NSForegroundColorAttributeName : [UIColor greenColor],
          NSStrokeWidthAttributeName : @-5,
          NSStrokeColorAttributeName : darkGreen,
          NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone)                                                                                                          }];
     return attribString;
 }
-
 - (NSAttributedString *)attributedStringForGamerLevel {
-    return [NSAttributedString new];
+    UIColor *darkBlue = [UIColor colorWithRed:51.0f/255.0f green:102.0f/255.0f blue:153.0f/255.0f alpha:1.0f];
+    NSString *gamerLevelString = [NSString stringWithFormat:@"Level: %@", [self getPlayersLevel]];
+    NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:gamerLevelString attributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize:30.0],
+            NSForegroundColorAttributeName : [UIColor blueColor],
+            NSStrokeWidthAttributeName : @-5,
+            NSStrokeColorAttributeName : darkBlue,
+            NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone)                                                                                                          }];
+    return attribString;
 }
 
 
@@ -205,31 +219,18 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *result = [userDefaults objectForKey:@"name"];
-    [userDefaults setInteger:18939990 forKey:@"money"];
+    [userDefaults setInteger:1893999000 forKey:@"money"];
    
-    if([result length]) {
-        NSString *gamerLevel = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:@"level"]];
-        int level = [gamerLevel intValue];
-        level++;
-        [userDefaults setInteger:level forKey:@"level"];
-        
-        
-        _gamerName.text = [userDefaults objectForKey:@"name"];
-        
-        NSString *gamerMoney = [[NSString alloc ] initWithFormat:@"Money : %@ $", [userDefaults objectForKey:@"money"]];
-        [_gamerMoneyLabel setText:gamerMoney];
-        
-        
-        NSString *gamLevel = [[NSString alloc] initWithFormat:@"Level : %@", [userDefaults objectForKey:@"level"]];
-        [_gamersLevel setText:gamLevel];
-        
-    } else {
+    if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
         [userDefaults setInteger:100000 forKey:@"money"];
         [userDefaults setInteger:0 forKey:@"level"];
         [userDefaults setObject:@"defaultImage.jpg" forKey:@"image"];
         [userDefaults synchronize];
     }
+    
+    [_gamerMoneyLabel setAttributedText:[self attributedStringForGamerMoney]];
+    [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
 }
 
 
