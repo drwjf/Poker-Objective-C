@@ -16,17 +16,12 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *gamerName;
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageOfGamer;
-
 @property (strong, nonatomic) IBOutlet UILabel *gamerMoneyLabel;
 @property (strong, nonatomic) IBOutlet UILabel *gamersLevel;
 
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UITextView *rulesOfPokerTextView;
-@property (strong, nonatomic) IBOutlet UILabel *enableAccelerometerLabel;
 @property (strong, nonatomic) IBOutlet UISwitch *enableAcceslerometerSwitcher;
-
-@property (strong, nonatomic) IBOutlet UIButton *sendMessageButton;
 
 
 @property(nonatomic,strong)AVAudioPlayer *audioPlayer;

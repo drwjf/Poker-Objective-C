@@ -11,10 +11,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "PlayGameViewController.h"
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
-//#import <FBSDKShareKit/FBSDKShareKit.h>
-
 
 #define GET_INVITE_TO_THE_GAME 0
 #define GET_ACCEPT 1
@@ -25,7 +21,10 @@
 
 -(void)checkDefaultParameters;
 @property(nonatomic,strong)UIImage *buffImage;
--(void)createEmail;
+//-(void)createEmail;
+@property (weak, nonatomic) IBOutlet UILabel *annotationAboutAccelerometerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *imageOfPlayerButton;
+
 
 @end
 
@@ -46,6 +45,9 @@
 }
 
 -(void)setViewParameters {
+    [_gamerMoneyLabel setAttributedText:[self attributedStringForGamerMoney]];
+    [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
+    
     [_playButton.layer setMasksToBounds:YES];
     [_playButton.layer setCornerRadius:50];
     
@@ -142,10 +144,68 @@
     [connection sendDataWithTag:[self createJSONRequestAboutInvitationInGame] andTag:GET_INVITE_TO_THE_GAME];
 }
 
+- (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
+
+- (IBAction)pickImageForGamer {
+#if (TARGET_IPHONE_SIMULATOR)
+    return;
+#endif
+    
+    if([self isPhotoLibraryAvaible]) {
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+        
+        if([self canUserPickPhotosFromThotoLibrary]) {
+            [mediaTypes addObject:(__bridge NSString*)kUTTypeImage];
+        }
+        controller.mediaTypes = mediaTypes;
+        controller.delegate = self;
+        [self.navigationController presentModalViewController:controller animated:YES];
+    }
+}
+
+
+- (NSAttributedString *)attributedStringForGamerMoney {
+    UIColor *darkGreen = [UIColor colorWithRed:0.0 green:107.0f / 255.0f blue:41.0f / 255.0f alpha:1.0];
+
+    NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:[self prepareGamerMoneyBeforeRendering] attributes:@{
+         NSFontAttributeName : [UIFont systemFontOfSize:30.0],
+         NSForegroundColorAttributeName : [UIColor greenColor],
+         NSStrokeWidthAttributeName : @-5,
+         NSStrokeColorAttributeName : darkGreen,
+         NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone)                                                                                                          }];
+    return attribString;
+}
+
+- (NSAttributedString *)attributedStringForGamerLevel {
+    return [NSAttributedString new];
+}
+
+
+#define LENGTH_DISCHARGE_THOUSANDS 3
+
+- (NSString *)prepareGamerMoneyBeforeRendering {
+    NSString *resultString = @"Money: $";
+    NSString *gamerMoney = [self getPlayersMoney];
+    
+    int countOfFirstNumbers = [gamerMoney length] % LENGTH_DISCHARGE_THOUSANDS;
+    
+    resultString = [resultString stringByAppendingString:[gamerMoney substringWithRange:NSMakeRange(0, countOfFirstNumbers)]];
+
+    for(int i=countOfFirstNumbers; i < [gamerMoney length]; i+=LENGTH_DISCHARGE_THOUSANDS) {
+        NSString *partOfString = [NSString stringWithFormat:@" %@", [gamerMoney substringWithRange:NSMakeRange(i, LENGTH_DISCHARGE_THOUSANDS)]];
+        resultString = [resultString stringByAppendingString:partOfString];
+    }
+        return resultString;
+}
+
+
 -(void)checkDefaultParameters{
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *result = [userDefaults objectForKey:@"name"];
+    [userDefaults setInteger:18939990 forKey:@"money"];
    
     if([result length]) {
         NSString *gamerLevel = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:@"level"]];
@@ -191,37 +251,7 @@
     return [userDefaults objectForKey:@"name"];
 }
 
-//-(NSString*)returnIntValueFromId:(NSString*)key {
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *outStr = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:key]];
-//    
-//    return outStr;
-//}
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    #if (TARGET_IPHONE_SIMULATOR)
-        return;
-    #endif
-    
-    NSSet *allTouches = [event allTouches];
-    UITouch *touch = [[allTouches allObjects] objectAtIndex:0];
-    
-
-    if(touch.view == self.imageOfGamer) {
-        if([self isPhotoLibraryAvaible]) {
-            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            
-            if([self canUserPickPhotosFromThotoLibrary]) {
-                [mediaTypes addObject:(__bridge NSString*)kUTTypeImage];
-            }
-            controller.mediaTypes = mediaTypes;
-            controller.delegate = self;
-            [self.navigationController presentModalViewController:controller animated:YES];
-        }   
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -333,8 +363,11 @@
     if([mediaType isEqualToString:(__bridge NSString*)kUTTypeImage]) {
         UIImage *theImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         _buffImage = theImage;
-        [_imageOfGamer setImage:theImage];
-        [_imageOfGamer reloadInputViews];
+        [self.imageOfPlayerButton setBackgroundImage:theImage forState:UIControlStateNormal];
+        
+        [self.imageOfPlayerButton reloadInputViews];
+        //[_imageOfGamer setImage:theImage];;
+        //[_imageOfGamer reloadInputViews];
     }
 }
 -(BOOL)isPhotoLibraryAvaible {
