@@ -42,7 +42,6 @@
 		84AF6F1B1AE5951900490757 /* PokerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F1A1AE5951900490757 /* PokerTests.m */; };
 		84B02CDE1AE61B4B00625200 /* Extensions in Resources */ = {isa = PBXBuildFile; fileRef = 84B02CD81AE61B4B00625200 /* Extensions */; };
 		84B2E1FD1AE7C404002057A4 /* GamerDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B2E1FC1AE7C404002057A4 /* GamerDataViewController.m */; };
-		84C595FA1B6971970074A2BC /* BGGameTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C595F91B6971970074A2BC /* BGGameTimer.m */; };
 		84D047691B0ED3E4008672DA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D047681B0ED3E4008672DA /* MobileCoreServices.framework */; };
 		84D9F3911B0188F3004947AD /* AnimationOnTheTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */; };
 		84DB00131B21C99F00889451 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DB00121B21C99F00889451 /* SoundManager.m */; };
@@ -116,8 +115,6 @@
 		84B02CD81AE61B4B00625200 /* Extensions */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Extensions; sourceTree = "<group>"; };
 		84B2E1FB1AE7C404002057A4 /* GamerDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamerDataViewController.h; sourceTree = "<group>"; };
 		84B2E1FC1AE7C404002057A4 /* GamerDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamerDataViewController.m; sourceTree = "<group>"; };
-		84C595F81B6971970074A2BC /* BGGameTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGGameTimer.h; sourceTree = "<group>"; };
-		84C595F91B6971970074A2BC /* BGGameTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGGameTimer.m; sourceTree = "<group>"; };
 		84D047681B0ED3E4008672DA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationOnTheTable.m; sourceTree = "<group>"; };
 		84DB00111B21C99F00889451 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
@@ -230,7 +227,6 @@
 				841C27361B64136E00E149FC /* GCDAsyncSocket */,
 				84DB00101B21C99E00889451 /* SoundManager */,
 				847EE2F31B1A62A20002BAE8 /* Frameworks */,
-				84C595F71B6971970074A2BC /* TimerViewLibrary */,
 				84AF6EFD1AE5951800490757 /* Poker */,
 				84AF6F171AE5951900490757 /* PokerTests */,
 				84AF6EFC1AE5951800490757 /* Products */,
@@ -299,16 +295,6 @@
 				84AF6F191AE5951900490757 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		84C595F71B6971970074A2BC /* TimerViewLibrary */ = {
-			isa = PBXGroup;
-			children = (
-				84C595F81B6971970074A2BC /* BGGameTimer.h */,
-				84C595F91B6971970074A2BC /* BGGameTimer.m */,
-			);
-			name = TimerViewLibrary;
-			path = Poker/TimerViewLibrary;
 			sourceTree = "<group>";
 		};
 		84DB00101B21C99E00889451 /* SoundManager */ = {
@@ -442,7 +428,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84C595FA1B6971970074A2BC /* BGGameTimer.m in Sources */,
 				841C27491B64136E00E149FC /* GCDAsyncSocket.m in Sources */,
 				841C27471B64136E00E149FC /* DDLog.m in Sources */,
 				84AF6F071AE5951800490757 /* ViewController.m in Sources */,

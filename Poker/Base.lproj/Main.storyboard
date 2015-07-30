@@ -54,10 +54,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pokeristka" translatesAutoresizingMaskIntoConstraints="NO" id="YxS-4J-Ekq">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="508"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U5S-ek-niv" customClass="BGGameTimer">
-                                <rect key="frame" x="744" y="540" width="210" height="135"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

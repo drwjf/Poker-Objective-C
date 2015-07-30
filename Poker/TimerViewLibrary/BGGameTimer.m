@@ -42,7 +42,7 @@
     [arc addArcWithCenter:center radius:radius startAngle:starttime endAngle:endtime clockwise:YES]; //add the arc
     [arc addLineToPoint:center]; //back to center
     
-    [DEFAULT_BACKGROUND_COLOR_FOR_GAME_VIEW_CONTROLLER set];
+    //[DEFAULT_BACKGROUND_COLOR_FOR_GAME_VIEW_CONTROLLER set];
     [arc fill];
     
 }
