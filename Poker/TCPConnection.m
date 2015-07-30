@@ -1,12 +1,13 @@
 //
-//  ConnectionToServer.m
+//  TCPConnection.m
 //  Poker
 //
-//  Created by Admin on 03.05.15.
+//  Created by Admin on 30.07.15.
 //  Copyright (c) 2015 by.bsuir.eLearning. All rights reserved.
 //
 
-#import "ConnectionToServer.h"
+#import "TCPConnection.h"
+
 
 
 #define GET_INVITE_TO_THE_GAME 0
@@ -19,12 +20,13 @@
 
 #define MAX_DURATION_OF_PARTY 1080
 
-@implementation ConnectionToServer
-
-
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
-static ConnectionToServer *mySinglConnection = nil;
+
+@implementation TCPConnection
+
+
+static TCPConnection *singlTCPConnection = nil;
 
 -(id)init{
     self = [super init];
@@ -37,13 +39,13 @@ static ConnectionToServer *mySinglConnection = nil;
     return self;
 }
 
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
     @synchronized(self) {
-        if(mySinglConnection == nil) {
-            mySinglConnection = [[ConnectionToServer alloc] init];
+        if(singlTCPConnection == nil) {
+            singlTCPConnection = [[TCPConnection alloc] init];
         }
     }
-    return mySinglConnection;
+    return singlTCPConnection;
 }
 
 
@@ -58,16 +60,16 @@ static ConnectionToServer *mySinglConnection = nil;
 
 //-------------------RECEIVING-----------------------------------------
 -(void)readDataWithTag:(int)tag {
-        NSLog(@"%@, tag : %d", THIS_METHOD, tag);
-        NSMutableData *myData = [[NSMutableData alloc] init];
-        [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
+    NSLog(@"%@, tag : %d", THIS_METHOD, tag);
+    NSMutableData *myData = [[NSMutableData alloc] init];
+    [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
 }
 
 
 -(void)readDataWithTagLongTime:(int)tag andDurationWaiting:(int)duration {
-        NSLog(@"%@, tag : %d", THIS_METHOD, tag);
-        NSMutableData *myData = [[NSMutableData alloc] init];
-        [_asyncSocket readDataWithTimeout:duration buffer:myData bufferOffset:0 tag:tag];
+    NSLog(@"%@, tag : %d", THIS_METHOD, tag);
+    NSMutableData *myData = [[NSMutableData alloc] init];
+    [_asyncSocket readDataWithTimeout:duration buffer:myData bufferOffset:0 tag:tag];
 }
 //----------------------------------------------------------------------
 
@@ -153,6 +155,10 @@ static ConnectionToServer *mySinglConnection = nil;
             [self.delegateForGamerVC parseResponseFromServer];
             break;
             
+        case GET_INFO_ABOUT_GAMERS:
+            [self.delegateForPlayGameVC parseInformationAboutGamers];
+            break;
+            
         default:
             break;
     }
@@ -167,6 +173,7 @@ static ConnectionToServer *mySinglConnection = nil;
     _isConnected = NO;
     [self.delegateForRootVC returnOnPreviusView];
 }
+
 
 
 

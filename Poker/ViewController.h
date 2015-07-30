@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GCDAsyncSocket.h"
 #import <AVFoundation/AVFoundation.h>
-#import "ConnectionToServer.h"
+#import "TCPConnection.h"
 
 @interface ViewController : UIViewController <AVAudioPlayerDelegate, ConnectionToServerDelegateForRootVC>
 

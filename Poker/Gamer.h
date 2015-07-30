@@ -17,7 +17,6 @@
 @property(nonatomic,strong)NSString* name;
 @property(nonatomic)int level;
 @property(nonatomic)int money;
-@property(nonatomic,strong)NSString* image;
 
 @property(nonatomic,strong)NSString *ipAddress;
 @property(nonatomic)int port;
@@ -25,10 +24,10 @@
 @property(nonatomic)int rate;
 @property(nonatomic)BOOL isGamed;
 
-
-@property(nonatomic,strong)UIImageView *firstCard;
+@property(nonatomic,strong)UIImageView *firstCard; //?
 @property(nonatomic,strong)UIImageView *secondCard;
 
--(id)initWithInfo:(NSString*)name andMoney:(int)money andLevel:(int)level;
+- (instancetype)initWithInfo:(NSString*)name andMoney:(int)money andLevel:(int)level;
+- (void)setFurtherNetInformation:(NSString *)ipAddress andPort:(int)port;
 
 @end

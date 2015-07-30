@@ -8,18 +8,22 @@
 
 #import "PlayGameViewController.h"
 #import "EAColourfulProgressView.h"
+#import "Gamer.h"
+
+//---tags----
+#define GET_INFO_ABOUT_GAMERS 3
+
+//---tags----
 
 @interface PlayGameViewController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfPlayersImages;
-
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersMoneys;
-
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersNames;
-
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesCardsOnTheTable;
-
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesPrivatePlayersCard;
+
+@property(nonatomic, strong) NSMutableArray *arrayOfPlayersOnTheTable;
 
 @property (nonatomic) int countOfPlayersOnTheTable;
 
@@ -32,16 +36,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self changeCornerRadiusOfPlayersViews:10];
-    [self rotateRightPrivateCardOfPlayers:10];
-    [self changeCornerRadiusOfCards:10];
+//    [self changeCornerRadiusOfPlayersViews:10];
+//    [self rotateRightPrivateCardOfPlayers:10];
+//    [self changeCornerRadiusOfCards:10];
+    [self readInformationAboutGamersOnTheTable];
+}
+
+- (void)readInformationAboutGamersOnTheTable {
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    connection.delegateForPlayGameVC = self;
+    [connection readDataWithTag:GET_INFO_ABOUT_GAMERS];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self prepareBeforeGameProcess];
 }
+
+- (void)prepareBeforeGameProcess {
+    [self clearTable];
+    self.countOfPlayersOnTheTable = 0;
+}
+
 
 
 - (void)clearTable
@@ -53,7 +70,6 @@
     for(UIImageView *privateCardImage in self.arrayOfImagesPrivatePlayersCard) [privateCardImage setAlpha:0.0];
 }
 
-#define ANGLE_PI_devided_4 0.19625
 
 - (void)rotateRightPrivateCardOfPlayers: (int)countOfPlayers
 {
@@ -61,7 +77,7 @@
     
     for(int i=0; i<countOfPlayers; i++) {
         card = [_arrayOfImagesPrivatePlayersCard objectAtIndex:i*2];
-        card.transform = CGAffineTransformRotate(card.transform, ANGLE_PI_devided_4);
+        card.transform = CGAffineTransformRotate(card.transform, M_PI_4/4);
     }
 }
 
@@ -102,8 +118,85 @@
     
 }
 
+- (NSDictionary *)convertToJSON:(NSData *)data {
+    NSError *error = nil;
+    id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    
+    if(error) {
+        NSLog(@"Error of NSJSONSerialization !");
+    }
+    
+    if([object isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = object;
+        return dictionary;
+    } else { return nil; }
+}
+
 - (void)parseMessageFromServer {
     
+}
+
+- (void)parseInformationAboutGamers {
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connection.downloadedData]];
+    
+    if(!dictionary) {
+        NSLog(@"Downloaded data isn't a JSON !");
+        return;
+    }
+  //  NSString *title = [NSString stringWithString:dictionary[@"title"]];
+    NSString *infoAboutAmountGamer = dictionary[@"countOfGamers"];
+    
+    self.countOfPlayersOnTheTable =[infoAboutAmountGamer intValue];
+    
+    
+    for (int i=0; i<self.countOfPlayersOnTheTable; i++) {
+        NSString *gamerOfNumber = [NSString stringWithFormat:@"gamer%i", i+1];
+        NSDictionary *generalInfoAboutGamer = [NSDictionary dictionaryWithDictionary:dictionary[gamerOfNumber]];
+        [self addPlayerOnTheTable:generalInfoAboutGamer];
+    }
+    
+    [self changeCornerRadiusOfCards:self.countOfPlayersOnTheTable];
+    [self changeCornerRadiusOfPlayersViews:self.countOfPlayersOnTheTable];
+    [self renderingPlayersOnTheTable];
+}
+
+- (void)renderingPlayersOnTheTable {
+    int numberOfPlayer = 0;
+    for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
+        UILabel *gamerName = [self.arrayOfLabelsPlayersNames objectAtIndex:numberOfPlayer];
+        UILabel *gamerMoney = [self.arrayOfLabelsPlayersMoneys objectAtIndex:numberOfPlayer];
+        UIImageView *gamerImage = [self.arrayOfPlayersImages objectAtIndex:numberOfPlayer];
+        
+        gamerName.text = gamer.name;
+        gamerMoney.text = [NSString stringWithFormat:@"$%i", gamer.money];
+        
+        [gamerName  setAlpha:1.0];
+        [gamerMoney setAlpha:1.0];
+        [gamerImage setAlpha:1.0];
+        
+        numberOfPlayer++;
+    }
+}
+
+- (void)addPlayerOnTheTable:(NSDictionary *)generalInfoAboutGamer
+{
+    
+    if(!self.arrayOfPlayersOnTheTable)
+        self.arrayOfPlayersOnTheTable = [[NSMutableArray alloc] init];
+    
+    NSDictionary *netInfoAboutGamer = [NSDictionary dictionaryWithDictionary:generalInfoAboutGamer[@"netInformation"]];
+    
+    NSString *gamerName = generalInfoAboutGamer[@"name"];
+    NSString *gamerMoney = generalInfoAboutGamer[@"money"];
+    NSString *gamerLevel = generalInfoAboutGamer[@"name"];
+    NSString *IpAddressOfGamer = netInfoAboutGamer[@"ipAddress"];
+    NSString *portOfGamer = netInfoAboutGamer[@"port"];
+    
+    Gamer *gamer = [[Gamer alloc] initWithInfo:gamerName andMoney:[gamerMoney intValue] andLevel:[gamerLevel intValue]];
+    [gamer setFurtherNetInformation:IpAddressOfGamer andPort:[portOfGamer intValue]];
+    
+    [self.arrayOfPlayersOnTheTable addObject:gamer];
 }
 
 

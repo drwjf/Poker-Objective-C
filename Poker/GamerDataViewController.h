@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import "ConnectionToServer.h"
+#import "TCPConnection.h"
 
 @interface GamerDataViewController : UIViewController <AVAudioPlayerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MFMailComposeViewControllerDelegate, ConnectionToServerDelegateForGamerDataVC>
 

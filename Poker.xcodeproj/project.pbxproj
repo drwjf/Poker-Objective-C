@@ -32,7 +32,6 @@
 		8476E52A1B1D82F40010B984 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8476E43B1B1D82F00010B984 /* LICENSE */; };
 		8476E52B1B1D82F40010B984 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8476E43C1B1D82F00010B984 /* README.txt */; };
 		847EE2F21B1A62910002BAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847EE2F11B1A62910002BAE8 /* MessageUI.framework */; };
-		84ABCB711AF5FFB300AEFDB5 /* ConnectionToServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ABCB701AF5FFB300AEFDB5 /* ConnectionToServer.m */; };
 		84AF6F011AE5951800490757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F001AE5951800490757 /* main.m */; };
 		84AF6F041AE5951800490757 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F031AE5951800490757 /* AppDelegate.m */; };
 		84AF6F071AE5951800490757 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F061AE5951800490757 /* ViewController.m */; };
@@ -46,8 +45,11 @@
 		84D9F3911B0188F3004947AD /* AnimationOnTheTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */; };
 		84DB00131B21C99F00889451 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DB00121B21C99F00889451 /* SoundManager.m */; };
 		84DD60341B0BBC0100877D1F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DD60331B0BBC0100877D1F /* AVFoundation.framework */; };
+		84E14D5C1B6A955E008F776D /* UDPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E14D5B1B6A955E008F776D /* UDPConnection.m */; };
 		84E26BB01B1BD5B40029D903 /* screenshortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */; };
 		84E776A51B10DA2700917033 /* EAColourfulProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E776A41B10DA2700917033 /* EAColourfulProgressView.m */; };
+		84E929FD1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E929FC1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m */; };
+		84E92A001B6A9A6A00DA6B84 /* TCPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */; };
 		84EB9FB31B0E7614007FA579 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EB9FB21B0E7614007FA579 /* MediaPlayer.framework */; };
 		84FD67261AF9D90000F4F434 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FD67251AF9D90000F4F434 /* Gamer.m */; };
 /* End PBXBuildFile section */
@@ -97,8 +99,6 @@
 		8476E43C1B1D82F00010B984 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		847AABBC1AF8571F00A41642 /* AnimationOnTheTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationOnTheTable.h; sourceTree = "<group>"; };
 		847EE2F11B1A62910002BAE8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		84ABCB6F1AF5FFB300AEFDB5 /* ConnectionToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionToServer.h; sourceTree = "<group>"; };
-		84ABCB701AF5FFB300AEFDB5 /* ConnectionToServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionToServer.m; sourceTree = "<group>"; };
 		84AF6EFB1AE5951800490757 /* Poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AF6EFF1AE5951800490757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84AF6F001AE5951800490757 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,10 +120,16 @@
 		84DB00111B21C99F00889451 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		84DB00121B21C99F00889451 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		84DD60331B0BBC0100877D1F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		84E14D5A1B6A955E008F776D /* UDPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPConnection.h; sourceTree = "<group>"; };
+		84E14D5B1B6A955E008F776D /* UDPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPConnection.m; sourceTree = "<group>"; };
 		84E26BAE1B1BD5B40029D903 /* screenshortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = screenshortViewController.h; sourceTree = "<group>"; };
 		84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = screenshortViewController.m; sourceTree = "<group>"; };
 		84E776A31B10DA2700917033 /* EAColourfulProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAColourfulProgressView.h; sourceTree = "<group>"; };
 		84E776A41B10DA2700917033 /* EAColourfulProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAColourfulProgressView.m; sourceTree = "<group>"; };
+		84E929FB1B6A98E100DA6B84 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		84E929FC1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		84E929FE1B6A9A6A00DA6B84 /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
+		84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPConnection.m; sourceTree = "<group>"; };
 		84EB9FB21B0E7614007FA579 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		84FD67241AF9D90000F4F434 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gamer.h; sourceTree = "<group>"; };
 		84FD67251AF9D90000F4F434 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gamer.m; sourceTree = "<group>"; };
@@ -160,6 +166,8 @@
 		841C27361B64136E00E149FC /* GCDAsyncSocket */ = {
 			isa = PBXGroup;
 			children = (
+				84E929FB1B6A98E100DA6B84 /* GCDAsyncUdpSocket.h */,
+				84E929FC1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m */,
 				841C27371B64136E00E149FC /* DDAbstractDatabaseLogger.h */,
 				841C27381B64136E00E149FC /* DDAbstractDatabaseLogger.m */,
 				841C27391B64136E00E149FC /* DDASLLogger.h */,
@@ -256,8 +264,10 @@
 				841C275A1B64143000E149FC /* PlayGameViewController.m */,
 				847AABBC1AF8571F00A41642 /* AnimationOnTheTable.h */,
 				84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */,
-				84ABCB6F1AF5FFB300AEFDB5 /* ConnectionToServer.h */,
-				84ABCB701AF5FFB300AEFDB5 /* ConnectionToServer.m */,
+				84E14D5A1B6A955E008F776D /* UDPConnection.h */,
+				84E14D5B1B6A955E008F776D /* UDPConnection.m */,
+				84E929FE1B6A9A6A00DA6B84 /* TCPConnection.h */,
+				84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */,
 				84B2E1FB1AE7C404002057A4 /* GamerDataViewController.h */,
 				84B2E1FC1AE7C404002057A4 /* GamerDataViewController.m */,
 				84FD67241AF9D90000F4F434 /* Gamer.h */,
@@ -429,6 +439,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				841C27491B64136E00E149FC /* GCDAsyncSocket.m in Sources */,
+				84E92A001B6A9A6A00DA6B84 /* TCPConnection.m in Sources */,
+				84E14D5C1B6A955E008F776D /* UDPConnection.m in Sources */,
 				841C27471B64136E00E149FC /* DDLog.m in Sources */,
 				84AF6F071AE5951800490757 /* ViewController.m in Sources */,
 				841C27461B64136E00E149FC /* DDFileLogger.m in Sources */,
@@ -438,12 +450,12 @@
 				841C27481B64136E00E149FC /* DDTTYLogger.m in Sources */,
 				84D9F3911B0188F3004947AD /* AnimationOnTheTable.m in Sources */,
 				84B2E1FD1AE7C404002057A4 /* GamerDataViewController.m in Sources */,
+				84E929FD1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m in Sources */,
 				84E26BB01B1BD5B40029D903 /* screenshortViewController.m in Sources */,
 				84AF6F011AE5951800490757 /* main.m in Sources */,
 				841C27451B64136E00E149FC /* DDASLLogger.m in Sources */,
 				84E776A51B10DA2700917033 /* EAColourfulProgressView.m in Sources */,
 				84DB00131B21C99F00889451 /* SoundManager.m in Sources */,
-				84ABCB711AF5FFB300AEFDB5 /* ConnectionToServer.m in Sources */,
 				841C275B1B64143100E149FC /* PlayGameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

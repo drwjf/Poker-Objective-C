@@ -7,7 +7,6 @@
 //
 
 #import "AnimationOnTheTable.h"
-#import "ConnectionToServer.h"
 #import "EAColourfulProgressView.h"
 #import "screenshortViewController.h"
 #import "SoundManager.h"
@@ -137,7 +136,7 @@
     _numberOfCurrentGamer = 0;
     _bestPriority = -1;
     //---------set parameters
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+    //ConnectionToServer *connection = [ConnectionToServer sharedInstance];
     _isGameFinished = NO;
     //connection.delegate = self;
     _gamersArray = [NSMutableArray new];
@@ -337,9 +336,9 @@
 }
 
 -(void)getInfoAboutGamersOnTheTable {
-    ConnectionToServer * connection = [ConnectionToServer sharedInstance];
+    //ConnectionToServer * connection = [ConnectionToServer sharedInstance];
    // [connection sendData:@"GIVE_ME_COUNT_PLAYERS_ON_THE_TABLE"];
-    [connection readDataWithTagLongTime:GET_COUNT_GAMERS_ON_THE_TABLE andDurationWaiting:LONG_TIME_OUT*4];
+    //[connection readDataWithTagLongTime:GET_COUNT_GAMERS_ON_THE_TABLE andDurationWaiting:LONG_TIME_OUT*4];
 }
 
 - (IBAction)clickQual:(id)sender {
@@ -354,12 +353,12 @@
         
         NSString *bind = [[NSString alloc] initWithFormat:@"%d", _minRate];
         _minRate -= gamer.rate;
-        ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+       // ConnectionToServer *connect = [ConnectionToServer sharedInstance];
        // [connect sendData:bind];
         _isSendedRateToServer = !_isSendedRateToServer;
         [self updateGeneralGamerMoney];
         [self lockAllBetButtons];
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+      //  [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
     }
 }
 
@@ -403,7 +402,7 @@
         Gamer *gamer = [_gamersArray objectAtIndex:_numberOfGeneralGamer];
         if((gamer.rate - _minRate) != 0) return;
         
-        ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+     //   ConnectionToServer *connect = [ConnectionToServer sharedInstance];
         
             NSString *outStr = [[NSString alloc] initWithFormat:@"%d", _minRate];
          //   [connect sendData:outStr];
@@ -414,7 +413,7 @@
         [self lockAllBetButtons];
         [self playSound:@"Check"];
         
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+     //   [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
     }
 }
 
@@ -435,12 +434,12 @@
         NSString *bind = [[NSString alloc] initWithFormat:@"%d", temp];
         
         
-        ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+     //   ConnectionToServer *connect = [ConnectionToServer sharedInstance];
         //[connect sendData:bind];
         _isSendedRateToServer = !_isSendedRateToServer;
         [self updateGeneralGamerMoney];
         [self lockAllBetButtons];
-        [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
+     //   [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*4];
         
         _rateSlider.maximumValue = 0;
         _rateSlider.minimumValue = 0;
@@ -792,9 +791,9 @@
 }
 
 -(void)receiveRateFromServer{
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+  //  ConnectionToServer *connect = [ConnectionToServer sharedInstance];
     
-    [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*3];
+  //  [connect readDataWithTagLongTime:GET_RATE_FROM_SERVER andDurationWaiting:LONG_TIME_OUT*3];
 }
 
 
@@ -898,7 +897,7 @@
     [_arrayOfCardOnTheTable removeAllObjects];
     [_arrayBestCard removeAllObjects];
     [self stopCurrentProgressBar];
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+//    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
     //connect.numberOfAttribut = 0;
     [_gamersArray removeAllObjects];
     [self hideAllGamers];
@@ -925,7 +924,7 @@
 }
 
 -(void)gettingWinnerGamerTwoCard {
-    ConnectionToServer *connect= [ConnectionToServer sharedInstance];
+  //  ConnectionToServer *connect= [ConnectionToServer sharedInstance];
     
     
 //      [connect sendData:@"received"];
@@ -1086,16 +1085,16 @@
 //    }
 }
 
--(void)waitingResponseFromServer {
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
-    [connection readDataWithTagLongTime:GET_COUNT_GAMERS_ON_THE_TABLE andDurationWaiting:LONG_TIME_OUT];
-}
-
--(void)waitingResponseFromServerAboutGameStatus {
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
-    //[connection sendData:@"GIVE_ME_GAME_STATUS"];
-    [connection readDataWithTagLongTime:GET_GAME_STATUS andDurationWaiting:MAX_DURATION_OF_PARTY];
-}
+//-(void)waitingResponseFromServer {
+//    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+//    [connection readDataWithTagLongTime:GET_COUNT_GAMERS_ON_THE_TABLE andDurationWaiting:LONG_TIME_OUT];
+//}
+//
+//-(void)waitingResponseFromServerAboutGameStatus {
+//    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+//    //[connection sendData:@"GIVE_ME_GAME_STATUS"];
+//    [connection readDataWithTagLongTime:GET_GAME_STATUS andDurationWaiting:MAX_DURATION_OF_PARTY];
+//}
 
 
 //test method
@@ -1181,10 +1180,10 @@
 
 
 -(void)returnOnPreviusView {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
-    if(connect.isConnected != YES && _isFirstTryToConnect == YES) {
-        [connect connectToServer];
-    }
+//    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+//    if(connect.isConnected != YES && _isFirstTryToConnect == YES) {
+//        [connect connectToServer];
+//    }
     _isFirstTryToConnect = false;
     [self.navigationController popViewControllerAnimated:YES];
 }

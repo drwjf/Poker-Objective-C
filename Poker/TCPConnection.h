@@ -1,8 +1,8 @@
 //
-//  ConnectionToServer.h
+//  TCPConnection.h
 //  Poker
 //
-//  Created by Admin on 03.05.15.
+//  Created by Admin on 30.07.15.
 //  Copyright (c) 2015 by.bsuir.eLearning. All rights reserved.
 //
 
@@ -11,42 +11,26 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 
+#define GET_INFO_ABOUT_GAMERS 3
+
 
 @protocol ConnectionToServerDelegateForPlayGameVC
-
 - (void)parseMessageFromServer;
-
-//-(void)updateInfo;
-//-(void)accept;
-//-(void)updateInfoAboutPlayer;
-//-(void)returnOnPreviusView;
-//-(void)waitingResponseFromServer;
-//-(void)getCards;
-//-(void)waitingResponseFromServerAboutGameStatus;
-//-(void)parseServerResponse:(NSString*)string;
-//-(void)showNextCard:(int)numberInArray;
-//-(void)parseServerResponseAboutWinner;
-//-(void)gettingBestCombination;
-//-(void)gettingWinnerGamerTwoCard;
-
--(void)connected;
+- (void)parseInformationAboutGamers;
+- (void)connected;
 @end
 
 @protocol ConnectionToServerDelegateForGamerDataVC
-
 - (void)parseResponseFromServer;
 - (void)segueToGeneralViewController;
-
 @end
 
 @protocol ConnectionToServerDelegateForRootVC
-
--(void)connected;
--(void)returnOnPreviusView;
-
+- (void)connected;
+- (void)returnOnPreviusView;
 @end
 
-@interface ConnectionToServer : NSObject
+@interface TCPConnection : NSObject
 
 
 //------------------Technical feilds-------------------
@@ -76,5 +60,6 @@
 //-(void)receiveDataWithCompletionBlock:(void (^)(NSString *name))copmpletionsBlock;
 -(void)readDataWithTag:(int)tag;
 -(void)readDataWithTagLongTime:(int)tag andDurationWaiting:(int)duration;
+
 
 @end

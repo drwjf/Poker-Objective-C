@@ -32,7 +32,7 @@
 
 - (IBAction)connectClickButton:(id)sender {
  
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+    TCPConnection *connection = [TCPConnection sharedInstance];
     [connection setParameters:_ipAdressTextField.text andPort:_portTextField.text];
     connection.delegateForRootVC = self;
     [connection connectToServer];

@@ -153,7 +153,7 @@
 }
 
 - (IBAction)requestToInvitationInTheGame:(id)sender {
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+    TCPConnection *connection = [TCPConnection sharedInstance];
     connection.delegateForGamerVC = self;
 
     [connection sendDataWithTag:[self createJSONRequestAboutInvitationInGame] andTag:GET_INVITE_TO_THE_GAME];
@@ -301,7 +301,7 @@
 
 
 - (void)parseResponseFromServer {
-    ConnectionToServer *connect = [ConnectionToServer sharedInstance];
+    TCPConnection *connect = [TCPConnection sharedInstance];
     NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connect.downloadedData]];
     
     if(!dictionary) {
@@ -309,7 +309,15 @@
         return;
     }
     
-    NSString *title = [NSString stringWithString:dictionary[@"title"]];
+    NSString *title;
+    id data = dictionary[@"title"];
+    if(![data isKindOfClass:[NSString class]])
+    {
+        NSLog(@"error !");
+        return;
+    }
+
+    title = (NSString *)data;
     
     if([title isEqualToString:@"inviteToTheGame"]) {
         BOOL isInGame = (BOOL)dictionary[@"inGame"];
@@ -336,7 +344,7 @@
 
 - (void)sendInfoAboutPlayer
 {
-    ConnectionToServer *connection = [ConnectionToServer sharedInstance];
+    TCPConnection *connection = [TCPConnection sharedInstance];
     [connection sendDataWithTag:[self createJSONInformationAboutPlayer] andTag:GET_ACCEPT];
 }
 
