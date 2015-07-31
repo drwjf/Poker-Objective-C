@@ -145,10 +145,10 @@
         return;
     }
   //  NSString *title = [NSString stringWithString:dictionary[@"title"]];
-    NSString *infoAboutAmountGamer = dictionary[@"countOfGamers"];
-    
-    self.countOfPlayersOnTheTable =[infoAboutAmountGamer intValue];
-    
+    id data = dictionary[@"countOfGamers"];
+    if([data isKindOfClass:[NSNumber class]]) {
+        self.countOfPlayersOnTheTable =[(NSNumber *)data intValue];
+    }
     
     for (int i=0; i<self.countOfPlayersOnTheTable; i++) {
         NSString *gamerOfNumber = [NSString stringWithFormat:@"gamer%i", i+1];
@@ -178,6 +178,8 @@
         numberOfPlayer++;
     }
 }
+
+
 
 - (void)addPlayerOnTheTable:(NSDictionary *)generalInfoAboutGamer
 {

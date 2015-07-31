@@ -128,9 +128,6 @@ static TCPConnection *singlTCPConnection = nil;
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    if(tag == GET_INVITE_TO_THE_GAME) {
-        [self readDataWithTag:GET_INVITE_TO_THE_GAME];
-    }
     switch (tag) {
         case GET_INVITE_TO_THE_GAME:
             [self readDataWithTag:GET_INVITE_TO_THE_GAME];

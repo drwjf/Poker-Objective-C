@@ -157,6 +157,7 @@
     connection.delegateForGamerVC = self;
 
     [connection sendDataWithTag:[self createJSONRequestAboutInvitationInGame] andTag:GET_INVITE_TO_THE_GAME];
+    //[connection readDataWithTag:GET_ACCEPT];
 }
 
 -(void)checkDefaultParameters{
@@ -393,6 +394,5 @@
 //    PlayGameViewController *secVC = [segue destinationViewController];
 //    secVC.isUseAccelerometer = [_enableAcceslerometerSwitcher isOn];
 //}
-
 
 @end
