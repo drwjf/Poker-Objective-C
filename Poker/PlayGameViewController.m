@@ -168,6 +168,8 @@
         UILabel *gamerMoney = [self.arrayOfLabelsPlayersMoneys objectAtIndex:numberOfPlayer];
         UIImageView *gamerImage = [self.arrayOfPlayersImages objectAtIndex:numberOfPlayer];
         
+        [gamerName setAttributedText:<#(NSAttributedString *)#>];
+        
         gamerName.text = gamer.name;
         gamerMoney.text = [NSString stringWithFormat:@"$%i", gamer.money];
         
@@ -177,6 +179,21 @@
         
         numberOfPlayer++;
     }
+}
+
+- (NSString *)prepareGamerMoneyBeforeRendering:(NSString *)gamerMoney {
+    NSString *resultString = @"$";
+    if([gamerMoney length] <= DEFAULT_LENGTH) return gamerMoney;
+    
+    int countOfFirstNumbers = [gamerMoney length] % LENGTH_DISCHARGE_THOUSANDS;
+    
+    resultString = [resultString stringByAppendingString:[gamerMoney substringWithRange:NSMakeRange(0, countOfFirstNumbers)]];
+    
+    for(int i=countOfFirstNumbers; i < [gamerMoney length]; i+=LENGTH_DISCHARGE_THOUSANDS) {
+        NSString *partOfString = [NSString stringWithFormat:@" %@", [gamerMoney substringWithRange:NSMakeRange(i, LENGTH_DISCHARGE_THOUSANDS)]];
+        resultString = [resultString stringByAppendingString:partOfString];
+    }
+    return resultString;
 }
 
 
