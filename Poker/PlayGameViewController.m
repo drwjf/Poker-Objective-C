@@ -161,29 +161,30 @@
     [self renderingPlayersOnTheTable];
 }
 
-- (void)renderingPlayersOnTheTable {
-    int numberOfPlayer = 0;
-    for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
-        UILabel *gamerName = [self.arrayOfLabelsPlayersNames objectAtIndex:numberOfPlayer];
-        UILabel *gamerMoney = [self.arrayOfLabelsPlayersMoneys objectAtIndex:numberOfPlayer];
-        UIImageView *gamerImage = [self.arrayOfPlayersImages objectAtIndex:numberOfPlayer];
-        
-        [gamerName setAttributedText:<#(NSAttributedString *)#>];
-        
-        gamerName.text = gamer.name;
-        gamerMoney.text = [NSString stringWithFormat:@"$%i", gamer.money];
-        
-        [gamerName  setAlpha:1.0];
-        [gamerMoney setAlpha:1.0];
-        [gamerImage setAlpha:1.0];
-        
-        numberOfPlayer++;
-    }
-}
 
-- (NSString *)prepareGamerMoneyBeforeRendering:(NSString *)gamerMoney {
+#define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 9
+#define DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW 17
+
+#define LENGTH_DISCHARGE_THOUSANDS 3
+
+- (int)sizeForAttributedTextGamerIconView:(NSString *)string {
+    int length = (int)[string length];
+    int needSize = (DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW - (length - DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW));
+    
+    return needSize > DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW ? DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW : needSize;
+}
+- (NSAttributedString *)attributedStringForInfoAboutGamerInView:(NSString *)string {
+    int size = [self sizeForAttributedTextGamerIconView:string];
+    
+    NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:string attributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize: size],
+    }];
+    
+    return attribString;
+}
+- (NSString *)prepareGamerMoneyBeforeRendering:(int)money {
+    NSString *gamerMoney = [NSString stringWithFormat:@"%i", money];
     NSString *resultString = @"$";
-    if([gamerMoney length] <= DEFAULT_LENGTH) return gamerMoney;
     
     int countOfFirstNumbers = [gamerMoney length] % LENGTH_DISCHARGE_THOUSANDS;
     
@@ -194,6 +195,26 @@
         resultString = [resultString stringByAppendingString:partOfString];
     }
     return resultString;
+}
+
+- (void)renderingPlayersOnTheTable {
+    int numberOfPlayer = 0;
+    for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
+        UILabel *gamerName = [self.arrayOfLabelsPlayersNames objectAtIndex:numberOfPlayer];
+        UILabel *gamerMoney = [self.arrayOfLabelsPlayersMoneys objectAtIndex:numberOfPlayer];
+        UIImageView *gamerImage = [self.arrayOfPlayersImages objectAtIndex:numberOfPlayer];
+        
+        NSString *gamerMoneyText = [self prepareGamerMoneyBeforeRendering:gamer.money];
+        
+        [gamerMoney setAttributedText:[self attributedStringForInfoAboutGamerInView:gamerMoneyText]];
+        [gamerName setAttributedText:[self attributedStringForInfoAboutGamerInView:gamer.name]];
+        
+        [gamerName  setAlpha:1.0];
+        [gamerMoney setAlpha:1.0];
+        [gamerImage setAlpha:1.0];
+        
+        numberOfPlayer++;
+    }
 }
 
 
@@ -207,10 +228,11 @@
     NSDictionary *netInfoAboutGamer = [NSDictionary dictionaryWithDictionary:generalInfoAboutGamer[@"netInformation"]];
     
     NSString *gamerName = generalInfoAboutGamer[@"name"];
-    NSString *gamerMoney = generalInfoAboutGamer[@"money"];
-    NSString *gamerLevel = generalInfoAboutGamer[@"name"];
+    NSNumber *gamerMoney = generalInfoAboutGamer[@"money"];
+    NSNumber *gamerLevel = generalInfoAboutGamer[@"name"];
+    
     NSString *IpAddressOfGamer = netInfoAboutGamer[@"ipAddress"];
-    NSString *portOfGamer = netInfoAboutGamer[@"port"];
+    NSNumber *portOfGamer = netInfoAboutGamer[@"port"];
     
     Gamer *gamer = [[Gamer alloc] initWithInfo:gamerName andMoney:[gamerMoney intValue] andLevel:[gamerLevel intValue]];
     [gamer setFurtherNetInformation:IpAddressOfGamer andPort:[portOfGamer intValue]];
