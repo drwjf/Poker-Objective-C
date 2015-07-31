@@ -177,7 +177,7 @@
     
     
     NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:[self prepareGamerMoneyBeforeRendering] attributes:@{
-         NSFontAttributeName : [UIFont systemFontOfSize: [self sizeForAttributedTextGamerMoney]],
+         NSFontAttributeName : [UIFont systemFontOfSize: 30],
          NSForegroundColorAttributeName : [UIColor greenColor],
          NSStrokeWidthAttributeName : @-5,
          NSStrokeColorAttributeName : darkGreen,
@@ -230,6 +230,7 @@
     }
     
     [_gamerMoneyLabel setAttributedText:[self attributedStringForGamerMoney]];
+    [_gamerMoneyLabel sizeToFit];
     [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
 }
 
