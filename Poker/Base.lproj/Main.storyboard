@@ -467,6 +467,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fishki" translatesAutoresizingMaskIntoConstraints="NO" id="EMu-l9-weP">
                                 <rect key="frame" x="420" y="633" width="604" height="135"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bz-0f-dNa">
+                                <rect key="frame" x="758" y="560" width="215" height="51"/>
+                                <color key="backgroundColor" red="0.70990156530000004" green="0.71292119990000002" blue="0.86183529010000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZx-FR-0bu">
                                 <rect key="frame" x="350" y="426" width="94" height="21"/>
                                 <color key="backgroundColor" red="0.40938361264257939" green="0.5838786697006072" blue="0.97335896164021163" alpha="1" colorSpace="calibratedRGB"/>

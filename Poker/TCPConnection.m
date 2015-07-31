@@ -12,6 +12,8 @@
 
 #define GET_INVITE_TO_THE_GAME 0
 #define GET_ACCEPT 1
+#define GET_INFO_ABOUT_GAMERS 3
+#define GET_INFO_ABOUT_CARDS 4
 
 #define TIME_OUT 3
 #define LONG_TIME_OUT 60
@@ -132,7 +134,7 @@ static TCPConnection *singlTCPConnection = nil;
         case GET_INVITE_TO_THE_GAME:
             [self readDataWithTag:GET_INVITE_TO_THE_GAME];
             break;
-        case GET_ACCEPT:
+        case GET_ACCEPT: //If player added to game table.
             [self.delegateForGamerVC segueToGeneralViewController];
             
             break;
@@ -153,7 +155,10 @@ static TCPConnection *singlTCPConnection = nil;
             break;
             
         case GET_INFO_ABOUT_GAMERS:
-            [self.delegateForPlayGameVC parseInformationAboutGamers];
+            [self.delegateForPlayGameVC parseGameInformationFromServer];
+            
+            //Gamers on the table are rendered. Geting info about cards.
+            [self readDataWithTag:GET_INFO_ABOUT_CARDS];
             break;
             
         default:

@@ -389,10 +389,11 @@
 }
 
 #pragma mark - Navigation
-//
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    PlayGameViewController *secVC = [segue destinationViewController];
-//    secVC.isUseAccelerometer = [_enableAcceslerometerSwitcher isOn];
-//}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    PlayGameViewController *secVC = [segue destinationViewController];
+    secVC.isUseAccelerometer = [_enableAcceslerometerSwitcher isOn];
+    secVC.hashValueOfGamerName = [[self getPlayersName] hash];
+}
 
 @end

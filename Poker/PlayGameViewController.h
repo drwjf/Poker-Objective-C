@@ -12,6 +12,7 @@
 @interface PlayGameViewController : ViewController <ConnectionToServerDelegateForPlayGameVC>
 
 
+@property(nonatomic, readwrite)NSUInteger hashValueOfGamerName;
 @property (nonatomic) BOOL isUseAccelerometer;
 
 @end

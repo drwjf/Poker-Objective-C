@@ -10,7 +10,7 @@
 
 @implementation Gamer
 
--(instancetype)initWithInfo:(NSString*)name andMoney:(int)money andLevel:(int)level{
+-(instancetype)initWithInfo:(NSString*)name andMoney:(NSNumber *)money andLevel:(int)level{
     self = [super init];
     
     

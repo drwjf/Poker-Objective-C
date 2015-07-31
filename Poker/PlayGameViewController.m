@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesPrivatePlayersCard;
 
 @property(nonatomic, strong) NSMutableArray *arrayOfPlayersOnTheTable;
+@property(nonatomic, strong) NSMutableArray *arrayOfCardsOnTheTable;
 
 @property (nonatomic) int countOfPlayersOnTheTable;
 
@@ -132,19 +133,33 @@
     } else { return nil; }
 }
 
-- (void)parseMessageFromServer {
+- (void)parseGameInformationFromServer {
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connection.downloadedData]];
+    if(!dictionary) {  NSLog(@"Downloaded data isn't a JSON !"); return; }
+    
+    NSString *titleOfJsonData = dictionary[@"title"];
+    
+        if([titleOfJsonData isEqualToString:@"InformationAboutGamers"])
+          dispatch_async(dispatch_get_main_queue(), ^{
+              for (unsigned long i=0; i<10000000; i++) {
+                  ;
+              }
+            [self parseInformationAboutGamers:dictionary];
+          });
+    
+        if([titleOfJsonData isEqualToString:@"InformationAboutCards"])
+          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self parseInformationAboutGamers:dictionary];
+          });
+    
+    
     
 }
 
-- (void)parseInformationAboutGamers {
-    TCPConnection *connection = [TCPConnection sharedInstance];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connection.downloadedData]];
-    
-    if(!dictionary) {
-        NSLog(@"Downloaded data isn't a JSON !");
-        return;
-    }
-  //  NSString *title = [NSString stringWithString:dictionary[@"title"]];
+- (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
+  
     id data = dictionary[@"countOfGamers"];
     if([data isKindOfClass:[NSNumber class]]) {
         self.countOfPlayersOnTheTable =[(NSNumber *)data intValue];
@@ -156,11 +171,30 @@
         [self addPlayerOnTheTable:generalInfoAboutGamer];
     }
     
+    [self renderingPlayersOnTheTable];
     [self changeCornerRadiusOfCards:self.countOfPlayersOnTheTable];
     [self changeCornerRadiusOfPlayersViews:self.countOfPlayersOnTheTable];
-    [self renderingPlayersOnTheTable];
+    //Information about gamers is rendered.
+
 }
 
+#define COUNT_CARDS_ON_THE_TABLE 5
+
+- (void)parseInformationAboutGameCards:(NSDictionary *)dictionary {
+    NSNumber *card;
+    NSString *keyWord;
+    
+    for (int i=0; i<COUNT_CARDS_ON_THE_TABLE; i++) {
+        keyWord = [NSString stringWithFormat:@"cardOfNumber_%i", i+1];
+        card = dictionary[keyWord];
+        
+        [self.arrayOfCardsOnTheTable addObject:card];
+    }
+    NSNumber *firstPrivateCard = dictionary[@"firstPrivateCard"];
+    NSNumber *secondPrivateCard = dictionary[@"secondPrivateCard"];
+    
+    
+}
 
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 9
 #define DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW 17
@@ -234,7 +268,7 @@
     NSString *IpAddressOfGamer = netInfoAboutGamer[@"ipAddress"];
     NSNumber *portOfGamer = netInfoAboutGamer[@"port"];
     
-    Gamer *gamer = [[Gamer alloc] initWithInfo:gamerName andMoney:[gamerMoney intValue] andLevel:[gamerLevel intValue]];
+    Gamer *gamer = [[Gamer alloc] initWithInfo:gamerName andMoney:gamerMoney andLevel:[gamerLevel intValue]];
     [gamer setFurtherNetInformation:IpAddressOfGamer andPort:[portOfGamer intValue]];
     
     [self.arrayOfPlayersOnTheTable addObject:gamer];

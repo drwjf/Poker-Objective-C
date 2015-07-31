@@ -11,12 +11,11 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 
-#define GET_INFO_ABOUT_GAMERS 3
+
 
 
 @protocol ConnectionToServerDelegateForPlayGameVC
-- (void)parseMessageFromServer;
-- (void)parseInformationAboutGamers;
+- (void)parseGameInformationFromServer;
 - (void)connected;
 @end
 
