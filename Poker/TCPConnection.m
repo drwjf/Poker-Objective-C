@@ -160,6 +160,9 @@ static TCPConnection *singlTCPConnection = nil;
             //Gamers on the table are rendered. Geting info about cards.
             [self readDataWithTag:GET_INFO_ABOUT_CARDS];
             break;
+        case GET_INFO_ABOUT_CARDS:
+            [self.delegateForPlayGameVC parseGameInformationFromServer];
+            break;
             
         default:
             break;

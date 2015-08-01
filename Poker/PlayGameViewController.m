@@ -27,6 +27,7 @@
 @property(nonatomic, strong) NSMutableArray *arrayOfCardsOnTheTable;
 
 @property (nonatomic) int countOfPlayersOnTheTable;
+@property (nonatomic) int numberOfMeInGamersList;
 
 
 
@@ -151,12 +152,14 @@
     
         if([titleOfJsonData isEqualToString:@"InformationAboutCards"])
           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self parseInformationAboutGamers:dictionary];
+                [self parseInformationAboutGameCards:dictionary];
           });
     
     
     
 }
+
+-(BOOL)isCurrentGamerMe:(NSString *)gamerName { return ([gamerName hash] == self.hashValueOfGamerName) ? YES : NO; }
 
 - (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
   
@@ -169,6 +172,8 @@
         NSString *gamerOfNumber = [NSString stringWithFormat:@"gamer%i", i+1];
         NSDictionary *generalInfoAboutGamer = [NSDictionary dictionaryWithDictionary:dictionary[gamerOfNumber]];
         [self addPlayerOnTheTable:generalInfoAboutGamer];
+        
+        if([self isCurrentGamerMe:generalInfoAboutGamer[@"name"]]) self.numberOfMeInGamersList = i;
     }
     
     [self renderingPlayersOnTheTable];
