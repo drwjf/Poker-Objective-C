@@ -326,15 +326,7 @@
         return;
     }
     
-    NSString *title;
-    id data = dictionary[@"title"];
-    if(![data isKindOfClass:[NSString class]])
-    {
-        NSLog(@"error !");
-        return;
-    }
-
-    title = (NSString *)data;
+    NSString *title = [NSString stringWithString:dictionary[@"title"]];
     
     if([title isEqualToString:@"inviteToTheGame"]) {
         BOOL isInGame = (BOOL)dictionary[@"inGame"];
