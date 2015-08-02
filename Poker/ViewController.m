@@ -9,10 +9,8 @@
 #import "ViewController.h"
 #import "GamerDataViewController.h"
 #import "SoundManager.h"
-#import "BGGameTimer.h"
 
-@interface ViewController () 
-@property (strong, nonatomic) IBOutlet BGGameTimer *gameTimerView;
+@interface ViewController ()
 @property (strong, nonatomic) NSTimer *gameViewTimer;
 
 
@@ -29,8 +27,6 @@
     _ipAdressTextField.text = @"192.168.1.6";
     _portTextField.text = @"9999";
     
-    [_gameTimerView setBackgroundColor:[UIColor clearColor]];
-    
     
     
     
@@ -44,18 +40,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self startGameTimerViewAnimationWithTimer:60];
-}
-
-- (void)startGameTimerViewAnimationWithTimer:(float)maxTime {
-    [self.gameTimerView setMaxTimer:maxTime];
-    self.gameViewTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(redrawGameTimerView) userInfo:@(1.0/60.0) repeats:YES];
-}
-
-- (void)redrawGameTimerView:(NSTimer *)timer {
-    [self.gameTimerView setTimer:self.gameTimerView.timer + 1.0*[timer.userInfo floatValue]];
-    [self.gameTimerView setNeedsDisplay];
 }
 
 
