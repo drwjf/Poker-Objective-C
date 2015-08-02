@@ -37,7 +37,7 @@
     [self setViewParameters];
     _buffImage = nil;
     [_enableAcceslerometerSwitcher setOn:NO animated:YES];
-
+    
     
     
 #if (TARGET_IPHONE_SIMULATOR)

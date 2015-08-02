@@ -144,9 +144,6 @@
     
         if([titleOfJsonData isEqualToString:@"InformationAboutGamers"])
           dispatch_async(dispatch_get_main_queue(), ^{
-              for (unsigned long i=0; i<10000000; i++) {
-                  ;
-              }
             [self parseInformationAboutGamers:dictionary];
           });
     
