@@ -28,5 +28,6 @@
 
 - (instancetype)initWithInfo:(NSString*)name andMoney:(NSNumber *)money andLevel:(int)level;
 - (void)setFurtherNetInformation:(NSString *)ipAddress andPort:(int)port;
+- (void)setPrivateCards:(int)firstCard andSecondCard:(int)secondCard;
 
 @end

@@ -164,21 +164,23 @@
     }
 }
 
-#define DEFAULT_LENGTH 8
-#define DEFAULT_SIZE 30
+#define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 8
+#define DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW 30
 
-- (int)sizeForAttributedTextGamerMoney{
-    int length = [[self getPlayersMoney] length];
-    return (DEFAULT_SIZE - 2*(length - DEFAULT_LENGTH));
+- (int)sizeForAttributedTextGamerIconView:(NSString *)string {
+    int length = (int)[string length];
+    int needSize = (DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW - 2*(length - DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW));
+    
+    return needSize > DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW ? DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW : needSize;
 }
 
 
 - (NSAttributedString *)attributedStringForGamerMoney {
     UIColor *darkGreen = [UIColor colorWithRed:0.0 green:107.0f / 255.0f blue:41.0f / 255.0f alpha:1.0];
-    
+    int needSize = [self sizeForAttributedTextGamerIconView:[self getPlayersMoney]];
     
     NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:[self prepareGamerMoneyBeforeRendering] attributes:@{
-         NSFontAttributeName : [UIFont systemFontOfSize: 30],
+         NSFontAttributeName : [UIFont systemFontOfSize: needSize],
          NSForegroundColorAttributeName : [UIColor greenColor],
          NSStrokeWidthAttributeName : @-5,
          NSStrokeColorAttributeName : darkGreen,
@@ -220,18 +222,16 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *result = [userDefaults objectForKey:@"name"];
-    [userDefaults setInteger:1893999000 forKey:@"money"];
    
     if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
-        [userDefaults setInteger:100000 forKey:@"money"];
+        [userDefaults setObject:[NSNumber numberWithLong:100000] forKey:@"money"];
         [userDefaults setInteger:0 forKey:@"level"];
         [userDefaults setObject:@"defaultImage.jpg" forKey:@"image"];
         [userDefaults synchronize];
     }
     
     [_gamerMoneyLabel setAttributedText:[self attributedStringForGamerMoney]];
-    [_gamerMoneyLabel sizeToFit];
     [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
 }
 

@@ -183,20 +183,24 @@
 #define COUNT_CARDS_ON_THE_TABLE 5
 
 - (void)parseInformationAboutGameCards:(NSDictionary *)dictionary {
+    NSDictionary *dictionaryWithInfoAboutCards = [NSDictionary dictionaryWithDictionary:dictionary[@"cards"]];
+    
     NSNumber *card;
     NSString *keyWord;
     
     for (int i=0; i<COUNT_CARDS_ON_THE_TABLE; i++) {
-        keyWord = [NSString stringWithFormat:@"cardOfNumber_%i", i+1];
-        card = dictionary[keyWord];
+        keyWord = [NSString stringWithFormat:@"cardOfNumber_%i", (i+1)];
+        card = dictionaryWithInfoAboutCards[keyWord];
         
         [self.arrayOfCardsOnTheTable addObject:card];
     }
-    NSNumber *firstPrivateCard = dictionary[@"firstPrivateCard"];
-    NSNumber *secondPrivateCard = dictionary[@"secondPrivateCard"];
+    NSNumber *firstPrivateCard = dictionaryWithInfoAboutCards[@"firstPrivateCard"];
+    NSNumber *secondPrivateCard = dictionaryWithInfoAboutCards[@"secondPrivateCard"];
     
-    
+    [self setPrivateCardsForGeneralGamer:firstPrivateCard andSecondPrivateCard:secondPrivateCard];
 }
+
+
 
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 9
 #define DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW 17
@@ -218,8 +222,8 @@
     
     return attribString;
 }
-- (NSString *)prepareGamerMoneyBeforeRendering:(int)money {
-    NSString *gamerMoney = [NSString stringWithFormat:@"%i", money];
+- (NSString *)prepareGamerMoneyBeforeRendering:(NSNumber *)money {
+    NSString *gamerMoney = [NSString stringWithFormat:@"%@", money];
     NSString *resultString = @"$";
     
     int countOfFirstNumbers = [gamerMoney length] % LENGTH_DISCHARGE_THOUSANDS;
@@ -274,6 +278,20 @@
     [gamer setFurtherNetInformation:IpAddressOfGamer andPort:[portOfGamer intValue]];
     
     [self.arrayOfPlayersOnTheTable addObject:gamer];
+}
+
+
+- (void)setPrivateCardsForGeneralGamer:(NSNumber *)firstPrivateCard andSecondPrivateCard:(NSNumber *)secondPrivateCard {
+    Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
+    [generalGamer setPrivateCards:[firstPrivateCard intValue] andSecondCard:[secondPrivateCard intValue]];
+    
+    NSLog(@"1  : %i  | 2: %i", [firstPrivateCard intValue], [secondPrivateCard intValue]);
+    [self printDataAboutGamersPrivateCard];
+}
+
+- (void)printDataAboutGamersPrivateCard {
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
+    NSLog(@"!!! 1 : %i  | 2 : %i", gamer.firstPrivateCard, gamer.secondPrivateCard);
 }
 
 
