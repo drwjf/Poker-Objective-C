@@ -84,22 +84,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Money : " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMw-B4-bLv">
-                                <rect key="frame" x="16" y="322" width="274" height="21"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="16" y="322" width="274" height="36"/>
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level   : " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJC-MU-z5z">
-                                <rect key="frame" x="16" y="342" width="274" height="21"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.84999999999999987" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cm2-Bs-PNW">
-                                <rect key="frame" x="16" y="443" width="274" height="116"/>
+                                <rect key="frame" x="16" y="554" width="274" height="116"/>
                                 <color key="backgroundColor" red="0.5659746202" green="0.21642688800000001" blue="0.2334398137" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="PLAY">
@@ -110,36 +102,27 @@
                                     <action selector="requestToInvitationInTheGame:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="iQR-uv-fYj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wH0-ne-jkB">
-                                <rect key="frame" x="789" y="690" width="219" height="58"/>
-                                <color key="backgroundColor" red="0.84682526209999998" green="0.83656241549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="219" id="vcP-lu-5As"/>
-                                </constraints>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Send message to developer">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendMessageClick:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="T7p-lL-SZx"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Gamer name" borderStyle="roundedRect" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="RC9-TM-qf6">
                                 <rect key="frame" x="16" y="28" width="274" height="30"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUA-e5-Tfq">
-                                <rect key="frame" x="241" y="379" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enable accelerometer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-9D-joh">
-                                <rect key="frame" x="16" y="379" width="224" height="31"/>
-                                <color key="backgroundColor" red="0.82579419892928174" green="0.47928450700159586" blue="0.4610308698725103" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="casinoRoyal" translatesAutoresizingMaskIntoConstraints="NO" id="T1C-7Z-505">
+                                <rect key="frame" x="310" y="28" width="704" height="191"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPA-bY-TQe">
+                                <rect key="frame" x="737" y="696" width="210" height="52"/>
+                                <color key="backgroundColor" red="0.50451561970000003" green="0.8260671356" blue="0.96839864419999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Send e.Message">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendMessageClick:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="xsd-nS-AMF"/>
+                                </connections>
+                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-GE-7Y8">
                                 <rect key="frame" x="310" y="227" width="704" height="443"/>
                                 <color key="backgroundColor" red="0.90616367403314912" green="0.8808883906110504" blue="0.72662114679225753" alpha="1" colorSpace="calibratedRGB"/>
@@ -160,28 +143,62 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="casinoRoyal" translatesAutoresizingMaskIntoConstraints="NO" id="T1C-7Z-505">
-                                <rect key="frame" x="310" y="28" width="704" height="191"/>
-                            </imageView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="erq-Xg-pW6">
-                                <rect key="frame" x="16" y="59" width="274" height="263"/>
-                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLJ-bq-Rhk">
+                                <rect key="frame" x="163" y="396" width="63" height="43"/>
+                                <state key="normal" image="accelerometer_icon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="switchIsUseAccelerometer" destination="hLE-3w-1Ce" eventType="touchUpInside" id="VcU-iT-hRP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use accelerometer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3N-NH-lin">
+                                <rect key="frame" x="16" y="407" width="152" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="65g-kO-1EZ">
+                                <rect key="frame" x="16" y="56" width="274" height="269"/>
+                                <state key="normal" image="camera-icon" backgroundImage="defaultImage">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content=" Edit photo">
+                                            <attributes>
+                                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="1" lineHeightMultiple="1" hyphenationFactor="0.03999999538064003"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="pickImageForGamer" destination="hLE-3w-1Ce" eventType="touchUpInside" id="rrj-2o-imY"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level   : " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJC-MU-z5z">
+                                <rect key="frame" x="16" y="360" width="274" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUA-e5-Tfq">
+                                <rect key="frame" x="241" y="402" width="51" height="31"/>
+                            </switch>
                         </subviews>
-                        <color key="backgroundColor" red="0.86183529005524862" green="0.74866753546970222" blue="0.64366519675584877" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.84077460883831745" green="0.7021935882380691" blue="0.49419461046859148" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="3ft-ZO-8Qe"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="enableAccelerometerLabel" destination="2QX-9D-joh" id="JiB-5E-kTm"/>
+                        <outlet property="annotationAboutAccelerometerLabel" destination="f3N-NH-lin" id="Qtn-0h-TOq"/>
                         <outlet property="enableAcceslerometerSwitcher" destination="PUA-e5-Tfq" id="dRO-9N-hST"/>
                         <outlet property="gamerMoneyLabel" destination="nMw-B4-bLv" id="H70-Wv-dRP"/>
                         <outlet property="gamerName" destination="RC9-TM-qf6" id="BsD-en-Fvz"/>
                         <outlet property="gamersLevel" destination="qJC-MU-z5z" id="aBS-rf-TL2"/>
-                        <outlet property="imageOfGamer" destination="erq-Xg-pW6" id="1gX-qV-6ew"/>
+                        <outlet property="imageOfPlayerButton" destination="65g-kO-1EZ" id="R5V-Jl-DzJ"/>
                         <outlet property="playButton" destination="Cm2-Bs-PNW" id="U2C-SG-jni"/>
                         <outlet property="rulesOfPokerTextView" destination="j3d-GE-7Y8" id="5UZ-iL-ja2"/>
-                        <outlet property="sendMessageButton" destination="wH0-ne-jkB" id="LuN-dA-2S1"/>
                         <segue destination="kjp-7Y-F12" kind="show" identifier="segueToPlayGameVC" id="aCG-B8-6FG"/>
                     </connections>
                 </viewController>
@@ -1512,7 +1529,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="accelerometer_icon" width="80" height="80"/>
         <image name="background" width="1562" height="1217"/>
+        <image name="camera-icon" width="20" height="20"/>
         <image name="casinoRoyal" width="680" height="320"/>
         <image name="defaultImage" width="400" height="400"/>
         <image name="fishki" width="521" height="291"/>

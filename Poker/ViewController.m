@@ -10,7 +10,11 @@
 #import "GamerDataViewController.h"
 #import "SoundManager.h"
 
-@interface ViewController () 
+@interface ViewController ()
+@property (strong, nonatomic) NSTimer *gameViewTimer;
+
+
+- (void)redrawGameTimerView:(NSTimer *)timer;
 
 @end
 
@@ -23,12 +27,21 @@
     _ipAdressTextField.text = @"192.168.1.6";
     _portTextField.text = @"9999";
     
+    
+    
+    
+    
 #if !(TARGET_IPHONE_SIMULATOR)
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
     [[SoundManager sharedManager] playSound:@"JamesBond" looping:NO];
 #endif
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 
 - (IBAction)connectClickButton:(id)sender {
  

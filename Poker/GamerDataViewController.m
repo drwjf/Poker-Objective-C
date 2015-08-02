@@ -11,10 +11,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "PlayGameViewController.h"
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
-//#import <FBSDKShareKit/FBSDKShareKit.h>
-
 
 #define GET_INVITE_TO_THE_GAME 0
 #define GET_ACCEPT 1
@@ -25,7 +21,10 @@
 
 -(void)checkDefaultParameters;
 @property(nonatomic,strong)UIImage *buffImage;
--(void)createEmail;
+//-(void)createEmail;
+@property (weak, nonatomic) IBOutlet UILabel *annotationAboutAccelerometerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *imageOfPlayerButton;
+
 
 @end
 
@@ -46,26 +45,10 @@
 }
 
 -(void)setViewParameters {
+    
     [_playButton.layer setMasksToBounds:YES];
     [_playButton.layer setCornerRadius:50];
     
-    [_rulesOfPokerTextView.layer setMasksToBounds:YES];
-    [_rulesOfPokerTextView.layer setCornerRadius:20];
-    
-    [_gamerMoneyLabel.layer setMasksToBounds:YES];
-    [_gamerMoneyLabel.layer setCornerRadius:10];
-    
-    [_gamersLevel.layer setMasksToBounds:YES];
-    [_gamersLevel.layer setCornerRadius:10];
-    
-    [_enableAccelerometerLabel.layer setMasksToBounds:YES];
-    [_enableAccelerometerLabel.layer setCornerRadius:10];
-    
-    [_sendMessageButton.layer setMasksToBounds:YES];
-    [_sendMessageButton.layer setCornerRadius:20];
-    
-    [_imageOfGamer.layer setMasksToBounds:YES];
-    [_imageOfGamer.layer setCornerRadius:10];
 }
 
 - (IBAction)sendMessageClick:(id)sender {
@@ -160,33 +143,96 @@
     //[connection readDataWithTag:GET_ACCEPT];
 }
 
+- (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
+
+- (IBAction)pickImageForGamer {
+#if (TARGET_IPHONE_SIMULATOR)
+    return;
+#endif
+    
+    if([self isPhotoLibraryAvaible]) {
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+        
+        if([self canUserPickPhotosFromThotoLibrary]) {
+            [mediaTypes addObject:(__bridge NSString*)kUTTypeImage];
+        }
+        controller.mediaTypes = mediaTypes;
+        controller.delegate = self;
+        [self.navigationController presentModalViewController:controller animated:YES];
+    }
+}
+
+#define DEFAULT_LENGTH 8
+#define DEFAULT_SIZE 30
+
+- (int)sizeForAttributedTextGamerMoney{
+    int length = [[self getPlayersMoney] length];
+    return (DEFAULT_SIZE - 2*(length - DEFAULT_LENGTH));
+}
+
+
+- (NSAttributedString *)attributedStringForGamerMoney {
+    UIColor *darkGreen = [UIColor colorWithRed:0.0 green:107.0f / 255.0f blue:41.0f / 255.0f alpha:1.0];
+    
+    
+    NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:[self prepareGamerMoneyBeforeRendering] attributes:@{
+         NSFontAttributeName : [UIFont systemFontOfSize: 30],
+         NSForegroundColorAttributeName : [UIColor greenColor],
+         NSStrokeWidthAttributeName : @-5,
+         NSStrokeColorAttributeName : darkGreen,
+         NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone)                                                                                                          }];
+    return attribString;
+}
+- (NSAttributedString *)attributedStringForGamerLevel {
+    UIColor *darkBlue = [UIColor colorWithRed:51.0f/255.0f green:102.0f/255.0f blue:153.0f/255.0f alpha:1.0f];
+    NSString *gamerLevelString = [NSString stringWithFormat:@"Level: %@", [self getPlayersLevel]];
+    NSAttributedString *attribString = [[NSAttributedString alloc] initWithString:gamerLevelString attributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize:30.0],
+            NSForegroundColorAttributeName : [UIColor blueColor],
+            NSStrokeWidthAttributeName : @-5,
+            NSStrokeColorAttributeName : darkBlue,
+            NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone)                                                                                                          }];
+    return attribString;
+}
+
+
+#define LENGTH_DISCHARGE_THOUSANDS 3
+
+- (NSString *)prepareGamerMoneyBeforeRendering {
+    NSString *resultString = @"Money: $";
+    NSString *gamerMoney = [self getPlayersMoney];
+    
+    int countOfFirstNumbers = [gamerMoney length] % LENGTH_DISCHARGE_THOUSANDS;
+    
+    resultString = [resultString stringByAppendingString:[gamerMoney substringWithRange:NSMakeRange(0, countOfFirstNumbers)]];
+
+    for(int i=countOfFirstNumbers; i < [gamerMoney length]; i+=LENGTH_DISCHARGE_THOUSANDS) {
+        NSString *partOfString = [NSString stringWithFormat:@" %@", [gamerMoney substringWithRange:NSMakeRange(i, LENGTH_DISCHARGE_THOUSANDS)]];
+        resultString = [resultString stringByAppendingString:partOfString];
+    }
+        return resultString;
+}
+
+
 -(void)checkDefaultParameters{
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *result = [userDefaults objectForKey:@"name"];
+    [userDefaults setInteger:1893999000 forKey:@"money"];
    
-    if([result length]) {
-        NSString *gamerLevel = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:@"level"]];
-        int level = [gamerLevel intValue];
-        level++;
-        [userDefaults setInteger:level forKey:@"level"];
-        
-        
-        _gamerName.text = [userDefaults objectForKey:@"name"];
-        
-        NSString *gamerMoney = [[NSString alloc ] initWithFormat:@"Money : %@ $", [userDefaults objectForKey:@"money"]];
-        [_gamerMoneyLabel setText:gamerMoney];
-        
-        NSString *gamLevel = [[NSString alloc] initWithFormat:@"Level : %@", [userDefaults objectForKey:@"level"]];
-        [_gamersLevel setText:gamLevel];
-        
-    } else {
+    if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
         [userDefaults setInteger:100000 forKey:@"money"];
         [userDefaults setInteger:0 forKey:@"level"];
         [userDefaults setObject:@"defaultImage.jpg" forKey:@"image"];
         [userDefaults synchronize];
     }
+    
+    [_gamerMoneyLabel setAttributedText:[self attributedStringForGamerMoney]];
+    [_gamerMoneyLabel sizeToFit];
+    [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
 }
 
 
@@ -208,37 +254,7 @@
     return [userDefaults objectForKey:@"name"];
 }
 
-//-(NSString*)returnIntValueFromId:(NSString*)key {
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *outStr = [[NSString alloc] initWithFormat:@"%@", [userDefaults objectForKey:key]];
-//    
-//    return outStr;
-//}
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    #if (TARGET_IPHONE_SIMULATOR)
-        return;
-    #endif
-    
-    NSSet *allTouches = [event allTouches];
-    UITouch *touch = [[allTouches allObjects] objectAtIndex:0];
-    
-
-    if(touch.view == self.imageOfGamer) {
-        if([self isPhotoLibraryAvaible]) {
-            UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-            controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-            
-            if([self canUserPickPhotosFromThotoLibrary]) {
-                [mediaTypes addObject:(__bridge NSString*)kUTTypeImage];
-            }
-            controller.mediaTypes = mediaTypes;
-            controller.delegate = self;
-            [self.navigationController presentModalViewController:controller animated:YES];
-        }   
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -358,8 +374,11 @@
     if([mediaType isEqualToString:(__bridge NSString*)kUTTypeImage]) {
         UIImage *theImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         _buffImage = theImage;
-        [_imageOfGamer setImage:theImage];
-        [_imageOfGamer reloadInputViews];
+        [self.imageOfPlayerButton setBackgroundImage:theImage forState:UIControlStateNormal];
+        
+        [self.imageOfPlayerButton reloadInputViews];
+        //[_imageOfGamer setImage:theImage];;
+        //[_imageOfGamer reloadInputViews];
     }
 }
 -(BOOL)isPhotoLibraryAvaible {
