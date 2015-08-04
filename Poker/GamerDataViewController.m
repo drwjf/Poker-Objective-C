@@ -148,7 +148,7 @@
 - (IBAction)pickImageForGamer {
 #if (TARGET_IPHONE_SIMULATOR)
     return;
-#endif
+#else
     
     if([self isPhotoLibraryAvaible]) {
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
@@ -162,6 +162,7 @@
         controller.delegate = self;
         [self.navigationController presentModalViewController:controller animated:YES];
     }
+#endif
 }
 
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 8
@@ -225,6 +226,7 @@
    
     if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
+        //self.gamerName.text = @"Something wronNNNNG ! ";
         [userDefaults setObject:[NSNumber numberWithLong:100000] forKey:@"money"];
         [userDefaults setInteger:0 forKey:@"level"];
         [userDefaults setObject:@"defaultImage.jpg" forKey:@"image"];
@@ -238,7 +240,8 @@
 
 - (void)setNewGamerName       {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:_gamerName.text forKey:@"name"];
+    [userDefaults setObject:[self.gamerName text] forKey:@"name"];
+    [userDefaults synchronize];
 }
 
 - (NSString *)getPlayersMoney {

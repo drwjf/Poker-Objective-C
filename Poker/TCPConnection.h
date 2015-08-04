@@ -15,6 +15,7 @@
 
 
 @protocol ConnectionToServerDelegateForPlayGameVC
+- (void)parseInformationAboutGamersBets;
 - (void)parseGameInformationFromServer;
 - (void)connected;
 @end

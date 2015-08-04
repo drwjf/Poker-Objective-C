@@ -12,7 +12,7 @@
 
 //---tags----
 #define GET_INFO_ABOUT_GAMERS 3
-
+#define GET_INFO_ABOUT_BETS   5
 //---tags----
 
 @interface PlayGameViewController ()
@@ -22,6 +22,9 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsPlayersNames;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesCardsOnTheTable;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrayOfImagesPrivatePlayersCard;
+
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsGamerRates;
+
 
 @property(nonatomic, strong) NSMutableArray *arrayOfPlayersOnTheTable;
 @property(nonatomic, strong) NSMutableArray *arrayOfCardsOnTheTable;
@@ -50,6 +53,7 @@
     [connection readDataWithTag:GET_INFO_ABOUT_GAMERS];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -60,9 +64,6 @@
     [self clearTable];
     self.countOfPlayersOnTheTable = 0;
 }
-
-
-
 - (void)clearTable
 {
     //performance better, than if we use a (1)cycle.
@@ -134,10 +135,17 @@
     } else { return nil; }
 }
 
-- (void)parseGameInformationFromServer {
+
+- (NSDictionary *)downloadedJSONData {
     TCPConnection *connection = [TCPConnection sharedInstance];
-    
     NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connection.downloadedData]];
+    
+    return (dictionary) ? dictionary : nil;
+}
+
+- (void)parseGameInformationFromServer {
+    NSDictionary *dictionary = [self downloadedJSONData];
+    
     if(!dictionary) {  NSLog(@"Downloaded data isn't a JSON !"); return; }
     
     NSString *titleOfJsonData = dictionary[@"title"];
@@ -151,11 +159,53 @@
           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self parseInformationAboutGameCards:dictionary];
           });
-    
-    
-    
 }
 
+- (void)parseInformationAboutGamersBets {
+    NSDictionary *dictionary = [self downloadedJSONData];
+    if(!dictionary) {  NSLog(@"Downloaded data isn't a JSON !"); return; }
+    
+    NSString *titleOfJsonData = dictionary[@"title"];
+    
+    if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self renderingBlindsOfGamers: dictionary[@"blinds"]];
+        });
+    }
+}
+
+- (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
+    int numberOfGamerWithSmallBlind, numberOfGamerWithBigBlind;
+    
+    id firstBlind = dictionary[@"numberOfPlayerWithSmallBlind"];
+    if(![firstBlind isKindOfClass:[NSNumber class]]) {NSLog(@"error of parser !"); return; }
+    
+    numberOfGamerWithSmallBlind = [firstBlind intValue];
+    numberOfGamerWithBigBlind = (numberOfGamerWithSmallBlind + 1) % self.countOfPlayersOnTheTable;
+    
+    NSNumber *valueOfBigBlind = dictionary[@"betOfBigBlind"];
+    NSNumber *valueOfSmallBlind = [NSNumber numberWithLongLong:[valueOfBigBlind longLongValue] / 2];
+    
+    
+    UILabel *gamerWithBigBlindMoneyLabel = [self.arrayOfLabelsGamerRates objectAtIndex:numberOfGamerWithBigBlind];
+    UILabel *gamerWithSmallBlindMoneyLabel = [self.arrayOfLabelsGamerRates objectAtIndex:numberOfGamerWithSmallBlind];
+
+    NSString *betOfBigBlind = [self prepareGamerMoneyBeforeRendering:valueOfBigBlind];
+    NSString *betOfSmallBlind = [self prepareGamerMoneyBeforeRendering:valueOfSmallBlind];
+    
+    [gamerWithBigBlindMoneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfBigBlind]];
+    [gamerWithSmallBlindMoneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfSmallBlind]];
+}
+
+- (int)numberOfGamerWithName:(NSString *)gamerName {
+    int i=0;
+    for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
+        if([gamer.name isEqualToString:gamerName]) return i;
+        i++;
+    }
+    
+    return -1;
+}
 -(BOOL)isCurrentGamerMe:(NSString *)gamerName { return ([gamerName hash] == self.hashValueOfGamerName) ? YES : NO; }
 
 - (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
@@ -176,6 +226,7 @@
     [self renderingPlayersOnTheTable];
     [self changeCornerRadiusOfCards:self.countOfPlayersOnTheTable];
     [self changeCornerRadiusOfPlayersViews:self.countOfPlayersOnTheTable];
+    [self rotateRightPrivateCardOfPlayers:self.countOfPlayersOnTheTable];
     //Information about gamers is rendered.
 
 }
@@ -198,6 +249,7 @@
     NSNumber *secondPrivateCard = dictionaryWithInfoAboutCards[@"secondPrivateCard"];
     
     [self setPrivateCardsForGeneralGamer:firstPrivateCard andSecondPrivateCard:secondPrivateCard];
+    [self renderingPrivateCardsOfGeneralGamer];
 }
 
 
@@ -257,6 +309,47 @@
     }
 }
 
+- (void)renderingPrivateCardsOfGeneralGamer {
+    Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
+    
+    UIImageView *firstPrivateCardImage = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:self.numberOfMeInGamersList * 2];
+    UIImageView *secondPrivateCardImage = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:self.numberOfMeInGamersList * 2 + 1];
+    
+    NSString *imageNameOfFirstPrivateCard = [NSString stringWithFormat:@"%i", generalGamer.firstPrivateCard];
+    NSString *imageNameOfSecondPrivateCard = [NSString stringWithFormat:@"%i", generalGamer.secondPrivateCard];
+    
+    
+    [firstPrivateCardImage setImage:[UIImage imageNamed:imageNameOfFirstPrivateCard]];
+    [secondPrivateCardImage setImage:[UIImage imageNamed:imageNameOfSecondPrivateCard]];
+    
+    [self setVisibleCardsAllGamers];
+}
+
+- (void)setVisibleCardsAllGamers {
+    for(int i=0; i<self.countOfPlayersOnTheTable * 2; i++)
+        [[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i] setAlpha:1.0];
+}
+
+- (void)animationHandingOutCardsToGeneralGamer:(UIImageView *)firstCard andSecondCard:(UIImageView *)secondCard {
+    UIImageView *gamerImage = [self.arrayOfPlayersImages objectAtIndex:self.numberOfMeInGamersList];
+    
+    //self.view.frame.origin.x
+    CGPoint pointOfFirstCard = CGPointMake(gamerImage.frame.origin.x, gamerImage.frame.origin.y);
+    CGPoint pointOfSecondCard = CGPointMake(gamerImage.frame.origin.x + 20, gamerImage.frame.origin.y);
+    [firstCard setCenter:CGPointMake(100, 50)];
+    [secondCard setCenter:CGPointMake(120, 50)];
+    
+    [firstCard setAlpha:1.0];
+    [secondCard setAlpha:1.0];
+    
+        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:1.5 initialSpringVelocity:0.5 options:0 animations:^{
+        //    [firstCard setCenter:pointOfFirstCard];
+        //    [secondCard setCenter:pointOfSecondCard];
+            
+            } completion:^(BOOL finished) {
+                
+            }];
+}
 
 
 - (void)addPlayerOnTheTable:(NSDictionary *)generalInfoAboutGamer
@@ -284,16 +377,7 @@
 - (void)setPrivateCardsForGeneralGamer:(NSNumber *)firstPrivateCard andSecondPrivateCard:(NSNumber *)secondPrivateCard {
     Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
     [generalGamer setPrivateCards:[firstPrivateCard intValue] andSecondCard:[secondPrivateCard intValue]];
-    
-    NSLog(@"1  : %i  | 2: %i", [firstPrivateCard intValue], [secondPrivateCard intValue]);
-    [self printDataAboutGamersPrivateCard];
 }
-
-- (void)printDataAboutGamersPrivateCard {
-    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
-    NSLog(@"!!! 1 : %i  | 2 : %i", gamer.firstPrivateCard, gamer.secondPrivateCard);
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
