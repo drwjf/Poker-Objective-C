@@ -53,6 +53,11 @@
     [connection readDataWithTag:GET_INFO_ABOUT_GAMERS];
 }
 
+- (void)readInformationAboutGamerBets {
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    [connection readDataWithTag:GET_INFO_ABOUT_BETS];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -168,10 +173,17 @@
     NSString *titleOfJsonData = dictionary[@"title"];
     
     if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self readInformationAboutGamerBets];
             [self renderingBlindsOfGamers: dictionary[@"blinds"]];
         });
     }
+    if([titleOfJsonData isEqualToString:@"InformationAboutCurrentGamer"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self parseAndRenderInfoAboutCurrentGamer:dictionary[@"Information"]];
+        });
+    }
+    
 }
 
 - (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
@@ -251,7 +263,14 @@
     [self setPrivateCardsForGeneralGamer:firstPrivateCard andSecondPrivateCard:secondPrivateCard];
     [self renderingPrivateCardsOfGeneralGamer];
 }
-
+- (void)parseAndRenderInfoAboutCurrentGamer:(NSDictionary *)dictionary {
+    id data = dictionary[@"numberOfCurrentGamer"];
+    if(![data isKindOfClass:[NSNumber class]]) { NSLog(@"error of parser"); return; }
+    
+    NSNumber *numberOfCurrentGamer = (NSNumber *)data;
+    
+    
+}
 
 
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 9

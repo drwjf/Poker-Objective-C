@@ -246,11 +246,11 @@
 
 - (NSString *)getPlayersMoney {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [NSString stringWithFormat:@"%@", [userDefaults objectForKey:@"money"]];
+    return [userDefaults objectForKey:@"money"];
 }
 - (NSString *)getPlayersLevel {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [NSString stringWithFormat:@"%@", [userDefaults objectForKey:@"level"]];
+    return [userDefaults objectForKey:@"level"];
 }
 - (NSString *)getPlayersName  {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
