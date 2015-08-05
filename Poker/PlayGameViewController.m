@@ -25,12 +25,18 @@
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *arrayOfLabelsGamerRates;
 
+@property (strong, nonatomic) IBOutletCollection(EAColourfulProgressView) NSArray *arrayOfGamersProgressView;
+
+@property(nonatomic, weak)EAColourfulProgressView *currentProgressView;
+
 
 @property(nonatomic, strong) NSMutableArray *arrayOfPlayersOnTheTable;
 @property(nonatomic, strong) NSMutableArray *arrayOfCardsOnTheTable;
+@property(nonatomic, strong) NSTimer *timer;
 
 @property (nonatomic) int countOfPlayersOnTheTable;
 @property (nonatomic) int numberOfMeInGamersList;
+@property (nonatomic) int numberOfCurrentProgressView;
 
 
 
@@ -44,6 +50,7 @@
 //    [self changeCornerRadiusOfPlayersViews:10];
 //    [self rotateRightPrivateCardOfPlayers:10];
 //    [self changeCornerRadiusOfCards:10];
+    [self prepareBeforeGameProcess];
     [self readInformationAboutGamersOnTheTable];
 }
 
@@ -58,13 +65,6 @@
     [connection readDataWithTag:GET_INFO_ABOUT_BETS];
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self prepareBeforeGameProcess];
-}
-
 - (void)prepareBeforeGameProcess {
     [self clearTable];
     self.countOfPlayersOnTheTable = 0;
@@ -76,6 +76,8 @@
     for(UILabel *moneyLabel in self.arrayOfLabelsPlayersMoneys) [moneyLabel setAlpha:0.0];
     for(UIImageView *imageView in self.arrayOfPlayersImages)    [imageView  setAlpha:0.0];
     for(UIImageView *privateCardImage in self.arrayOfImagesPrivatePlayersCard) [privateCardImage setAlpha:0.0];
+    for(UIView *progressView in self.arrayOfGamersProgressView) [progressView setAlpha:0.0];
+    for(UILabel *rateLabel in self.arrayOfLabelsGamerRates) [rateLabel setAlpha:0.0];
 }
 
 
@@ -161,7 +163,7 @@
           });
     
         if([titleOfJsonData isEqualToString:@"InformationAboutCards"])
-          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+          dispatch_async(dispatch_get_main_queue(), ^{
                 [self parseInformationAboutGameCards:dictionary];
           });
 }
@@ -173,10 +175,8 @@
     NSString *titleOfJsonData = dictionary[@"title"];
     
     if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self readInformationAboutGamerBets];
-            [self renderingBlindsOfGamers: dictionary[@"blinds"]];
-        });
+                [self renderingBlindsOfGamers: dictionary[@"blinds"]];
+                [self readInformationAboutGamerBets];
     }
     if([titleOfJsonData isEqualToString:@"InformationAboutCurrentGamer"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -207,6 +207,7 @@
     
     [gamerWithBigBlindMoneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfBigBlind]];
     [gamerWithSmallBlindMoneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfSmallBlind]];
+    NSLog(@"!!!!!!!!!!!!!!!!");
 }
 
 - (int)numberOfGamerWithName:(NSString *)gamerName {
@@ -218,7 +219,7 @@
     
     return -1;
 }
--(BOOL)isCurrentGamerMe:(NSString *)gamerName { return ([gamerName hash] == self.hashValueOfGamerName) ? YES : NO; }
+- (BOOL)isCurrentGamerMe:(NSString *)gamerName { return ([gamerName hash] == self.hashValueOfGamerName) ? YES : NO; }
 
 - (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
   
@@ -268,8 +269,7 @@
     if(![data isKindOfClass:[NSNumber class]]) { NSLog(@"error of parser"); return; }
     
     NSNumber *numberOfCurrentGamer = (NSNumber *)data;
-    
-    
+    [self startProgressViewAtIndex:[numberOfCurrentGamer intValue]];
 }
 
 
@@ -361,9 +361,7 @@
     [firstCard setAlpha:1.0];
     [secondCard setAlpha:1.0];
     
-        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:1.5 initialSpringVelocity:0.5 options:0 animations:^{
-        //    [firstCard setCenter:pointOfFirstCard];
-        //    [secondCard setCenter:pointOfSecondCard];
+           [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:1.5 initialSpringVelocity:0.5 options:0 animations:^{
             
             } completion:^(BOOL finished) {
                 
@@ -401,6 +399,46 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updateProgressView:(NSTimer *)timer
+{
+    NSInteger newCurrentValue;
+    
+    if (self.currentProgressView.currentValue == 0) {
+        newCurrentValue = self.currentProgressView.maximumValue;
+        [timer invalidate];
+        timer = nil;
+        NSLog(@"complete bar !");
+        
+        
+        return;
+    } else {
+        newCurrentValue = self.currentProgressView.currentValue - 1;
+    }
+    
+    [self.currentProgressView updateToCurrentValue:newCurrentValue animated:YES];
+}
+
+- (void)startProgressViewAtIndex:(int)index {
+    self.currentProgressView = [self.arrayOfGamersProgressView objectAtIndex:index];
+    [self showCurrentProgressView];
+    [self setTimerA];
+}
+- (void)stopCurrentProgressView   {
+    [self.timer invalidate];
+     self.timer = nil;
+    
+    [self hideCurrentProgressView];
+}
+- (void)hideCurrentProgressView {  [self.currentProgressView setAlpha:0.0];  }
+- (void)showCurrentProgressView {  [self.currentProgressView setAlpha:1.0];  }
+- (void)setTimerA {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                 target:self
+                                               selector:@selector(updateProgressView:)
+                                               userInfo:nil
+                                                repeats:YES];
 }
 
 /*

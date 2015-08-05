@@ -168,8 +168,10 @@
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 8
 #define DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW 30
 
-- (int)sizeForAttributedTextGamerIconView:(NSString *)string {
-    int length = (int)[string length];
+- (int)sizeForAttributedTextGamerIconView:(NSNumber *)money {
+    NSString *gamerMoneyString = [NSString stringWithFormat:@"%@", money];
+    
+    int length = (int)[gamerMoneyString length];
     int needSize = (DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW - 2*(length - DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW));
     
     return needSize > DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW ? DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW : needSize;
@@ -205,7 +207,7 @@
 
 - (NSString *)prepareGamerMoneyBeforeRendering {
     NSString *resultString = @"Money: $";
-    NSString *gamerMoney = [self getPlayersMoney];
+    NSString *gamerMoney = [NSString stringWithFormat:@"%@", [self getPlayersMoney]];
     
     int countOfFirstNumbers = [gamerMoney length] % LENGTH_DISCHARGE_THOUSANDS;
     
@@ -223,11 +225,11 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *result = [userDefaults objectForKey:@"name"];
-   
+   [userDefaults setObject:[NSNumber numberWithLong:18900000] forKey:@"money"];
     if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
         //self.gamerName.text = @"Something wronNNNNG ! ";
-        [userDefaults setObject:[NSNumber numberWithLong:100000] forKey:@"money"];
+        [userDefaults setObject:[NSNumber numberWithLong:18900000] forKey:@"money"];
         [userDefaults setInteger:0 forKey:@"level"];
         [userDefaults setObject:@"defaultImage.jpg" forKey:@"image"];
         [userDefaults synchronize];
@@ -244,11 +246,11 @@
     [userDefaults synchronize];
 }
 
-- (NSString *)getPlayersMoney {
+- (NSNumber *)getPlayersMoney {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults objectForKey:@"money"];
 }
-- (NSString *)getPlayersLevel {
+- (NSNumber *)getPlayersLevel {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults objectForKey:@"level"];
 }
