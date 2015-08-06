@@ -32,6 +32,7 @@
 		8476E52A1B1D82F40010B984 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8476E43B1B1D82F00010B984 /* LICENSE */; };
 		8476E52B1B1D82F40010B984 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8476E43C1B1D82F00010B984 /* README.txt */; };
 		847EE2F21B1A62910002BAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847EE2F11B1A62910002BAE8 /* MessageUI.framework */; };
+		84A513331B73C4900064100D /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A513321B73C4900064100D /* Stack.m */; };
 		84AF6F011AE5951800490757 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F001AE5951800490757 /* main.m */; };
 		84AF6F041AE5951800490757 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F031AE5951800490757 /* AppDelegate.m */; };
 		84AF6F071AE5951800490757 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6F061AE5951800490757 /* ViewController.m */; };
@@ -99,6 +100,8 @@
 		8476E43C1B1D82F00010B984 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		847AABBC1AF8571F00A41642 /* AnimationOnTheTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationOnTheTable.h; sourceTree = "<group>"; };
 		847EE2F11B1A62910002BAE8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		84A513311B73C4900064100D /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stack.h; sourceTree = "<group>"; };
+		84A513321B73C4900064100D /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stack.m; sourceTree = "<group>"; };
 		84AF6EFB1AE5951800490757 /* Poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AF6EFF1AE5951800490757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84AF6F001AE5951800490757 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				84E14D5B1B6A955E008F776D /* UDPConnection.m */,
 				84E929FE1B6A9A6A00DA6B84 /* TCPConnection.h */,
 				84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */,
+				84A513311B73C4900064100D /* Stack.h */,
+				84A513321B73C4900064100D /* Stack.m */,
 				84B2E1FB1AE7C404002057A4 /* GamerDataViewController.h */,
 				84B2E1FC1AE7C404002057A4 /* GamerDataViewController.m */,
 				84FD67241AF9D90000F4F434 /* Gamer.h */,
@@ -446,6 +451,7 @@
 				841C27461B64136E00E149FC /* DDFileLogger.m in Sources */,
 				84FD67261AF9D90000F4F434 /* Gamer.m in Sources */,
 				84AF6F041AE5951800490757 /* AppDelegate.m in Sources */,
+				84A513331B73C4900064100D /* Stack.m in Sources */,
 				841C27441B64136E00E149FC /* DDAbstractDatabaseLogger.m in Sources */,
 				841C27481B64136E00E149FC /* DDTTYLogger.m in Sources */,
 				84D9F3911B0188F3004947AD /* AnimationOnTheTable.m in Sources */,

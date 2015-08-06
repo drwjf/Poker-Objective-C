@@ -7,7 +7,13 @@
 //
 
 #import "TCPConnection.h"
+#import "Stack.h"
 
+@interface TCPConnection ()
+
+@property(nonatomic, strong)Stack *stack;
+
+@end
 
 
 #define GET_INVITE_TO_THE_GAME 0
@@ -38,6 +44,7 @@ static TCPConnection *singlTCPConnection = nil;
         _mainQueue = nil;
         _asyncSocket = nil;
         _isConnected = NO;
+        _stack = [[Stack alloc] init];
     }
     return self;
 }
@@ -65,7 +72,40 @@ static TCPConnection *singlTCPConnection = nil;
 -(void)readDataWithTag:(int)tag {
     NSLog(@"%@, tag : %d", THIS_METHOD, tag);
     NSMutableData *myData = [[NSMutableData alloc] init];
-    [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
+    
+    
+    if([self.stack isEmpty])
+        [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
+    else
+        [self returnDataWithTag:tag];
+}
+
+- (void)returnDataWithTag:(long)tag {
+        self.downloadedData = [self.stack pope];
+        switch (tag) {
+            case GET_INVITE_TO_THE_GAME:
+                [self.delegateForGamerVC parseResponseFromServer];
+                break;
+    
+            case GET_INFO_ABOUT_GAMERS:
+                [self.delegateForPlayGameVC parseGameInformationFromServer];
+    
+                //Gamers on the table are rendered. Geting info about cards.
+                [self readDataWithTag:GET_INFO_ABOUT_CARDS];
+                break;
+            case GET_INFO_ABOUT_CARDS:
+                [self.delegateForPlayGameVC parseGameInformationFromServer];
+    
+                [self readDataWithTag:GET_INFO_ABOUT_BETS];
+                break;
+    
+            case GET_INFO_ABOUT_BETS:
+                [self.delegateForPlayGameVC parseInformationAboutGamersBets];
+                break;
+                
+            default:
+                break;
+        }
 }
 
 
@@ -99,6 +139,36 @@ static TCPConnection *singlTCPConnection = nil;
         DDLogError(@"Success connecting: %@", error);
     }
 }
+
+- (NSMutableArray*)arrayOfIndexesSeparateSymols:(NSString*)string {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (int i=0; i<[string length]; i++) {
+        if([string characterAtIndex:i] == '\n')
+            [array addObject:[NSNumber numberWithInt:i]];
+    }
+    return array;
+}
+
+- (void)splitDownloadedJSON:(NSData *)data {
+    NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSMutableArray *arrayOfIndexes = [self arrayOfIndexesSeparateSymols:httpResponse];
+    
+    if(![arrayOfIndexes count]) [self.stack push:data];
+    
+    NSString *subString;
+    
+    for(int i=0, indexOfStartSymbol = 0; i < [arrayOfIndexes count]; i++)
+    {
+        NSNumber *numberOfSeparateSymbol = [arrayOfIndexes objectAtIndex:i];
+        subString = [httpResponse substringWithRange:NSMakeRange(indexOfStartSymbol, [numberOfSeparateSymbol intValue])];
+        
+        [self.stack push:[subString dataUsingEncoding:NSUTF8StringEncoding]];
+        indexOfStartSymbol = [numberOfSeparateSymbol intValue];
+        subString = nil;
+    }
+}
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,34 +219,11 @@ static TCPConnection *singlTCPConnection = nil;
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     DDLogInfo(@"socket:%p didReadData:withTag:%ld", sock, tag);
-    self.downloadedData = data;
-    switch (tag) {
-        case GET_INVITE_TO_THE_GAME:
-            [self.delegateForGamerVC parseResponseFromServer];
-            break;
-            
-        case GET_INFO_ABOUT_GAMERS:
-            [self.delegateForPlayGameVC parseGameInformationFromServer];
-            
-            //Gamers on the table are rendered. Geting info about cards.
-            [self readDataWithTag:GET_INFO_ABOUT_CARDS];
-            break;
-        case GET_INFO_ABOUT_CARDS:
-            [self.delegateForPlayGameVC parseGameInformationFromServer];
-            
-            [self readDataWithTag:GET_INFO_ABOUT_BETS];
-            break;
-            
-        case GET_INFO_ABOUT_BETS:
-            [self.delegateForPlayGameVC parseInformationAboutGamersBets];
-            break;
-            
-        default:
-            break;
-    }
+    [self splitDownloadedJSON:data];
+    [self returnDataWithTag:tag];
     
     NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    DDLogInfo(@"HTTP Response:\n%@", httpResponse);
+    DDLogInfo(@"HTTP Response:\n%@!!", httpResponse);
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err

@@ -153,7 +153,9 @@
 - (void)parseGameInformationFromServer {
     NSDictionary *dictionary = [self downloadedJSONData];
     
-    if(!dictionary) {  NSLog(@"Downloaded data isn't a JSON !"); return; }
+    if(!dictionary) {
+        NSLog(@"Downloaded data isn't a JSON !");
+        return; }
     
     NSString *titleOfJsonData = dictionary[@"title"];
     
@@ -170,7 +172,9 @@
 
 - (void)parseInformationAboutGamersBets {
     NSDictionary *dictionary = [self downloadedJSONData];
-    if(!dictionary) {  NSLog(@"Downloaded data isn't a JSON !"); return; }
+    if(!dictionary) {
+        NSLog(@"Downloaded data isn't a JSON !");
+        return; }
     
     NSString *titleOfJsonData = dictionary[@"title"];
     
