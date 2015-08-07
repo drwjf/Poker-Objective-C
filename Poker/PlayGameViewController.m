@@ -413,9 +413,7 @@
         newCurrentValue = self.currentProgressView.maximumValue;
         [timer invalidate];
         timer = nil;
-        NSLog(@"complete bar !");
-        
-        
+        [self hideCurrentProgressView];
         return;
     } else {
         newCurrentValue = self.currentProgressView.currentValue - 1;

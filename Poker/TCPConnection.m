@@ -7,11 +7,11 @@
 //
 
 #import "TCPConnection.h"
-#import "Stack.h"
+#import "Queue.h"
 
 @interface TCPConnection ()
 
-@property(nonatomic, strong)Stack *stack;
+@property(nonatomic, strong)Queue *queue;
 
 @end
 
@@ -24,10 +24,6 @@
 
 #define TIME_OUT 3
 #define LONG_TIME_OUT 60
-
-#define DID_WRITE_RESPONSE 101
-
-#define MAX_DURATION_OF_PARTY 1080
 
 static const int ddLogLevel = LOG_LEVEL_INFO;
 
@@ -44,7 +40,7 @@ static TCPConnection *singlTCPConnection = nil;
         _mainQueue = nil;
         _asyncSocket = nil;
         _isConnected = NO;
-        _stack = [[Stack alloc] init];
+        _queue = [[Queue alloc] init];
     }
     return self;
 }
@@ -70,18 +66,18 @@ static TCPConnection *singlTCPConnection = nil;
 
 //-------------------RECEIVING-----------------------------------------
 -(void)readDataWithTag:(int)tag {
-    NSLog(@"%@, tag : %d", THIS_METHOD, tag);
+   // NSLog(@"%@, tag : %d", THIS_METHOD, tag);
     NSMutableData *myData = [[NSMutableData alloc] init];
     
     
-    if([self.stack isEmpty])
+    if([self.queue isQueueEmpty])
         [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
     else
         [self returnDataWithTag:tag];
 }
 
 - (void)returnDataWithTag:(long)tag {
-        self.downloadedData = [self.stack pope];
+        self.downloadedData = [self.queue nextObject];
         switch (tag) {
             case GET_INVITE_TO_THE_GAME:
                 [self.delegateForGamerVC parseResponseFromServer];
@@ -151,18 +147,20 @@ static TCPConnection *singlTCPConnection = nil;
 
 - (void)splitDownloadedJSON:(NSData *)data {
     NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", httpResponse);
     NSMutableArray *arrayOfIndexes = [self arrayOfIndexesSeparateSymols:httpResponse];
-    
-    if(![arrayOfIndexes count]) [self.stack push:data];
-    
-    NSString *subString;
     
     for(int i=0, indexOfStartSymbol = 0; i < [arrayOfIndexes count]; i++)
     {
         NSNumber *numberOfSeparateSymbol = [arrayOfIndexes objectAtIndex:i];
-        subString = [httpResponse substringWithRange:NSMakeRange(indexOfStartSymbol, [numberOfSeparateSymbol intValue])];
         
-        [self.stack push:[subString dataUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"firstSymbol  :%c, %i", [httpResponse characterAtIndex:indexOfStartSymbol], indexOfStartSymbol);
+        NSLog(@"lastSymbol   :%c, %i", [httpResponse characterAtIndex:[numberOfSeparateSymbol intValue]], [numberOfSeparateSymbol intValue]);
+        
+        
+        NSString *subString  = [httpResponse substringWithRange:NSMakeRange(indexOfStartSymbol, [numberOfSeparateSymbol intValue] - indexOfStartSymbol)];
+        
+        [self.queue addObject:[subString dataUsingEncoding:NSUTF8StringEncoding]];
         indexOfStartSymbol = [numberOfSeparateSymbol intValue];
         subString = nil;
     }
