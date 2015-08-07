@@ -123,26 +123,6 @@
                                     <action selector="sendMessageClick:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="xsd-nS-AMF"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-GE-7Y8">
-                                <rect key="frame" x="310" y="227" width="704" height="443"/>
-                                <color key="backgroundColor" red="0.90616367403314912" green="0.8808883906110504" blue="0.72662114679225753" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Правила игры в покер
-
-Техасский холдем — самая популярная разновидность покера в мире. Секрет этой популярности отчасти в том, что освоить его правила легко, но чтобы стать мастером, придется потратить немало времени. 
-Игра начинается с рассадки за столом. Выберите стол и займите любое свободное место. Какое — не имеет значения: позиции игроков за столом меняются по часовой стрелке. Их определяет передвигаемый в начале новой партии маркер (дилер).
-Цель игры — сорвать банк, который формируется из ставок в течение четырех (или меньше) раундов торговли. Выиграть банк можно двумя способами:
-Собрать покерную комбинацию, которая окажется сильнее комбинации соперника.
-Заставить соперников сбросить карты и отказаться от дальнейшей игры.    
-
-Часто задаваемые вопросы:
-В: Почему Вашего приложения до сих пор нет в App Store ?
-О: Понимаете... Мы просто не хотели устроить второй "бум". Напоминаем : первый "бум" - появление самого App Store !
-
-В: Я очень долго искал(а) кнопку отблагодарить разработчика, но ничего не нашёл(ла) !
-О: Для нас является благодарностью уже то, что Вы уже установили наше приложение :)</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLJ-bq-Rhk">
                                 <rect key="frame" x="163" y="396" width="63" height="43"/>
                                 <state key="normal" image="accelerometer_icon">
@@ -184,6 +164,26 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUA-e5-Tfq">
                                 <rect key="frame" x="241" y="402" width="51" height="31"/>
                             </switch>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3d-GE-7Y8">
+                                <rect key="frame" x="310" y="227" width="704" height="443"/>
+                                <color key="backgroundColor" red="0.90616367403314912" green="0.8808883906110504" blue="0.72662114679225753" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Правила игры в покер
+
+Техасский холдем — самая популярная разновидность покера в мире. Секрет этой популярности отчасти в том, что освоить его правила легко, но чтобы стать мастером, придется потратить немало времени. 
+Игра начинается с рассадки за столом. Выберите стол и займите любое свободное место. Какое — не имеет значения: позиции игроков за столом меняются по часовой стрелке. Их определяет передвигаемый в начале новой партии маркер (дилер).
+Цель игры — сорвать банк, который формируется из ставок в течение четырех (или меньше) раундов торговли. Выиграть банк можно двумя способами:
+Собрать покерную комбинацию, которая окажется сильнее комбинации соперника.
+Заставить соперников сбросить карты и отказаться от дальнейшей игры.    
+
+Часто задаваемые вопросы:
+В: Почему Вашего приложения до сих пор нет в App Store ?
+О: Понимаете... Мы просто не хотели устроить второй "бум". Напоминаем : первый "бум" - появление самого App Store !
+
+В: Я очень долго искал(а) кнопку отблагодарить разработчика, но ничего не нашёл(ла) !
+О: Для нас является благодарностью уже то, что Вы уже установили наше приложение :)</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.84077460883831745" green="0.7021935882380691" blue="0.49419461046859148" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -264,10 +264,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="obh-HN-6aE">
                                 <rect key="frame" x="95" y="226" width="94" height="128"/>
                             </imageView>
-                            <button opaque="NO" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
-                                <rect key="frame" x="336" y="730" width="76" height="29"/>
+                            <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
+                                <rect key="frame" x="336" y="730" width="76" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="Send">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -484,11 +484,19 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fishki" translatesAutoresizingMaskIntoConstraints="NO" id="EMu-l9-weP">
                                 <rect key="frame" x="420" y="633" width="604" height="135"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Bz-0f-dNa">
-                                <rect key="frame" x="758" y="560" width="215" height="51"/>
-                                <color key="backgroundColor" red="0.70990156530000004" green="0.71292119990000002" blue="0.86183529010000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Bz-0f-dNa">
+                                <rect key="frame" x="428" y="648" width="133" height="46"/>
+                                <color key="backgroundColor" red="0.74859457671957674" green="0.151256518011984" blue="0.078894614565755417" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="OSX-Checkbox-OFF">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="     Fold">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="0.89972215024916535" blue="0.025077497332683829" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="20" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZx-FR-0bu">
@@ -836,10 +844,87 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6B-0n-RiG">
+                                <rect key="frame" x="569" y="648" width="133" height="46"/>
+                                <color key="backgroundColor" red="0.71899881519999997" green="0.14619062544289002" blue="0.076580119315910605" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="OSX-Checkbox-OFF">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="    Check">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="0.89972215020000001" blue="0.02507749733" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwc-Q2-r6E">
+                                <rect key="frame" x="429" y="700" width="274" height="48"/>
+                                <color key="backgroundColor" red="0.71899881519999997" green="0.1461906254" blue="0.076580119320000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="OSX-Checkbox-OFF">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="               Check/Fold">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="0.80024726131509127" blue="0.064544324985766455" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHh-nf-97p">
+                                <rect key="frame" x="713" y="648" width="127" height="46"/>
+                                <color key="backgroundColor" red="0.71899881519999997" green="0.1461906254" blue="0.076580119320000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Call">
+                                    <color key="titleColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJQ-uo-NJr">
+                                <rect key="frame" x="848" y="648" width="106" height="46"/>
+                                <color key="backgroundColor" red="0.71899881519999997" green="0.1461906254" blue="0.076580119320000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Raise">
+                                    <color key="titleColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asg-fS-CSu">
+                                <rect key="frame" x="962" y="648" width="52" height="46"/>
+                                <color key="backgroundColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="camera-icon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIp-wB-h3g">
+                                <rect key="frame" x="962" y="700" width="52" height="48"/>
+                                <color key="backgroundColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="sample-1012-sticky-note">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8E-Al-wpo">
+                                <rect key="frame" x="713" y="700" width="241" height="48"/>
+                                <color key="backgroundColor" red="0.71899881519999997" green="0.1461906254" blue="0.076580119320000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="            Call Any" image="OSX-Checkbox-OFF">
+                                    <color key="titleColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="CheckFoldButton" destination="vwc-Q2-r6E" id="pWg-3O-jcs"/>
+                        <outlet property="callAnyButton" destination="c8E-Al-wpo" id="HSo-eh-7Wh"/>
+                        <outlet property="callButton" destination="HHh-nf-97p" id="pFN-qR-uDn"/>
+                        <outlet property="checkButton" destination="C6B-0n-RiG" id="aO0-Et-4Pk"/>
+                        <outlet property="foldButton" destination="2Bz-0f-dNa" id="gE4-iS-ayD"/>
+                        <outlet property="makeScreenshortButton" destination="asg-fS-CSu" id="BTo-MQ-LIW"/>
+                        <outlet property="raiseButton" destination="sJQ-uo-NJr" id="kdL-b8-QFY"/>
+                        <outlet property="showCombinationButton" destination="yIp-wB-h3g" id="KGr-FU-63f"/>
                         <outletCollection property="arrayOfPlayersImages" destination="cQ9-jx-a3h" id="PuC-DM-pH2"/>
                         <outletCollection property="arrayOfPlayersImages" destination="jc2-Ub-zqB" id="aU0-Pr-z0C"/>
                         <outletCollection property="arrayOfPlayersImages" destination="obh-HN-6aE" id="hpK-h2-evG"/>
@@ -1880,6 +1965,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="OSX-Checkbox-OFF" width="25" height="25"/>
         <image name="accelerometer_icon" width="80" height="80"/>
         <image name="background" width="1562" height="1217"/>
         <image name="camera-icon" width="20" height="20"/>

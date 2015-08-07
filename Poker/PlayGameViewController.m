@@ -39,6 +39,15 @@
 @property (nonatomic) int numberOfCurrentProgressView;
 
 
+@property (strong, nonatomic) IBOutlet UIButton *foldButton;
+@property (strong, nonatomic) IBOutlet UIButton *checkButton;
+@property (strong, nonatomic) IBOutlet UIButton *CheckFoldButton;
+@property (strong, nonatomic) IBOutlet UIButton *callButton;
+@property (strong, nonatomic) IBOutlet UIButton *raiseButton;
+@property (strong, nonatomic) IBOutlet UIButton *callAnyButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *makeScreenshortButton;
+@property (strong, nonatomic) IBOutlet UIButton *showCombinationButton;
 
 @end
 
@@ -47,12 +56,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self changeCornerRadiusOfPlayersViews:10];
-//    [self rotateRightPrivateCardOfPlayers:10];
-//    [self changeCornerRadiusOfCards:10];
     [self prepareBeforeGameProcess];
     [self readInformationAboutGamersOnTheTable];
 }
+
+
 
 - (void)readInformationAboutGamersOnTheTable {
     TCPConnection *connection = [TCPConnection sharedInstance];
@@ -67,6 +75,8 @@
 
 - (void)prepareBeforeGameProcess {
     [self clearTable];
+    [self changeCornerRadiusOfBetButtons];
+    
     self.countOfPlayersOnTheTable = 0;
 }
 - (void)clearTable
@@ -126,6 +136,18 @@
         [self setCornerRadius:[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i+1] andRadius:CORNER_RADIUS_CARD];
     }
     
+}
+
+- (void)changeCornerRadiusOfBetButtons {
+    [self setCornerRadius:self.foldButton andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:self.raiseButton andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:self.callButton andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:self.callAnyButton andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:self.checkButton andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:self.CheckFoldButton andRadius:CORNER_RADIUS_CARD];
+    
+    [self setCornerRadius:self.makeScreenshortButton andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:self.showCombinationButton andRadius:CORNER_RADIUS_CARD];
 }
 
 - (NSDictionary *)convertToJSON:(NSData *)data {
