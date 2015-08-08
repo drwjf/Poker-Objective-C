@@ -141,7 +141,7 @@
     connection.delegateForGamerVC = self;
 
     NSDictionary *requestDictiionary = [self createRequestAboutInvitationInGame];
-    [connection sendDataWithTag:[self jsonDataWithDictionary:requestDictiionary] andTag:GET_INVITE_TO_THE_GAME];
+    [connection sendDataWithTag:[JSONParser convertNSDictionaryToJSONdata:requestDictiionary] andTag:GET_INVITE_TO_THE_GAME];
 }
 
 - (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
@@ -226,7 +226,6 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *result = [userDefaults objectForKey:@"name"];
-   [userDefaults setObject:[NSNumber numberWithLong:18900000] forKey:@"money"];
     if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
         //self.gamerName.text = @"Something wronNNNNG ! ";
@@ -287,15 +286,6 @@
     return data;
 }
 
-- (NSData *)jsonDataWithDictionary:(NSDictionary *)dictionary {
-    JSONParser *jsonParser = [[JSONParser alloc] init];
-    return [jsonParser convertNSDictionaryToJSONdata:dictionary];
-}
-- (NSDictionary *)NSDictionaryWithJSONData:(NSData *)data {
-    JSONParser *jsonParser = [[JSONParser alloc] init];
-    return [jsonParser convertJSONdataToNSDictionary:data];
-}
-
 - (NSData *)downloadedData {
     TCPConnection *connect = [TCPConnection sharedInstance];
     return connect.downloadedData;
@@ -306,18 +296,17 @@
     TCPConnection *connection = [TCPConnection sharedInstance];
     
      NSDictionary *dictionary = [self createInformationAboutPlayer];
-    [connection sendDataWithTag:[self jsonDataWithDictionary:dictionary] andTag:GET_ACCEPT];
+    [connection sendDataWithTag:[JSONParser convertNSDictionaryToJSONdata:dictionary] andTag:GET_ACCEPT];
 }
 
 - (void)parseResponseFromServer {
-    JSONParser *jsonParser = [[JSONParser alloc] init];
-    
-    NSDictionary *dictionary = [self NSDictionaryWithJSONData:[self downloadedData]];
-    NSString *title = [jsonParser getNSStringWithObject:dictionary[@"title"]];
+
+    NSDictionary *dictionary = [JSONParser convertJSONdataToNSDictionary:[self downloadedData]];
+    NSString *title = [JSONParser getNSStringWithObject:dictionary[@"title"]];
     
     if([title isEqualToString:@"inviteToTheGame"]) {
-        BOOL isInGame = (BOOL)dictionary[@"inGame"];
-        BOOL isNeedToSendInformation = (BOOL)dictionary[@"Information"];
+        BOOL isInGame = [JSONParser getBOOLValueWithObject:dictionary[@"inGame"]];
+        BOOL isNeedToSendInformation = [JSONParser getBOOLValueWithObject:dictionary[@"Information"]];
         
         if(isInGame && isNeedToSendInformation) {
             [self setNewGamerName];

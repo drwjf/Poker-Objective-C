@@ -10,19 +10,20 @@
 #import "Gamer.h"
 
 @interface JSONParser ()
-- (BOOL)isObjectNSNumber:(id)object;
-- (BOOL)isObjectNSString:(id)object;
+
 @end
 
 @implementation JSONParser
 
 - (instancetype)init {
-    self = [super init];
-
+    if(self = [super init]) {
+        //do something ...
+    }
+    
     return self;
 }
 
-- (NSData *)convertNSDictionaryToJSONdata:(NSDictionary*)data
++ (NSData *)convertNSDictionaryToJSONdata:(NSDictionary*)data
 {
     NSError *error = nil;
     
@@ -37,7 +38,7 @@
     return nil;
 }
 
-- (NSDictionary *)convertJSONdataToNSDictionary:(NSData *)data {
++ (NSDictionary *)convertJSONdataToNSDictionary:(NSData *)data {
     NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
@@ -54,29 +55,40 @@
     }
 }
 
-- (BOOL)isObjectNSNumber:(id)object { return [object isKindOfClass:[NSNumber class]] ? YES : NO; }
-- (BOOL)isObjectNSString:(id)object { return [object isKindOfClass:[NSString class]] ? YES : NO; }
 
-
-- (NSNumber *)getNSNumberWithObject:(id)object
-{
-    if ([self isObjectNSNumber:object])
++ (NSNumber *)getNSNumberWithObject:(id)object{
+    if ([object isKindOfClass:[NSNumber class]])
         return (NSNumber *)object;
     else {
         [NSException raise:@"object is not at NSNumber " format:@"object %@ is not a NSNumber", object];
         return nil;
     }
 }
-
-- (NSString *)getNSStringWithObject:(id)object
-{
-    if ([self isObjectNSString:object])
++ (NSString *)getNSStringWithObject:(id)object{
+    if ([object isKindOfClass:[NSString class]])
         return (NSString *)object;
     else {
         [NSException raise:@"object is not at NSString " format:@"object %@ is not a NSString", object];
         return nil;
     }
 }
++ (NSDictionary *)getNSDictionaryWithObject:(id)object {
+    if([object isKindOfClass:[NSDictionary class]]) {
+        return (NSDictionary *)object;
+    } else
+        [NSException raise:@"Object is not a NSDictionary !" format:@"object %@ a NSDictionary", object];
+        return nil;
+}
+
++ (BOOL)getBOOLValueWithObject:(id)object {
+    if ([object isKindOfClass:[NSNumber class]])
+        return [(NSNumber *)object boolValue];
+    else {
+        [NSException raise:@"object is not at NSNumber " format:@"object %@ is not a NSNumber", object];
+        return NO;
+    }
+}
+
 
 - (Gamer *)parseGamerJSONData:(NSDictionary *)dictionary
 {

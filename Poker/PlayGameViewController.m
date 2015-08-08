@@ -9,6 +9,7 @@
 #import "PlayGameViewController.h"
 #import "EAColourfulProgressView.h"
 #import "Gamer.h"
+#import "JSONParser.h"
 
 //---tags----
 #define GET_INFO_ABOUT_GAMERS 3
@@ -141,18 +142,17 @@
 - (void)prepareBeforeGameProcess {
     [self clearTable];
     [self changeCornerRadiusOfBetButtons];
-    
     self.countOfPlayersOnTheTable = 0;
 }
 - (void)clearTable
 {
     //performance better, than if we use a (1)cycle.
-    for(UILabel *nameLabel in self.arrayOfLabelsPlayersNames)   [nameLabel  setAlpha:0.0];
-    for(UILabel *moneyLabel in self.arrayOfLabelsPlayersMoneys) [moneyLabel setAlpha:0.0];
-    for(UIImageView *imageView in self.arrayOfPlayersImages)    [imageView  setAlpha:0.0];
-    for(UIImageView *privateCardImage in self.arrayOfImagesPrivatePlayersCard) [privateCardImage setAlpha:0.0];
-    for(UIView *progressView in self.arrayOfGamersProgressView) [progressView setAlpha:0.0];
-    for(UILabel *rateLabel in self.arrayOfLabelsGamerRates) [rateLabel setAlpha:0.0];
+    for(UILabel *nameLabel in self.arrayOfLabelsPlayersNames)   [self setViewUnvisible:nameLabel];
+    for(UILabel *moneyLabel in self.arrayOfLabelsPlayersMoneys) [self setViewUnvisible:moneyLabel];
+    for(UIImageView *imageView in self.arrayOfPlayersImages)    [self setViewUnvisible:imageView];
+    for(UIImageView *privateCardImage in self.arrayOfImagesPrivatePlayersCard) [self setViewUnvisible:privateCardImage];
+    for(UIView *progressView in self.arrayOfGamersProgressView) [self setViewUnvisible:progressView];
+    for(UILabel *rateLabel in self.arrayOfLabelsGamerRates)     [self setViewUnvisible:rateLabel];
 }
 - (void)lockTheBetButtons
 {
@@ -235,36 +235,17 @@
     [self setCornerRadius:self.showCombinationButton andRadius:CORNER_RADIUS_CARD];
 }
 
-- (NSDictionary *)convertToJSON:(NSData *)data {
-    NSError *error = nil;
-    id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-    
-    if(error) {
-        NSLog(@"Error of NSJSONSerialization !");
-    }
-    
-    if([object isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dictionary = object;
-        return dictionary;
-    } else { return nil; }
-}
-
-
 - (NSDictionary *)downloadedJSONData {
     TCPConnection *connection = [TCPConnection sharedInstance];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connection.downloadedData]];
+    NSDictionary *dictionary =  [JSONParser convertJSONdataToNSDictionary:connection.downloadedData];
     
-    return (dictionary) ? dictionary : nil;
+    return dictionary;
 }
 
 - (void)parseGameInformationFromServer {
     NSDictionary *dictionary = [self downloadedJSONData];
     
-    if(!dictionary) {
-        NSLog(@"Downloaded data isn't a JSON !");
-        return; }
-    
-    NSString *titleOfJsonData = dictionary[@"title"];
+    NSString *titleOfJsonData = [JSONParser getNSStringWithObject:dictionary[@"title"]];
     
         if([titleOfJsonData isEqualToString:@"InformationAboutGamers"])
           dispatch_async(dispatch_get_main_queue(), ^{
@@ -279,11 +260,8 @@
 
 - (void)parseInformationAboutGamersBets {
     NSDictionary *dictionary = [self downloadedJSONData];
-    if(!dictionary) {
-        NSLog(@"Downloaded data isn't a JSON !");
-        return; }
     
-    NSString *titleOfJsonData = dictionary[@"title"];
+    NSString *titleOfJsonData = [JSONParser getNSStringWithObject:dictionary[@"title"]];
     [self stopCurrentProgressView];
     
     if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
@@ -299,13 +277,10 @@
 - (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
     int numberOfGamerWithSmallBlind, numberOfGamerWithBigBlind;
     
-    id firstBlind = dictionary[@"numberOfPlayerWithSmallBlind"];
-    if(![firstBlind isKindOfClass:[NSNumber class]]) {NSLog(@"error of parser !"); return; }
-    
-    numberOfGamerWithSmallBlind = [firstBlind intValue];
+    numberOfGamerWithSmallBlind = [[JSONParser getNSNumberWithObject:dictionary[@"numberOfPlayerWithSmallBlind"]] intValue];
     numberOfGamerWithBigBlind = (numberOfGamerWithSmallBlind + 1) % self.countOfPlayersOnTheTable;
     
-    NSNumber *valueOfBigBlind = dictionary[@"betOfBigBlind"];
+    NSNumber *valueOfBigBlind = [JSONParser getNSNumberWithObject:dictionary[@"betOfBigBlind"]];
     NSNumber *valueOfSmallBlind = [NSNumber numberWithLongLong:[valueOfBigBlind longLongValue] / 2];
     
     
@@ -320,8 +295,6 @@
     
     [self setViewVisible:gamerWithBigBlindMoneyLabel];
     [self setViewVisible:gamerWithSmallBlindMoneyLabel];
-    [gamerWithBigBlindMoneyLabel setAlpha:1.0];
-    NSLog(@"@DSFDSFDSFSSDF");
 }
 
 - (int)numberOfGamerWithName:(NSString *)gamerName {
@@ -338,17 +311,13 @@
 - (BOOL)shouldIMakeTheBet { return (self.numberOfMeInGamersList == self.numberOfCurrentProgressView) ? YES : NO; }
 
 - (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
-  
-    id data = dictionary[@"countOfGamers"];
-    if([data isKindOfClass:[NSNumber class]]) {
-        self.countOfPlayersOnTheTable =[(NSNumber *)data intValue];
-    }
+    self.countOfPlayersOnTheTable = [[JSONParser getNSNumberWithObject:dictionary[@"countOfGamers"]] intValue];
     
     for (int i=0; i<self.countOfPlayersOnTheTable; i++) {
         NSString *gamerOfNumber = [NSString stringWithFormat:@"gamer%i", i+1];
-        NSDictionary *generalInfoAboutGamer = [NSDictionary dictionaryWithDictionary:dictionary[gamerOfNumber]];
-        [self addPlayerOnTheTable:generalInfoAboutGamer];
         
+        NSDictionary *generalInfoAboutGamer = [JSONParser getNSDictionaryWithObject:dictionary[gamerOfNumber]];
+        [self addPlayerOnTheTable:generalInfoAboutGamer];
         if([self isCurrentGamerMe:generalInfoAboutGamer[@"name"]]) self.numberOfMeInGamersList = i;
     }
     
@@ -363,19 +332,19 @@
 #define COUNT_CARDS_ON_THE_TABLE 5
 
 - (void)parseInformationAboutGameCards:(NSDictionary *)dictionary {
-    NSDictionary *dictionaryWithInfoAboutCards = [NSDictionary dictionaryWithDictionary:dictionary[@"cards"]];
+   NSDictionary *dictionaryWithInfoAboutCards = [JSONParser getNSDictionaryWithObject:dictionary[@"cards"]];
     
     NSNumber *card;
     NSString *keyWord;
-    
+
     for (int i=0; i<COUNT_CARDS_ON_THE_TABLE; i++) {
         keyWord = [NSString stringWithFormat:@"cardOfNumber_%i", (i+1)];
-        card = dictionaryWithInfoAboutCards[keyWord];
+        card = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[keyWord]];
         
         [self.arrayOfCardsOnTheTable addObject:card];
     }
-    NSNumber *firstPrivateCard = dictionaryWithInfoAboutCards[@"firstPrivateCard"];
-    NSNumber *secondPrivateCard = dictionaryWithInfoAboutCards[@"secondPrivateCard"];
+    NSNumber *firstPrivateCard  = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[@"firstPrivateCard"]];
+    NSNumber *secondPrivateCard = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[@"secondPrivateCard"]];
     
     [self setPrivateCardsForGeneralGamer:firstPrivateCard andSecondPrivateCard:secondPrivateCard];
     [self renderingPrivateCardsOfGeneralGamer];
@@ -384,26 +353,24 @@
 
 - (void)parseAndRenderInfoAboutCurrentGamer:(NSDictionary *)dictionary andTitle:(NSString *)title{
     if([title isEqualToString:@"InformationAboutCurrentGamer"]) {
-        id data = dictionary[@"numberOfCurrentGamer"];
-        if(![data isKindOfClass:[NSNumber class]]) { NSLog(@"error of parser"); return; }
         
-        NSNumber *numberOfCurrentGamer = (NSNumber *)data;
+        NSNumber *numberOfCurrentGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfCurrentGamer"]];
         [self startProgressViewAtIndex:[numberOfCurrentGamer intValue]];
         
         if([self shouldIMakeTheBet]) {
-            self.currentMinBet = dictionary[@"minBet"];
+            self.currentMinBet = [JSONParser getNSNumberWithObject:dictionary[@"minBet"]];
             [self unlockTheBetButtons];
-        } else;
-            //[self readInformationAboutGamerBets];
+        } else
+            [self readInformationAboutGamerBets];
     } else if([title isEqualToString:@"CurrentBetOfGamer"]) {
         [self stopCurrentProgressView];
-        NSNumber *betOfGamer = [dictionary objectForKey:@"betOfPlayer"];
-        NSNumber *numberOfPlayer = [dictionary objectForKey:@"numberOfPlayer"];
+        NSNumber *betOfGamer = [JSONParser getNSNumberWithObject:dictionary[@"betOfPlayer"]];
+        NSNumber *numberOfPlayer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfPlayer"]];
         
         UILabel *currentBetLabel = [self.arrayOfLabelsGamerRates objectAtIndex:[numberOfPlayer intValue]];
         [currentBetLabel setText:[NSString stringWithFormat:@"$%@", betOfGamer]];
         [self setViewVisible:currentBetLabel];
-        //[self readInformationAboutGamerBets];
+        [self readInformationAboutGamerBets];
     }
 }
 
@@ -476,7 +443,8 @@
     }
 }
 
-- (void)setViewVisible:(UIView*)view { [view setAlpha:1.0]; }
+- (void)setViewVisible:(UIView *)view   { [view setAlpha:1.0]; }
+- (void)setViewUnvisible:(UIView *)view { [view setAlpha:0.0]; }
 
 - (void)renderingPrivateCardsOfGeneralGamer {
     Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
@@ -525,14 +493,14 @@
     if(!self.arrayOfPlayersOnTheTable)
         self.arrayOfPlayersOnTheTable = [[NSMutableArray alloc] init];
     
-    NSDictionary *netInfoAboutGamer = [NSDictionary dictionaryWithDictionary:generalInfoAboutGamer[@"netInformation"]];
+    NSDictionary *netInfoAboutGamer = [JSONParser getNSDictionaryWithObject:generalInfoAboutGamer[@"netInformation"]];
     
-    NSString *gamerName = generalInfoAboutGamer[@"name"];
-    NSNumber *gamerMoney = generalInfoAboutGamer[@"money"];
-    NSNumber *gamerLevel = generalInfoAboutGamer[@"name"];
+    NSString *gamerName =  [JSONParser getNSStringWithObject:generalInfoAboutGamer[@"name"]];
+    NSNumber *gamerMoney = [JSONParser getNSNumberWithObject:generalInfoAboutGamer[@"money"]];
+    NSNumber *gamerLevel = [JSONParser getNSNumberWithObject:generalInfoAboutGamer[@"level"]];
     
-    NSString *IpAddressOfGamer = netInfoAboutGamer[@"ipAddress"];
-    NSNumber *portOfGamer = netInfoAboutGamer[@"port"];
+    NSString *IpAddressOfGamer =[JSONParser getNSStringWithObject:netInfoAboutGamer[@"ipAddress"]];
+    NSNumber *portOfGamer =     [JSONParser getNSNumberWithObject:netInfoAboutGamer[@"port"]];
     
     Gamer *gamer = [[Gamer alloc] initWithInfo:gamerName andMoney:gamerMoney andLevel:[gamerLevel intValue]];
     [gamer setFurtherNetInformation:IpAddressOfGamer andPort:[portOfGamer intValue]];

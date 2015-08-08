@@ -12,11 +12,12 @@
 
 - (instancetype)init;
 
-- (NSData *)convertNSDictionaryToJSONdata:(NSDictionary*)data;
-- (NSDictionary *)convertJSONdataToNSDictionary:(NSData *)data;
++ (NSData *)convertNSDictionaryToJSONdata:(NSDictionary*)data;
++ (NSDictionary *)convertJSONdataToNSDictionary:(NSData *)data;
 
-- (NSNumber *)getNSNumberWithObject:(id)object;
-- (NSString *)getNSStringWithObject:(id)object;
-
++ (NSNumber *)getNSNumberWithObject:(id)object;
++ (NSString *)getNSStringWithObject:(id)object;
++ (NSDictionary *)getNSDictionaryWithObject:(id)object;
++ (BOOL)getBOOLValueWithObject:(id)object;
 
 @end
