@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "PlayGameViewController.h"
+#import "JSONParser.h"
 
 #define GET_INVITE_TO_THE_GAME 0
 #define GET_ACCEPT 1
@@ -139,8 +140,8 @@
     TCPConnection *connection = [TCPConnection sharedInstance];
     connection.delegateForGamerVC = self;
 
-    [connection sendDataWithTag:[self createJSONRequestAboutInvitationInGame] andTag:GET_INVITE_TO_THE_GAME];
-    //[connection readDataWithTag:GET_ACCEPT];
+    NSDictionary *requestDictiionary = [self createRequestAboutInvitationInGame];
+    [connection sendDataWithTag:[self jsonDataWithDictionary:requestDictiionary] andTag:GET_INVITE_TO_THE_GAME];
 }
 
 - (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
@@ -273,72 +274,54 @@
 
 
 
-- (NSData *)createJSONInformationAboutPlayer
-{
+- (NSDictionary *)createInformationAboutPlayer {
     NSDictionary *data = @{
                            @"name"  : [self getPlayersName],
                            @"money" : [self getPlayersMoney],
                            @"level" : [self getPlayersLevel],
     };
-    NSError *error = nil;
-    
-    if([NSJSONSerialization isValidJSONObject:data]) {
-        
-        NSData *json = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
-        if (json != nil && error == nil) {
-            NSLog(@"JSON info : %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
-            return json;
-        }
-    }
-    return nil;
+    return data;
 }
-
-- (NSData *)createJSONRequestAboutInvitationInGame {
+- (NSDictionary *)createRequestAboutInvitationInGame {
     NSDictionary *data = @{  @"request" : @"play"  };
-    NSError *error = nil;
-    if([NSJSONSerialization isValidJSONObject:data]) {
-        
-        NSData *json = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
-        if (json != nil && error == nil) {
-            NSLog(@"JSON info : %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
-            return json;
-        }
-    }
-    return nil;
+    return data;
 }
 
-- (NSDictionary *)convertToJSON:(NSData *)data {
-    NSError *error = nil;
-    id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-    
-    if(error) {
-        NSLog(@"Error of NSJSONSerialization !");
-    }
-    
-    if([object isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dictionary = object;
-        return dictionary;
-    } else { return nil; }
+- (NSData *)jsonDataWithDictionary:(NSDictionary *)dictionary {
+    JSONParser *jsonParser = [[JSONParser alloc] init];
+    return [jsonParser convertNSDictionaryToJSONdata:dictionary];
+}
+- (NSDictionary *)NSDictionaryWithJSONData:(NSData *)data {
+    JSONParser *jsonParser = [[JSONParser alloc] init];
+    return [jsonParser convertJSONdataToNSDictionary:data];
 }
 
+- (NSData *)downloadedData {
+    TCPConnection *connect = [TCPConnection sharedInstance];
+    return connect.downloadedData;
+}
+
+- (void)sendJSONDataAboutGamer
+{
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    
+     NSDictionary *dictionary = [self createInformationAboutPlayer];
+    [connection sendDataWithTag:[self jsonDataWithDictionary:dictionary] andTag:GET_ACCEPT];
+}
 
 - (void)parseResponseFromServer {
-    TCPConnection *connect = [TCPConnection sharedInstance];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithDictionary:[self convertToJSON:connect.downloadedData]];
+    JSONParser *jsonParser = [[JSONParser alloc] init];
     
-    if(!dictionary) {
-        NSLog(@"Downloaded data isn't a JSON !");
-        return;
-    }
-    
-    NSString *title = [NSString stringWithString:dictionary[@"title"]];
+    NSDictionary *dictionary = [self NSDictionaryWithJSONData:[self downloadedData]];
+    NSString *title = [jsonParser getNSStringWithObject:dictionary[@"title"]];
     
     if([title isEqualToString:@"inviteToTheGame"]) {
         BOOL isInGame = (BOOL)dictionary[@"inGame"];
         BOOL isNeedToSendInformation = (BOOL)dictionary[@"Information"];
+        
         if(isInGame && isNeedToSendInformation) {
             [self setNewGamerName];
-            [connect sendDataWithTag:[self createJSONInformationAboutPlayer] andTag:GET_ACCEPT];
+            [self sendJSONDataAboutGamer];
         }
     }
 }
@@ -355,12 +338,6 @@
 }
 
 #pragma mark ConnectionToServerDelegateForGamerDataViewController
-
-- (void)sendInfoAboutPlayer
-{
-    TCPConnection *connection = [TCPConnection sharedInstance];
-    [connection sendDataWithTag:[self createJSONInformationAboutPlayer] andTag:GET_ACCEPT];
-}
 
 
 #pragma mark UIImagePickerController delegate

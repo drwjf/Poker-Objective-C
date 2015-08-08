@@ -21,6 +21,9 @@
 		841C27571B6413ED00E149FC /* Raise.caf in Resources */ = {isa = PBXBuildFile; fileRef = 841C27501B6413ED00E149FC /* Raise.caf */; };
 		841C27581B6413ED00E149FC /* ShowCard.caf in Resources */ = {isa = PBXBuildFile; fileRef = 841C27511B6413ED00E149FC /* ShowCard.caf */; };
 		841C275B1B64143100E149FC /* PlayGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C275A1B64143000E149FC /* PlayGameViewController.m */; };
+		8434E7111B766B1000FB0882 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434E7101B766B1000FB0882 /* JSONParser.m */; };
+		8434E7161B766B5300FB0882 /* TCPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434E7131B766B5300FB0882 /* TCPConnection.m */; };
+		8434E7171B766B5300FB0882 /* UDPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434E7151B766B5300FB0882 /* UDPConnection.m */; };
 		8476E5221B1D82F40010B984 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476E4331B1D82F00010B984 /* Bolts.framework */; };
 		8476E5231B1D82F40010B984 /* FacebookSDKStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8476E4341B1D82F00010B984 /* FacebookSDKStrings.bundle */; };
 		8476E5241B1D82F40010B984 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476E4351B1D82F00010B984 /* FBAudienceNetwork.framework */; };
@@ -45,11 +48,9 @@
 		84D9F3911B0188F3004947AD /* AnimationOnTheTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */; };
 		84DB00131B21C99F00889451 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DB00121B21C99F00889451 /* SoundManager.m */; };
 		84DD60341B0BBC0100877D1F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DD60331B0BBC0100877D1F /* AVFoundation.framework */; };
-		84E14D5C1B6A955E008F776D /* UDPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E14D5B1B6A955E008F776D /* UDPConnection.m */; };
 		84E26BB01B1BD5B40029D903 /* screenshortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */; };
 		84E776A51B10DA2700917033 /* EAColourfulProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E776A41B10DA2700917033 /* EAColourfulProgressView.m */; };
 		84E929FD1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E929FC1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m */; };
-		84E92A001B6A9A6A00DA6B84 /* TCPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */; };
 		84EA5DB71B74899400DCCA51 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA5DB61B74899400DCCA51 /* Queue.m */; };
 		84EB9FB31B0E7614007FA579 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EB9FB21B0E7614007FA579 /* MediaPlayer.framework */; };
 		84FD67261AF9D90000F4F434 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FD67251AF9D90000F4F434 /* Gamer.m */; };
@@ -88,6 +89,12 @@
 		841C27511B6413ED00E149FC /* ShowCard.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ShowCard.caf; sourceTree = "<group>"; };
 		841C27591B64143000E149FC /* PlayGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayGameViewController.h; sourceTree = "<group>"; };
 		841C275A1B64143000E149FC /* PlayGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayGameViewController.m; sourceTree = "<group>"; };
+		8434E70F1B766B1000FB0882 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONParser.h; path = JSONParser/JSONParser.h; sourceTree = "<group>"; };
+		8434E7101B766B1000FB0882 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONParser.m; path = JSONParser/JSONParser.m; sourceTree = "<group>"; };
+		8434E7121B766B5300FB0882 /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCPConnection.h; path = Connections/TCPConnection.h; sourceTree = "<group>"; };
+		8434E7131B766B5300FB0882 /* TCPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCPConnection.m; path = Connections/TCPConnection.m; sourceTree = "<group>"; };
+		8434E7141B766B5300FB0882 /* UDPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UDPConnection.h; path = Connections/UDPConnection.h; sourceTree = "<group>"; };
+		8434E7151B766B5300FB0882 /* UDPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UDPConnection.m; path = Connections/UDPConnection.m; sourceTree = "<group>"; };
 		8476E4331B1D82F00010B984 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		8476E4341B1D82F00010B984 /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKStrings.bundle; sourceTree = "<group>"; };
 		8476E4351B1D82F00010B984 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -121,16 +128,12 @@
 		84DB00111B21C99F00889451 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		84DB00121B21C99F00889451 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		84DD60331B0BBC0100877D1F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		84E14D5A1B6A955E008F776D /* UDPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPConnection.h; sourceTree = "<group>"; };
-		84E14D5B1B6A955E008F776D /* UDPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPConnection.m; sourceTree = "<group>"; };
 		84E26BAE1B1BD5B40029D903 /* screenshortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = screenshortViewController.h; sourceTree = "<group>"; };
 		84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = screenshortViewController.m; sourceTree = "<group>"; };
 		84E776A31B10DA2700917033 /* EAColourfulProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAColourfulProgressView.h; sourceTree = "<group>"; };
 		84E776A41B10DA2700917033 /* EAColourfulProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAColourfulProgressView.m; sourceTree = "<group>"; };
 		84E929FB1B6A98E100DA6B84 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
 		84E929FC1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
-		84E929FE1B6A9A6A00DA6B84 /* TCPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPConnection.h; sourceTree = "<group>"; };
-		84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPConnection.m; sourceTree = "<group>"; };
 		84EA5DB51B74899400DCCA51 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		84EA5DB61B74899400DCCA51 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		84EB9FB21B0E7614007FA579 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -202,6 +205,26 @@
 			path = sounds;
 			sourceTree = "<group>";
 		};
+		8434E70C1B7647FB00FB0882 /* JSONParser */ = {
+			isa = PBXGroup;
+			children = (
+				8434E70F1B766B1000FB0882 /* JSONParser.h */,
+				8434E7101B766B1000FB0882 /* JSONParser.m */,
+			);
+			name = JSONParser;
+			sourceTree = "<group>";
+		};
+		8434E70D1B76607900FB0882 /* Connections */ = {
+			isa = PBXGroup;
+			children = (
+				8434E7121B766B5300FB0882 /* TCPConnection.h */,
+				8434E7131B766B5300FB0882 /* TCPConnection.m */,
+				8434E7141B766B5300FB0882 /* UDPConnection.h */,
+				8434E7151B766B5300FB0882 /* UDPConnection.m */,
+			);
+			name = Connections;
+			sourceTree = "<group>";
+		};
 		8476E4321B1D82F00010B984 /* FacebookSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,7 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				84B02CD81AE61B4B00625200 /* Extensions */,
-				84E776A61B10DA3C00917033 /* libraries */,
+				84E776A61B10DA3C00917033 /* ProgressView */,
+				8434E70C1B7647FB00FB0882 /* JSONParser */,
 				84AF6F051AE5951800490757 /* ViewController.h */,
 				84AF6F061AE5951800490757 /* ViewController.m */,
 				84AF6F081AE5951800490757 /* Main.storyboard */,
@@ -265,14 +289,11 @@
 				84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */,
 				841C27591B64143000E149FC /* PlayGameViewController.h */,
 				841C275A1B64143000E149FC /* PlayGameViewController.m */,
+				8434E70D1B76607900FB0882 /* Connections */,
 				847AABBC1AF8571F00A41642 /* AnimationOnTheTable.h */,
 				84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */,
 				84EA5DB51B74899400DCCA51 /* Queue.h */,
 				84EA5DB61B74899400DCCA51 /* Queue.m */,
-				84E14D5A1B6A955E008F776D /* UDPConnection.h */,
-				84E14D5B1B6A955E008F776D /* UDPConnection.m */,
-				84E929FE1B6A9A6A00DA6B84 /* TCPConnection.h */,
-				84E929FF1B6A9A6A00DA6B84 /* TCPConnection.m */,
 				84B2E1FB1AE7C404002057A4 /* GamerDataViewController.h */,
 				84B2E1FC1AE7C404002057A4 /* GamerDataViewController.m */,
 				84FD67241AF9D90000F4F434 /* Gamer.h */,
@@ -322,13 +343,13 @@
 			path = Poker/SoundManager;
 			sourceTree = "<group>";
 		};
-		84E776A61B10DA3C00917033 /* libraries */ = {
+		84E776A61B10DA3C00917033 /* ProgressView */ = {
 			isa = PBXGroup;
 			children = (
 				84E776A41B10DA2700917033 /* EAColourfulProgressView.m */,
 				84E776A31B10DA2700917033 /* EAColourfulProgressView.h */,
 			);
-			name = libraries;
+			name = ProgressView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,11 +465,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				841C27491B64136E00E149FC /* GCDAsyncSocket.m in Sources */,
-				84E92A001B6A9A6A00DA6B84 /* TCPConnection.m in Sources */,
-				84E14D5C1B6A955E008F776D /* UDPConnection.m in Sources */,
+				8434E7171B766B5300FB0882 /* UDPConnection.m in Sources */,
+				8434E7161B766B5300FB0882 /* TCPConnection.m in Sources */,
 				841C27471B64136E00E149FC /* DDLog.m in Sources */,
 				84AF6F071AE5951800490757 /* ViewController.m in Sources */,
 				841C27461B64136E00E149FC /* DDFileLogger.m in Sources */,
+				8434E7111B766B1000FB0882 /* JSONParser.m in Sources */,
 				84FD67261AF9D90000F4F434 /* Gamer.m in Sources */,
 				84AF6F041AE5951800490757 /* AppDelegate.m in Sources */,
 				841C27441B64136E00E149FC /* DDAbstractDatabaseLogger.m in Sources */,

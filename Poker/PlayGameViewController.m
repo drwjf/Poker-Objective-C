@@ -70,14 +70,14 @@
 
 
 - (IBAction)raiseAction:(id)sender {
-    [self raiseHand];
+   // [self raiseHand];
 }
 
 
 
 
 - (IBAction)callAction:(id)sender {
-    [self callHand];
+    //[self callHand];
 }
 
 
@@ -88,61 +88,46 @@
 
 
 - (IBAction)foldAction:(id)sender {
-    [self passHand];
+   // [self passHand];
 }
 
-- (void)passHand {
-    NSDictionary *data = @{
-                           @"title" : @"CurrentBetOfGamer",
-                           @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-                           @"betOfPlayer" : [NSNumber numberWithInt:-1],
-                        };
-    [self sendInfoAboutBet:[self createJSONDataFromData:data]];
-}
-
-- (void)callHand {
-        NSDictionary *data = @{
-                               @"title" : @"CurrentBetOfGamer",
-                               @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-                               @"betOfPlayer" : self.currentMinBet,
-                               };
-        [self sendInfoAboutBet:[self createJSONDataFromData:data]];
-
-}
-
-- (void)raiseHand {
-    NSNumber *raisedBet = [NSNumber numberWithInt:[self.currentMinBet intValue] * 2];
-    NSDictionary *data = @{
-                           @"title" : @"CurrentBetOfGamer",
-                           @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-                           @"betOfPlayer" : raisedBet,
-                           };
-    [self sendInfoAboutBet:[self createJSONDataFromData:data]];
-    
-}
-
-- (NSData *)createJSONDataFromData:(NSDictionary*)data
-{
-    NSError *error = nil;
-    
-    if([NSJSONSerialization isValidJSONObject:data]) {
-        
-        NSData *json = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
-        if (json != nil && error == nil) {
-            NSLog(@"JSON info : %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
-            return json;
-        }
-    }
-    return nil;
-}
-
-
-
-
-- (void)sendInfoAboutBet:(NSData*)data {
-    TCPConnection *connection = [TCPConnection sharedInstance];
-    [connection sendDataWithTag:data andTag:DATA_ABOUT_BETS];
-}
+//- (void)passHand {
+//    NSDictionary *data = @{
+//                           @"title" : @"CurrentBetOfGamer",
+//                           @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
+//                           @"betOfPlayer" : [NSNumber numberWithInt:-1],
+//                        };
+//    [self sendInfoAboutBet:[self createJSONDataFromData:data]];
+//}
+//
+//- (void)callHand {
+//        NSDictionary *data = @{
+//                               @"title" : @"CurrentBetOfGamer",
+//                               @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
+//                               @"betOfPlayer" : self.currentMinBet,
+//                               };
+//        [self sendInfoAboutBet:[self createJSONDataFromData:data]];
+//
+//}
+//
+//- (void)raiseHand {
+//    NSNumber *raisedBet = [NSNumber numberWithInt:[self.currentMinBet intValue] * 2];
+//    NSDictionary *data = @{
+//                           @"title" : @"CurrentBetOfGamer",
+//                           @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
+//                           @"betOfPlayer" : raisedBet,
+//                           };
+//    [self sendInfoAboutBet:[self createJSONDataFromData:data]];
+//    
+//}
+//
+//
+//
+//
+//- (void)sendInfoAboutBet:(NSData*)data {
+//    TCPConnection *connection = [TCPConnection sharedInstance];
+//    [connection sendDataWithTag:data andTag:DATA_ABOUT_BETS];
+//}
 - (void)readInformationAboutGamersOnTheTable {
     TCPConnection *connection = [TCPConnection sharedInstance];
     connection.delegateForPlayGameVC = self;
@@ -335,6 +320,8 @@
     
     [self setViewVisible:gamerWithBigBlindMoneyLabel];
     [self setViewVisible:gamerWithSmallBlindMoneyLabel];
+    [gamerWithBigBlindMoneyLabel setAlpha:1.0];
+    NSLog(@"@DSFDSFDSFSSDF");
 }
 
 - (int)numberOfGamerWithName:(NSString *)gamerName {
@@ -406,8 +393,8 @@
         if([self shouldIMakeTheBet]) {
             self.currentMinBet = dictionary[@"minBet"];
             [self unlockTheBetButtons];
-        } else
-            [self readInformationAboutGamerBets];
+        } else;
+            //[self readInformationAboutGamerBets];
     } else if([title isEqualToString:@"CurrentBetOfGamer"]) {
         [self stopCurrentProgressView];
         NSNumber *betOfGamer = [dictionary objectForKey:@"betOfPlayer"];
@@ -416,7 +403,7 @@
         UILabel *currentBetLabel = [self.arrayOfLabelsGamerRates objectAtIndex:[numberOfPlayer intValue]];
         [currentBetLabel setText:[NSString stringWithFormat:@"$%@", betOfGamer]];
         [self setViewVisible:currentBetLabel];
-        [self readInformationAboutGamerBets];
+        //[self readInformationAboutGamerBets];
     }
 }
 
@@ -573,7 +560,7 @@
         [timer invalidate];
         timer = nil;
         [self hideCurrentProgressView];
-        if([self shouldIMakeTheBet]) [self passHand];
+        if([self shouldIMakeTheBet]) //[self passHand];
         return;
     } else {
         newCurrentValue = self.currentProgressView.currentValue - 1;
