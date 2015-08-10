@@ -21,7 +21,7 @@
 @property(nonatomic,strong)NSString *ipAddress;
 @property(nonatomic)int port;
 
-@property(nonatomic)int rate;
+@property(nonatomic)long rate;
 @property(nonatomic)BOOL isGamed;
 
 

@@ -40,8 +40,10 @@
 @property (nonatomic) int countOfPlayersOnTheTable;
 @property (nonatomic) int numberOfMeInGamersList;
 @property (nonatomic) int numberOfCurrentProgressView;
+@property (nonatomic) int openedCardsOnTheTable;
 
 @property (nonatomic,strong) NSNumber *currentMinBet;
+@property (nonatomic, strong)NSNumber *moneyOnTheTable;
 
 @property (strong, nonatomic) IBOutlet UIButton *foldButton;
 @property (strong, nonatomic) IBOutlet UIButton *checkButton;
@@ -65,70 +67,63 @@
     [self lockTheBetButtons];
     [self prepareBeforeGameProcess];
     [self readInformationAboutGamersOnTheTable];
-}
-
-
-
-
-- (IBAction)raiseAction:(id)sender {
-   // [self raiseHand];
-}
-
-
-
-
-- (IBAction)callAction:(id)sender {
-    //[self callHand];
-}
-
-
-- (IBAction)checkAction:(id)sender {
     
 }
 
 
-
-- (IBAction)foldAction:(id)sender {
-   // [self passHand];
+- (NSNumber *)differenceCurrentGamerRateAndMinBet {
+    Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
+    long diff = [self.currentMinBet longValue] - generalGamer.rate;
+    
+    return [NSNumber numberWithLong:diff];
 }
 
-//- (void)passHand {
-//    NSDictionary *data = @{
-//                           @"title" : @"CurrentBetOfGamer",
-//                           @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-//                           @"betOfPlayer" : [NSNumber numberWithInt:-1],
-//                        };
-//    [self sendInfoAboutBet:[self createJSONDataFromData:data]];
-//}
-//
-//- (void)callHand {
-//        NSDictionary *data = @{
-//                               @"title" : @"CurrentBetOfGamer",
-//                               @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-//                               @"betOfPlayer" : self.currentMinBet,
-//                               };
-//        [self sendInfoAboutBet:[self createJSONDataFromData:data]];
-//
-//}
-//
-//- (void)raiseHand {
-//    NSNumber *raisedBet = [NSNumber numberWithInt:[self.currentMinBet intValue] * 2];
-//    NSDictionary *data = @{
-//                           @"title" : @"CurrentBetOfGamer",
-//                           @"numberOfPlayer"  : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-//                           @"betOfPlayer" : raisedBet,
-//                           };
-//    [self sendInfoAboutBet:[self createJSONDataFromData:data]];
-//    
-//}
-//
-//
-//
-//
-//- (void)sendInfoAboutBet:(NSData*)data {
-//    TCPConnection *connection = [TCPConnection sharedInstance];
-//    [connection sendDataWithTag:data andTag:DATA_ABOUT_BETS];
-//}
+
+- (IBAction)raiseAction:(id)sender {
+    NSNumber *doubleBet = [NSNumber numberWithLong:[self.currentMinBet longValue] * 2];
+    NSData *jsonData = [self createJSONGamerAnswerWithBet:doubleBet];
+    
+    [self sendInfoAboutBet:jsonData];
+}
+- (IBAction)callAction:(id)sender {
+    NSData *jsonData = [self createJSONGamerAnswerWithBet:[self differenceCurrentGamerRateAndMinBet]];
+    
+    [self sendInfoAboutBet:jsonData];
+}
+
+#define BET_CHECK 0
+
+- (IBAction)checkAction:(id)sender {
+    NSData *jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_CHECK]];
+    
+    [self sendInfoAboutBet:jsonData];
+}
+
+
+#define BET_FOLD -1
+
+- (IBAction)foldAction:(id)sender {
+    NSData *jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_FOLD]];
+    
+    [self sendInfoAboutBet:jsonData];
+}
+
+- (NSData *)createJSONGamerAnswerWithBet:(NSNumber *)bet {
+    NSDictionary *dictionary = @{
+                @"title" : @"CurrentBetOfGamer",
+                @"numberOfPlayer" : [NSNumber numberWithInt:self.numberOfMeInGamersList],
+                @"betOfPlayer" : bet
+                                 };
+    
+    return [JSONParser convertNSDictionaryToJSONdata:dictionary];
+}
+
+
+- (void)sendInfoAboutBet:(NSData*)data {
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    [connection sendDataWithTag:data andTag:DATA_ABOUT_BETS];
+}
+
 - (void)readInformationAboutGamersOnTheTable {
     TCPConnection *connection = [TCPConnection sharedInstance];
     connection.delegateForPlayGameVC = self;
@@ -267,12 +262,16 @@
     if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
                 [self renderingBlindsOfGamers: dictionary[@"blinds"]];
                 [self readInformationAboutGamerBets];
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
+    } else if ([titleOfJsonData isEqualToString:@"OpenCardsOnTheTable"]) {
+        BOOL isAllCards = [JSONParser getBOOLValueWithObject:dictionary[@"allCards"]];
+        [self openCardsOnTheTable:isAllCards];
+    } else  { //current GAMER OR HIM BET
+        //dispatch_async(dispatch_get_main_queue(), ^{
             [self parseAndRenderInfoAboutCurrentGamer:dictionary andTitle:titleOfJsonData];
-        });
+        //});
     }
 }
+
 
 - (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
     int numberOfGamerWithSmallBlind, numberOfGamerWithBigBlind;
@@ -295,8 +294,15 @@
     
     [self setViewVisible:gamerWithBigBlindMoneyLabel];
     [self setViewVisible:gamerWithSmallBlindMoneyLabel];
+    
+    [self setBetForGamerWithIndex:numberOfGamerWithBigBlind andBet:valueOfBigBlind];
+    [self setBetForGamerWithIndex:numberOfGamerWithSmallBlind andBet:valueOfSmallBlind];
 }
 
+- (void)setBetForGamerWithIndex:(int)index andBet:(NSNumber *)bet {
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:index];
+    gamer.rate = [bet longValue];
+}
 - (int)numberOfGamerWithName:(NSString *)gamerName {
     int i=0;
     for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
@@ -330,6 +336,30 @@
 }
 
 #define COUNT_CARDS_ON_THE_TABLE 5
+#define COUNT_OPENED_CARDS_ON_FIRST_FLOP 3
+#define COUNT_OPENED_CARDS_ON_ANOTHERE_FLOPS 1
+
+- (void)openCardsOnTheTable:(BOOL)isAllCards {
+    int countOfCardNeedOpen = _openedCardsOnTheTable ? COUNT_OPENED_CARDS_ON_ANOTHERE_FLOPS : COUNT_OPENED_CARDS_ON_FIRST_FLOP;
+    
+    if(isAllCards) countOfCardNeedOpen = COUNT_CARDS_ON_THE_TABLE - _openedCardsOnTheTable;
+    
+    for(int i=_openedCardsOnTheTable; i < _openedCardsOnTheTable + countOfCardNeedOpen; i++)
+    {
+        [self rotateCardOnTheTableAtIndex:i andImage:[self.arrayOfImagesCardsOnTheTable objectAtIndex:i]];
+    }
+    _openedCardsOnTheTable += countOfCardNeedOpen;
+}
+- (void)rotateCardOnTheTableAtIndex:(int)numberInArray andImage:(UIImageView *)image {
+    NSString *pictureOfCard = [[NSString alloc]initWithFormat:@"%@", [self.arrayOfCardsOnTheTable objectAtIndex:numberInArray]];
+    
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.01 initialSpringVelocity:0.01 options:0 animations:^{
+        image.transform = CGAffineTransformMakeScale(0.01, 1.0);
+    } completion:^(BOOL finished) {
+        [image setImage:[UIImage imageNamed:pictureOfCard]];
+    }];
+}
+
 
 - (void)parseInformationAboutGameCards:(NSDictionary *)dictionary {
    NSDictionary *dictionaryWithInfoAboutCards = [JSONParser getNSDictionaryWithObject:dictionary[@"cards"]];
@@ -374,6 +404,18 @@
     }
 }
 
+
+- (void)collectionsOfGamersBets {
+    long bets = 0;
+    for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
+        bets += gamer.rate;
+        gamer.rate = 0;
+    }
+    self.moneyOnTheTable = [NSNumber numberWithLong:bets];
+    [self hideAllGamersBets];
+}
+
+- (void)hideAllGamersBets { for(UILabel *rate in self.arrayOfLabelsGamerRates) [self setViewUnvisible:rate]; }
 
 
 - (void)updateMessageFromServerLabel {
