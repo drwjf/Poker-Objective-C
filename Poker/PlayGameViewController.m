@@ -42,6 +42,12 @@
 @property (nonatomic) int numberOfCurrentProgressView;
 @property (nonatomic) int openedCardsOnTheTable;
 
+@property (nonatomic) BOOL isCheckFold;
+@property (nonatomic) BOOL isCallAny;
+@property (nonatomic) BOOL isCheck;
+@property (nonatomic) BOOL isFold;
+@property (nonatomic) BOOL isMyHandRightNow;
+
 @property (nonatomic,strong) NSNumber *currentMinBet;
 @property (nonatomic, strong)NSNumber *moneyOnTheTable;
 
@@ -78,41 +84,57 @@
     return [NSNumber numberWithLong:diff];
 }
 
-
-- (IBAction)raiseAction:(id)sender {
-    NSNumber *doubleBet = [NSNumber numberWithLong:[self.currentMinBet longValue] * 2];
-    NSData *jsonData = [self createJSONGamerAnswerWithBet:doubleBet];
-    
-    [self sendInfoAboutBet:jsonData];
-}
-- (IBAction)callAction:(id)sender {
-    NSData *jsonData = [self createJSONGamerAnswerWithBet:[self differenceCurrentGamerRateAndMinBet]];
-    
-    [self sendInfoAboutBet:jsonData];
-}
-
 #define BET_CHECK 0
-
-- (IBAction)checkAction:(id)sender {
-    NSData *jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_CHECK]];
-    
-    [self sendInfoAboutBet:jsonData];
-}
-
-
 #define BET_FOLD -1
 
-- (IBAction)foldAction:(id)sender {
-    NSData *jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_FOLD]];
+- (IBAction)gamerHandAction:(UIButton *)sender {
+    NSData *jsonData = nil;
     
-    [self sendInfoAboutBet:jsonData];
+    if([sender isEqual:_foldButton]) {
+        jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_FOLD]];
+    } else
+    if([sender isEqual:_checkButton]) {
+        jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_CHECK]];
+    } else
+    if ([sender isEqual:_callButton]) {
+        jsonData = [self createJSONGamerAnswerWithBet:[self differenceCurrentGamerRateAndMinBet]];
+    } else
+    if ([sender isEqual:_raiseButton]) {
+        NSNumber *doubleBet = [NSNumber numberWithLong:[self.currentMinBet longValue] * 2];
+        jsonData = [self createJSONGamerAnswerWithBet:doubleBet];
+    }
+    
+    if(_isMyHandRightNow) [self sendInfoAboutBet:jsonData];
 }
 
+
+- (IBAction)callAnyAction:(UIButton *)sender {
+    _isCallAny = !_isCallAny;
+    [self setImageForButton:sender andCheck:_isCallAny];
+}
+
+- (IBAction)checkFoldAction:(UIButton *)sender {
+    _isCheckFold = !_isCheckFold;
+    [self setImageForButton:sender andCheck:_isCheckFold];
+}
+
+- (void)unsetImageForButton:(UIButton *)button {
+    [button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [button reloadInputViews];
+}
+- (void)setImageForButton:(UIButton *)button andCheck:(BOOL)isChecked {
+    if(isChecked)
+        [button setImage:[UIImage imageNamed:@"OSX-Checkbox-ON"] forState:UIControlStateNormal];
+     else
+        [button setImage:[UIImage imageNamed:@"OSX-Checkbox-OFF"] forState:UIControlStateNormal];
+    
+    [button reloadInputViews];
+}
 - (NSData *)createJSONGamerAnswerWithBet:(NSNumber *)bet {
     NSDictionary *dictionary = @{
-                @"title" : @"CurrentBetOfGamer",
-                @"numberOfPlayer" : [NSNumber numberWithInt:self.numberOfMeInGamersList],
-                @"betOfPlayer" : bet
+                                 @"title" : @"CurrentBetOfGamer",
+                                 @"numberOfPlayer" : [NSNumber numberWithInt:self.numberOfMeInGamersList],
+                                 @"betOfPlayer" : bet
                                  };
     
     return [JSONParser convertNSDictionaryToJSONdata:dictionary];
@@ -123,7 +145,6 @@
     TCPConnection *connection = [TCPConnection sharedInstance];
     [connection sendDataWithTag:data andTag:DATA_ABOUT_BETS];
 }
-
 - (void)readInformationAboutGamersOnTheTable {
     TCPConnection *connection = [TCPConnection sharedInstance];
     connection.delegateForPlayGameVC = self;
@@ -277,7 +298,7 @@
     int numberOfGamerWithSmallBlind, numberOfGamerWithBigBlind;
     
     numberOfGamerWithSmallBlind = [[JSONParser getNSNumberWithObject:dictionary[@"numberOfPlayerWithSmallBlind"]] intValue];
-    numberOfGamerWithBigBlind = (numberOfGamerWithSmallBlind + 1) % self.countOfPlayersOnTheTable;
+    numberOfGamerWithBigBlind = (numberOfGamerWithSmallBlind + 1) % _countOfPlayersOnTheTable;
     
     NSNumber *valueOfBigBlind = [JSONParser getNSNumberWithObject:dictionary[@"betOfBigBlind"]];
     NSNumber *valueOfSmallBlind = [NSNumber numberWithLongLong:[valueOfBigBlind longLongValue] / 2];
@@ -353,16 +374,20 @@
 - (void)rotateCardOnTheTableAtIndex:(int)numberInArray andImage:(UIImageView *)image {
     NSString *pictureOfCard = [[NSString alloc]initWithFormat:@"%@", [self.arrayOfCardsOnTheTable objectAtIndex:numberInArray]];
     
-    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.01 initialSpringVelocity:0.01 options:0 animations:^{
-        image.transform = CGAffineTransformMakeScale(0.01, 1.0);
-    } completion:^(BOOL finished) {
-        [image setImage:[UIImage imageNamed:pictureOfCard]];
-    }];
+        [UIView animateWithDuration:2.0 animations:^{
+            image.transform = CGAffineTransformMakeScale(0.01, 1.0);
+        } completion:^(BOOL finished) {
+            image.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            [image setImage:[UIImage imageNamed:pictureOfCard]];
+        }];
+
+   // NSLog(@"card :  !!! --->>>   %@   | %i", pictureOfCard, numberInArray);
 }
 
 
 - (void)parseInformationAboutGameCards:(NSDictionary *)dictionary {
    NSDictionary *dictionaryWithInfoAboutCards = [JSONParser getNSDictionaryWithObject:dictionary[@"cards"]];
+    if(!_arrayOfCardsOnTheTable) _arrayOfCardsOnTheTable = [[NSMutableArray alloc] init];
     
     NSNumber *card;
     NSString *keyWord;
@@ -371,13 +396,15 @@
         keyWord = [NSString stringWithFormat:@"cardOfNumber_%i", (i+1)];
         card = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[keyWord]];
         
-        [self.arrayOfCardsOnTheTable addObject:card];
+        [_arrayOfCardsOnTheTable addObject:card];
+        NSLog(@" -> card : %@", card);
     }
     NSNumber *firstPrivateCard  = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[@"firstPrivateCard"]];
     NSNumber *secondPrivateCard = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[@"secondPrivateCard"]];
     
     [self setPrivateCardsForGeneralGamer:firstPrivateCard andSecondPrivateCard:secondPrivateCard];
     [self renderingPrivateCardsOfGeneralGamer];
+   // [self openCardsOnTheTable:YES];
 }
 
 
@@ -494,7 +521,7 @@
     UIImageView *firstPrivateCardImage = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:self.numberOfMeInGamersList * 2];
     UIImageView *secondPrivateCardImage = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:self.numberOfMeInGamersList * 2 + 1];
     
-    NSString *imageNameOfFirstPrivateCard = [NSString stringWithFormat:@"%i", generalGamer.firstPrivateCard];
+    NSString *imageNameOfFirstPrivateCard =  [NSString stringWithFormat:@"%i", generalGamer.firstPrivateCard];
     NSString *imageNameOfSecondPrivateCard = [NSString stringWithFormat:@"%i", generalGamer.secondPrivateCard];
     
     
@@ -508,26 +535,6 @@
     for(int i=0; i<self.countOfPlayersOnTheTable * 2; i++)
         [[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i] setAlpha:1.0];
 }
-
-- (void)animationHandingOutCardsToGeneralGamer:(UIImageView *)firstCard andSecondCard:(UIImageView *)secondCard {
-    UIImageView *gamerImage = [self.arrayOfPlayersImages objectAtIndex:self.numberOfMeInGamersList];
-    
-    //self.view.frame.origin.x
-    CGPoint pointOfFirstCard = CGPointMake(gamerImage.frame.origin.x, gamerImage.frame.origin.y);
-    CGPoint pointOfSecondCard = CGPointMake(gamerImage.frame.origin.x + 20, gamerImage.frame.origin.y);
-    [firstCard setCenter:CGPointMake(100, 50)];
-    [secondCard setCenter:CGPointMake(120, 50)];
-    
-    [firstCard setAlpha:1.0];
-    [secondCard setAlpha:1.0];
-    
-           [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:1.5 initialSpringVelocity:0.5 options:0 animations:^{
-            
-            } completion:^(BOOL finished) {
-                
-            }];
-}
-
 
 - (void)addPlayerOnTheTable:(NSDictionary *)generalInfoAboutGamer
 {

@@ -506,7 +506,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <action selector="foldAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="zxX-Ty-Mpz"/>
+                                    <action selector="gamerHandAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="6sL-KV-jYi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTP-yo-LXB">
@@ -898,29 +898,14 @@
                                             <attributes>
                                                 <color key="NSColor" red="1" green="0.89972215020000001" blue="0.02507749733" alpha="1" colorSpace="calibratedRGB"/>
                                                 <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <action selector="checkAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="aHb-V9-ppP"/>
+                                    <action selector="gamerHandAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="M2i-9C-f1F"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwc-Q2-r6E">
-                                <rect key="frame" x="429" y="700" width="274" height="48"/>
-                                <color key="backgroundColor" red="0.71899881519999997" green="0.1461906254" blue="0.076580119320000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="OSX-Checkbox-OFF">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="               Check/Fold">
-                                            <attributes>
-                                                <color key="NSColor" red="1" green="0.80024726131509127" blue="0.064544324985766455" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHh-nf-97p">
                                 <rect key="frame" x="713" y="648" width="127" height="46"/>
@@ -931,7 +916,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="callAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="1BH-qK-qo9"/>
+                                    <action selector="gamerHandAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="7Jt-jc-fYl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJQ-uo-NJr">
@@ -942,7 +927,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="raiseAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="vjF-g7-yj9"/>
+                                    <action selector="gamerHandAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="bks-80-pgm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8E-Al-wpo">
@@ -952,6 +937,9 @@
                                     <color key="titleColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="callAnyAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="lYz-Aq-v6Q"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asg-fS-CSu">
                                 <rect key="frame" x="962" y="648" width="52" height="46"/>
@@ -980,6 +968,24 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwc-Q2-r6E">
+                                <rect key="frame" x="429" y="700" width="274" height="48"/>
+                                <color key="backgroundColor" red="0.71899881519999997" green="0.1461906254" blue="0.076580119320000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="OSX-Checkbox-OFF">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="               Check/Fold">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="0.80024726131509127" blue="0.064544324985766455" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="checkFoldAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="KYJ-Fj-t8g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

@@ -48,6 +48,7 @@
 		84D9F3911B0188F3004947AD /* AnimationOnTheTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9F3901B0188F3004947AD /* AnimationOnTheTable.m */; };
 		84DB00131B21C99F00889451 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DB00121B21C99F00889451 /* SoundManager.m */; };
 		84DD60341B0BBC0100877D1F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DD60331B0BBC0100877D1F /* AVFoundation.framework */; };
+		84E0CFCA1B7A940100336328 /* PokerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E0CFC91B7A940100336328 /* PokerGameViewController.m */; };
 		84E26BB01B1BD5B40029D903 /* screenshortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */; };
 		84E776A51B10DA2700917033 /* EAColourfulProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E776A41B10DA2700917033 /* EAColourfulProgressView.m */; };
 		84E929FD1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E929FC1B6A98E100DA6B84 /* GCDAsyncUdpSocket.m */; };
@@ -128,6 +129,8 @@
 		84DB00111B21C99F00889451 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		84DB00121B21C99F00889451 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		84DD60331B0BBC0100877D1F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		84E0CFC81B7A940100336328 /* PokerGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokerGameViewController.h; sourceTree = "<group>"; };
+		84E0CFC91B7A940100336328 /* PokerGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokerGameViewController.m; sourceTree = "<group>"; };
 		84E26BAE1B1BD5B40029D903 /* screenshortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = screenshortViewController.h; sourceTree = "<group>"; };
 		84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = screenshortViewController.m; sourceTree = "<group>"; };
 		84E776A31B10DA2700917033 /* EAColourfulProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAColourfulProgressView.h; sourceTree = "<group>"; };
@@ -285,6 +288,8 @@
 				84AF6F051AE5951800490757 /* ViewController.h */,
 				84AF6F061AE5951800490757 /* ViewController.m */,
 				84AF6F081AE5951800490757 /* Main.storyboard */,
+				84E0CFC81B7A940100336328 /* PokerGameViewController.h */,
+				84E0CFC91B7A940100336328 /* PokerGameViewController.m */,
 				84E26BAE1B1BD5B40029D903 /* screenshortViewController.h */,
 				84E26BAF1B1BD5B40029D903 /* screenshortViewController.m */,
 				841C27591B64143000E149FC /* PlayGameViewController.h */,
@@ -482,6 +487,7 @@
 				84AF6F011AE5951800490757 /* main.m in Sources */,
 				84EA5DB71B74899400DCCA51 /* Queue.m in Sources */,
 				841C27451B64136E00E149FC /* DDASLLogger.m in Sources */,
+				84E0CFCA1B7A940100336328 /* PokerGameViewController.m in Sources */,
 				84E776A51B10DA2700917033 /* EAColourfulProgressView.m in Sources */,
 				84DB00131B21C99F00889451 /* SoundManager.m in Sources */,
 				841C275B1B64143100E149FC /* PlayGameViewController.m in Sources */,
