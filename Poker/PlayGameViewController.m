@@ -119,7 +119,7 @@
         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
     }
     
-    if(_isMyHandRightNow)  {
+    if([self shouldIMakeTheBet])  {
         [self sendInfoAboutBet:jsonData];
         [self stopCurrentProgressView];
         [self updateGamerBetAndMoneyOnTheTable:_numberOfMeInGamersList andValue:[NSNumber numberWithLong:currentBet]];
@@ -183,6 +183,7 @@
     [self clearTable];
     [self changeCornerRadiusOfBetButtons];
     _countOfPlayersOnTheTable = 0;
+    _isMyHandRightNow = NO;
     _moneyOnTheTable = [NSNumber numberWithLong:0];
 }
 - (void)clearTable
@@ -314,12 +315,69 @@
         BOOL isAllCards = [JSONParser getBOOLValueWithObject:dictionary[@"allCards"]];
         [self openCardsOnTheTable:isAllCards];
         [self collectionsOfGamersBets];
-    } else  { //current GAMER OR HIM BET
+    } else if([titleOfJsonData isEqualToString:@"InfoAboutWinner"]) { //current GAMER OR HIM BET
+        NSDictionary *info = [JSONParser getNSDictionaryWithObject:dictionary[@"information"]];
+        [self parseInfoAboutWinner:info];
+    } else {
         [self parseAndRenderInfoAboutCurrentGamer:dictionary andTitle:titleOfJsonData];
     }
     [self readInformationAboutGamerBets];
 }
 
+- (void)parseInfoAboutWinner:(NSDictionary *)dictionary {
+    NSMutableArray *arrayOfBestCard = [[NSMutableArray alloc] init];
+    
+    NSNumber *numberOfBestGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfWinner"]];
+    
+    for(int i=0; i < 5; i++) {
+        NSString *key = [NSString stringWithFormat:@"bestCard %i", i+1];
+        NSNumber *card = [JSONParser getNSNumberWithObject:dictionary[key]];
+        [arrayOfBestCard addObject:card];
+    }
+    
+    Gamer *gamerWinner = [self.arrayOfPlayersOnTheTable objectAtIndex:[numberOfBestGamer intValue]];
+    gamerWinner.firstPrivateCard  = (int)[[JSONParser getNSNumberWithObject:dictionary[@"firstPrivateCard"]] longValue];
+    gamerWinner.secondPrivateCard = (int)[[JSONParser getNSNumberWithObject:dictionary[@"secondPrivateCard"]] longValue];
+    
+    [self renderingWinnersCombination:arrayOfBestCard andNumberOfWinner:[numberOfBestGamer intValue]];
+}
+
+- (void)renderingWinnersCombination:(NSMutableArray *)winnerCombination andNumberOfWinner:(int)number {
+    Gamer *winner = [self.arrayOfPlayersOnTheTable objectAtIndex:number];
+    
+    UIImageView *firstPrivateCardOfWinnerImageView = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:2 * number];
+    UIImageView *secondPrivateCardOfWinnerImageView = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:2 * number + 1];
+
+    [firstPrivateCardOfWinnerImageView  setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", winner.firstPrivateCard]]];
+    [secondPrivateCardOfWinnerImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", winner.secondPrivateCard]]];
+    
+    for(int i=0; i < 5; i++) {
+        NSNumber *cardOnTheTable = [self.arrayOfCardsOnTheTable objectAtIndex:i];
+        BOOL isWinnerCard = NO;
+        for(NSNumber *bestCard in winnerCombination) {
+            if([cardOnTheTable isEqual:bestCard])  {
+                isWinnerCard = YES;
+                break;
+            }
+        }
+        if(!isWinnerCard)  [[self.arrayOfImagesCardsOnTheTable  objectAtIndex:i] setAlpha:0.5];
+        isWinnerCard = NO;
+    }
+    
+    for(int i=0; i < 2; i++) {
+        NSNumber *firstPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
+        NSNumber *secondPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
+        BOOL isFirstPrivateCardBest = NO;
+        BOOL isSecondPrivateCardBest = NO;
+        
+        for(NSNumber *bestCard in winnerCombination) {
+            if([firstPrivateCardOfWinner isEqual:bestCard]) isFirstPrivateCardBest = YES;
+            if([secondPrivateCardOfWinner isEqual:bestCard]) isSecondPrivateCardBest = YES;
+        }
+        if(!isFirstPrivateCardBest)  [firstPrivateCardOfWinnerImageView setAlpha:0.5];
+        if(!isSecondPrivateCardBest) [secondPrivateCardOfWinnerImageView setAlpha:0.5];
+    }
+}
 
 - (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
     int numberOfGamerWithSmallBlind, numberOfGamerWithBigBlind;
@@ -345,7 +403,7 @@
 }
 
 - (BOOL)isCurrentGamerMe:(NSString *)gamerName { return ([gamerName hash] == self.hashValueOfGamerName) ? YES : NO; }
-- (BOOL)shouldIMakeTheBet { return (self.numberOfMeInGamersList == self.numberOfCurrentProgressView) ? YES : NO; }
+- (BOOL)shouldIMakeTheBet { return (_numberOfMeInGamersList == _numberOfCurrentProgressView) ? YES : NO; }
 
 - (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
     self.countOfPlayersOnTheTable = [[JSONParser getNSNumberWithObject:dictionary[@"countOfGamers"]] intValue];
@@ -402,7 +460,7 @@
     NSNumber *card;
     NSString *keyWord;
 
-    for (int i=0; i<COUNT_CARDS_ON_THE_TABLE; i++) {
+    for (int i=0; i<5; i++) {
         keyWord = [NSString stringWithFormat:@"cardOfNumber_%i", (i+1)];
         card = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[keyWord]];
         
@@ -439,7 +497,7 @@
         NSNumber *numberOfPlayer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfCurrentGamer"]];
         
         [self updateGamerBetAndMoneyOnTheTable:[numberOfPlayer intValue] andValue:betOfGamer];
-        [self lockTheBetButtons];
+        //[self lockTheBetButtons];
     }
 }
 
