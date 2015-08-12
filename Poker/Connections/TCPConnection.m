@@ -71,7 +71,7 @@ static TCPConnection *singlTCPConnection = nil;
     
     
     if([self.queue isQueueEmpty])
-        [_asyncSocket readDataWithTimeout:LONG_TIME_OUT buffer:myData bufferOffset:0 tag:tag];
+        [_asyncSocket readDataWithTimeout:LONG_TIME_OUT*3 buffer:myData bufferOffset:0 tag:tag];
     else
         [self returnDataWithTag:tag];
 }

@@ -30,6 +30,7 @@
 @property (strong, nonatomic) IBOutletCollection(EAColourfulProgressView) NSArray *arrayOfGamersProgressView;
 
 @property(nonatomic, weak)EAColourfulProgressView *currentProgressView;
+@property (weak, nonatomic) IBOutlet UILabel *generalBankLabel;
 
 
 
@@ -76,12 +77,22 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self setDefaultGamerMoney];
+}
+- (void)setDefaultGamerMoney {
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:gamer.money forKey:@"money"];
+}
 
-- (NSNumber *)differenceCurrentGamerRateAndMinBet {
+- (long)differenceCurrentGamerRateAndMinBet {
     Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
     long diff = [self.currentMinBet longValue] - generalGamer.rate;
     
-    return [NSNumber numberWithLong:diff];
+    return diff;
 }
 
 #define BET_CHECK 0
@@ -89,28 +100,41 @@
 
 - (IBAction)gamerHandAction:(UIButton *)sender {
     NSData *jsonData = nil;
+    long currentBet = 0;
     
     if([sender isEqual:_foldButton]) {
-        jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_FOLD]];
+         currentBet = BET_FOLD;
+         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
     } else
     if([sender isEqual:_checkButton]) {
-        jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithInt:BET_CHECK]];
+         currentBet = BET_CHECK;
+         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
     } else
     if ([sender isEqual:_callButton]) {
-        jsonData = [self createJSONGamerAnswerWithBet:[self differenceCurrentGamerRateAndMinBet]];
+        currentBet = [self differenceCurrentGamerRateAndMinBet];
+        jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
     } else
     if ([sender isEqual:_raiseButton]) {
-        NSNumber *doubleBet = [NSNumber numberWithLong:[self.currentMinBet longValue] * 2];
-        jsonData = [self createJSONGamerAnswerWithBet:doubleBet];
+        currentBet = [self.currentMinBet longValue] * 2;
+        jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
     }
     
-    if(_isMyHandRightNow) [self sendInfoAboutBet:jsonData];
+    if(_isMyHandRightNow)  {
+        [self sendInfoAboutBet:jsonData];
+        [self stopCurrentProgressView];
+        [self updateGamerBetAndMoneyOnTheTable:_numberOfMeInGamersList andValue:[NSNumber numberWithLong:currentBet]];
+        _isMyHandRightNow = NO;
+        [self setViewUnvisible:_messageFromServerLabel];
+        [self lockTheBetButtons];
+    }
+    
 }
 
 
 - (IBAction)callAnyAction:(UIButton *)sender {
     _isCallAny = !_isCallAny;
-    [self setImageForButton:sender andCheck:_isCallAny];
+    //[self setImageForButton:sender andCheck:_isCallAny];
+    [self unsetImageForButton:sender];
 }
 
 - (IBAction)checkFoldAction:(UIButton *)sender {
@@ -133,7 +157,7 @@
 - (NSData *)createJSONGamerAnswerWithBet:(NSNumber *)bet {
     NSDictionary *dictionary = @{
                                  @"title" : @"CurrentBetOfGamer",
-                                 @"numberOfPlayer" : [NSNumber numberWithInt:self.numberOfMeInGamersList],
+                                 @"numberOfCurrentGamer" : [NSNumber numberWithInt:self.numberOfMeInGamersList],
                                  @"betOfPlayer" : bet
                                  };
     
@@ -158,7 +182,8 @@
 - (void)prepareBeforeGameProcess {
     [self clearTable];
     [self changeCornerRadiusOfBetButtons];
-    self.countOfPlayersOnTheTable = 0;
+    _countOfPlayersOnTheTable = 0;
+    _moneyOnTheTable = [NSNumber numberWithLong:0];
 }
 - (void)clearTable
 {
@@ -169,6 +194,8 @@
     for(UIImageView *privateCardImage in self.arrayOfImagesPrivatePlayersCard) [self setViewUnvisible:privateCardImage];
     for(UIView *progressView in self.arrayOfGamersProgressView) [self setViewUnvisible:progressView];
     for(UILabel *rateLabel in self.arrayOfLabelsGamerRates)     [self setViewUnvisible:rateLabel];
+    
+    [self setViewUnvisible:_messageFromServerLabel];
 }
 - (void)lockTheBetButtons
 {
@@ -236,7 +263,7 @@
         [self setCornerRadius:[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i] andRadius:CORNER_RADIUS_CARD];
         [self setCornerRadius:[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i+1] andRadius:CORNER_RADIUS_CARD];
     }
-    
+    [self setCornerRadius:_messageFromServerLabel andRadius:CORNER_RADIUS_CARD];
 }
 
 - (void)changeCornerRadiusOfBetButtons {
@@ -279,18 +306,18 @@
     
     NSString *titleOfJsonData = [JSONParser getNSStringWithObject:dictionary[@"title"]];
     [self stopCurrentProgressView];
+    [self lockTheBetButtons];
     
     if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
                 [self renderingBlindsOfGamers: dictionary[@"blinds"]];
-                [self readInformationAboutGamerBets];
     } else if ([titleOfJsonData isEqualToString:@"OpenCardsOnTheTable"]) {
         BOOL isAllCards = [JSONParser getBOOLValueWithObject:dictionary[@"allCards"]];
         [self openCardsOnTheTable:isAllCards];
+        [self collectionsOfGamersBets];
     } else  { //current GAMER OR HIM BET
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            [self parseAndRenderInfoAboutCurrentGamer:dictionary andTitle:titleOfJsonData];
-        //});
+        [self parseAndRenderInfoAboutCurrentGamer:dictionary andTitle:titleOfJsonData];
     }
+    [self readInformationAboutGamerBets];
 }
 
 
@@ -303,27 +330,10 @@
     NSNumber *valueOfBigBlind = [JSONParser getNSNumberWithObject:dictionary[@"betOfBigBlind"]];
     NSNumber *valueOfSmallBlind = [NSNumber numberWithLongLong:[valueOfBigBlind longLongValue] / 2];
     
-    
-    UILabel *gamerWithBigBlindMoneyLabel = [self.arrayOfLabelsGamerRates objectAtIndex:numberOfGamerWithBigBlind];
-    UILabel *gamerWithSmallBlindMoneyLabel = [self.arrayOfLabelsGamerRates objectAtIndex:numberOfGamerWithSmallBlind];
-
-    NSString *betOfBigBlind = [self prepareGamerMoneyBeforeRendering:valueOfBigBlind];
-    NSString *betOfSmallBlind = [self prepareGamerMoneyBeforeRendering:valueOfSmallBlind];
-    
-    [gamerWithBigBlindMoneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfBigBlind]];
-    [gamerWithSmallBlindMoneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfSmallBlind]];
-    
-    [self setViewVisible:gamerWithBigBlindMoneyLabel];
-    [self setViewVisible:gamerWithSmallBlindMoneyLabel];
-    
-    [self setBetForGamerWithIndex:numberOfGamerWithBigBlind andBet:valueOfBigBlind];
-    [self setBetForGamerWithIndex:numberOfGamerWithSmallBlind andBet:valueOfSmallBlind];
+    [self updateGamerBetAndMoneyOnTheTable:numberOfGamerWithBigBlind andValue:valueOfBigBlind];
+    [self updateGamerBetAndMoneyOnTheTable:numberOfGamerWithSmallBlind andValue:valueOfSmallBlind];
 }
 
-- (void)setBetForGamerWithIndex:(int)index andBet:(NSNumber *)bet {
-    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:index];
-    gamer.rate = [bet longValue];
-}
 - (int)numberOfGamerWithName:(NSString *)gamerName {
     int i=0;
     for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
@@ -412,23 +422,48 @@
     if([title isEqualToString:@"InformationAboutCurrentGamer"]) {
         
         NSNumber *numberOfCurrentGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfCurrentGamer"]];
+        if([numberOfCurrentGamer intValue] == _numberOfMeInGamersList) _isMyHandRightNow = YES;
+        
         [self startProgressViewAtIndex:[numberOfCurrentGamer intValue]];
         
         if([self shouldIMakeTheBet]) {
             self.currentMinBet = [JSONParser getNSNumberWithObject:dictionary[@"minBet"]];
             [self unlockTheBetButtons];
-        } else
-            [self readInformationAboutGamerBets];
+            [self updateMessageFromServerLabel];
+        }
+        
     } else if([title isEqualToString:@"CurrentBetOfGamer"]) {
+        
         [self stopCurrentProgressView];
         NSNumber *betOfGamer = [JSONParser getNSNumberWithObject:dictionary[@"betOfPlayer"]];
-        NSNumber *numberOfPlayer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfPlayer"]];
+        NSNumber *numberOfPlayer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfCurrentGamer"]];
         
-        UILabel *currentBetLabel = [self.arrayOfLabelsGamerRates objectAtIndex:[numberOfPlayer intValue]];
-        [currentBetLabel setText:[NSString stringWithFormat:@"$%@", betOfGamer]];
-        [self setViewVisible:currentBetLabel];
-        [self readInformationAboutGamerBets];
+        [self updateGamerBetAndMoneyOnTheTable:[numberOfPlayer intValue] andValue:betOfGamer];
+        [self lockTheBetButtons];
     }
+}
+
+
+- (void)updateGamerBetAndMoneyOnTheTable:(int)indexOfGamer andValue:(NSNumber *)currentBet {
+   long bet = [currentBet longValue];
+    
+    if(bet >= 0) {
+        UILabel *betLabel = [self.arrayOfLabelsGamerRates objectAtIndex:indexOfGamer];
+        UILabel *moneyLabel = [self.arrayOfLabelsPlayersMoneys objectAtIndex:indexOfGamer];
+        
+        Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:indexOfGamer];
+        gamer.rate  += bet;
+        gamer.money = [NSNumber numberWithLong:[gamer.money longValue] - bet];
+        
+        NSString *moneyOfGamerString = [self prepareGamerMoneyBeforeRendering:gamer.money];
+        NSString *betOfGamerString = [self prepareGamerMoneyBeforeRendering:[NSNumber numberWithLong:gamer.rate]];
+    
+        [betLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfGamerString]];
+        [moneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:moneyOfGamerString]];
+        
+        [self setViewVisible:betLabel];
+    } else
+        [self setFoldForGamerAtIndex:indexOfGamer];
 }
 
 
@@ -438,23 +473,34 @@
         bets += gamer.rate;
         gamer.rate = 0;
     }
-    self.moneyOnTheTable = [NSNumber numberWithLong:bets];
+    
+    _moneyOnTheTable = [NSNumber numberWithLong:bets + [_moneyOnTheTable longValue]];
+    NSString *bankOnTheTable = [self prepareGamerMoneyBeforeRendering:_moneyOnTheTable];
+    [self.generalBankLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:bankOnTheTable]];
+    
     [self hideAllGamersBets];
 }
 
 - (void)hideAllGamersBets { for(UILabel *rate in self.arrayOfLabelsGamerRates) [self setViewUnvisible:rate]; }
 
+- (void)setFoldForGamerAtIndex:(int)index
+{
+    [[self.arrayOfPlayersImages objectAtIndex:index] setAlpha:0.5];
+    [[self.arrayOfLabelsPlayersMoneys objectAtIndex:index] setAlpha:0.5];
+    [[self.arrayOfLabelsPlayersNames objectAtIndex:index] setAlpha:0.5];
+}
 
 - (void)updateMessageFromServerLabel {
     Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
     
     NSString *message;
     if(generalGamer.rate == [self.currentMinBet intValue])
-        message = [NSString stringWithFormat:@"CHECK or RAISE ?"];
+        message = [NSString stringWithFormat:@"CHECK $%@ or RAISE ?", _currentMinBet];
     else
-        message = [NSString stringWithFormat:@"CALL $%@ or RAISE", self.currentMinBet];
+        message = [NSString stringWithFormat:@"CALL $%@ or RAISE", _currentMinBet];
     
     [self.messageFromServerLabel setText:message];
+    [self setViewVisible:_messageFromServerLabel];
 }
 
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 9
@@ -588,12 +634,14 @@
 
 - (void)startProgressViewAtIndex:(int)index {
     self.currentProgressView = [self.arrayOfGamersProgressView objectAtIndex:index];
+    _numberOfCurrentProgressView = index;
     [self showCurrentProgressView];
     [self setTimerA];
 }
 - (void)stopCurrentProgressView   {
     if (!self.timer) return;
-        
+    
+    _currentProgressView.currentValue = _currentProgressView.maximumValue;
     [self.timer invalidate];
      self.timer = nil;
     

@@ -228,7 +228,7 @@
     NSString *result = [userDefaults objectForKey:@"name"];
     if(![result length]) {
         [userDefaults setObject:@"Anonymos" forKey:@"name"];
-        //self.gamerName.text = @"Something wronNNNNG ! ";
+        self.gamerName.text = @"Something wronNNNNG ! ";
         [userDefaults setObject:[NSNumber numberWithLong:18900000] forKey:@"money"];
         [userDefaults setInteger:0 forKey:@"level"];
         [userDefaults setObject:@"defaultImage.jpg" forKey:@"image"];
