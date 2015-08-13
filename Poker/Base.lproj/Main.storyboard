@@ -221,9 +221,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-uB-rEs">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="633"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" text="GAME" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.59999999999999964" contentMode="scaleToFill" fixedFrame="YES" text="GAME" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
                                 <rect key="frame" x="0.0" y="633" width="421" height="135"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.22864763012704928" green="0.22295713907772241" blue="0.23020006611798949" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -264,15 +264,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="cQ9-jx-a3h">
                                 <rect key="frame" x="350" y="426" width="94" height="128"/>
                             </imageView>
-                            <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
-                                <rect key="frame" x="336" y="730" width="76" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Send">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG1-rK-xK1">
                                 <rect key="frame" x="350" y="533" width="94" height="21"/>
                                 <color key="backgroundColor" red="0.47862253742785443" green="0.83058391846126689" blue="0.97335896164021163" alpha="1" colorSpace="calibratedRGB"/>
@@ -980,12 +971,21 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvL-6n-M22">
-                                <rect key="frame" x="420" y="356" width="185" height="21"/>
+                                <rect key="frame" x="420" y="356" width="185" height="14"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
+                                <rect key="frame" x="336" y="730" width="76" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -994,11 +994,13 @@
                         <outlet property="callAnyButton" destination="c8E-Al-wpo" id="HSo-eh-7Wh"/>
                         <outlet property="callButton" destination="HHh-nf-97p" id="pFN-qR-uDn"/>
                         <outlet property="checkButton" destination="C6B-0n-RiG" id="aO0-Et-4Pk"/>
+                        <outlet property="consoleTextField" destination="l6F-kh-dLe" id="gHX-kz-4gl"/>
                         <outlet property="foldButton" destination="2Bz-0f-dNa" id="gE4-iS-ayD"/>
                         <outlet property="generalBankLabel" destination="KYj-7P-Qxf" id="IV4-XL-AJj"/>
                         <outlet property="makeScreenshortButton" destination="asg-fS-CSu" id="BTo-MQ-LIW"/>
                         <outlet property="messageFromServerLabel" destination="GvL-6n-M22" id="ul4-KP-Riv"/>
                         <outlet property="raiseButton" destination="sJQ-uo-NJr" id="kdL-b8-QFY"/>
+                        <outlet property="sendMessageButton" destination="NDm-Ur-1JT" id="hJL-gT-hqm"/>
                         <outlet property="showCombinationButton" destination="yIp-wB-h3g" id="KGr-FU-63f"/>
                         <outletCollection property="arrayOfPlayersImages" destination="cQ9-jx-a3h" id="PuC-DM-pH2"/>
                         <outletCollection property="arrayOfPlayersImages" destination="jc2-Ub-zqB" id="aU0-Pr-z0C"/>
