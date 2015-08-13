@@ -57,6 +57,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *callButton;
 @property (strong, nonatomic) IBOutlet UIButton *raiseButton;
 @property (strong, nonatomic) IBOutlet UIButton *callAnyButton;
+@property (strong, nonatomic) IBOutlet UISlider *raiseRateSlider;
+@property (strong, nonatomic) IBOutlet UILabel *currentPossibleBetLabel;
+
 
 @property (strong, nonatomic) IBOutlet UIButton *makeScreenshortButton;
 @property (strong, nonatomic) IBOutlet UIButton *showCombinationButton;
@@ -72,7 +75,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self setViewUnvisible:_raiseRateSlider];
+    [self setViewUnvisible:_currentPossibleBetLabel];
+    
+    [self changeCornerRadiusOfBetButtons];
     [self prepareBeforeGameProcess];
     [self readInformationAboutGamersOnTheTable];
 }
@@ -104,11 +110,11 @@
     
     if([sender isEqual:_foldButton]) {
          currentBet = BET_FOLD;
-         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
+         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:BET_FOLD]];
     } else
     if([sender isEqual:_checkButton]) {
          currentBet = BET_CHECK;
-         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
+         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:BET_CHECK]];
     } else
     if ([sender isEqual:_callButton]) {
         currentBet = [self differenceCurrentGamerRateAndMinBet];
@@ -122,13 +128,16 @@
     }
     
     if([self shouldIMakeTheBet])  {
-        [self sendInfoAboutBet:jsonData];
-        [self stopCurrentProgressView];
-        [self updateGamerBetAndMoneyOnTheTable:_numberOfMeInGamersList andValue:[NSNumber numberWithLong:currentBet] andIsBank:NO];
-        [self setViewUnvisible:_messageFromServerLabel];
-        [self lockTheBetButtons];
+        [self makeBetAndUpdateDataWithView:jsonData andBet:currentBet];
     }
-    
+}
+
+- (void)makeBetAndUpdateDataWithView:(NSData *)jsonData andBet:(long)bet {
+    [self sendInfoAboutBet:jsonData];
+    [self stopCurrentProgressView];
+    [self updateGamerBetAndMoneyOnTheTable:_numberOfMeInGamersList andValue:[NSNumber numberWithLong:bet] andIsBank:NO];
+    [self setViewUnvisible:_messageFromServerLabel];
+    [self lockTheBetButtons];
 }
 
 - (BOOL)doIHaveSoMoneyInWallet:(long)summ {
@@ -140,13 +149,44 @@
 
 - (IBAction)callAnyAction:(UIButton *)sender {
     _isCallAny = !_isCallAny;
-    //[self setImageForButton:sender andCheck:_isCallAny];
+    [self setImageForButton:sender andCheck:_isCallAny];
     [self unsetImageForButton:sender];
 }
 
 - (IBAction)checkFoldAction:(UIButton *)sender {
     _isCheckFold = !_isCheckFold;
     [self setImageForButton:sender andCheck:_isCheckFold];
+}
+
+- (IBAction)raiseRateWithSliderAction:(UIButton *)sender {
+    [self setViewVisible:_raiseRateSlider];
+    [self setViewVisible:_currentPossibleBetLabel];
+    
+    [_raiseRateSlider setMinimumValue:[self.currentMinBet longValue]];
+    [_raiseRateSlider setMaximumValue:[[self getMyMoneyInMyWallet] longValue]];
+}
+
+- (IBAction)changePossibleRateAction:(UISlider *)sender {
+    NSString *betOfGamerString = [self prepareGamerMoneyBeforeRendering:[NSNumber numberWithFloat:sender.value]];
+    
+    [_currentPossibleBetLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfGamerString]];
+}
+
+- (IBAction)touchDragExit:(UISlider *)sender {
+    long value = (long)sender.value;
+    
+    NSNumber *bet =  [NSNumber numberWithLong:value];
+    [self makeBetAndUpdateDataWithView:[self createJSONGamerAnswerWithBet:bet] andBet:[bet longValue]];
+    
+    [self setViewUnvisible:_raiseRateSlider];
+    [self setViewUnvisible:_currentPossibleBetLabel];
+ 
+}
+
+
+- (NSNumber *)getMyMoneyInMyWallet {
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
+    return gamer.money;
 }
 
 - (void)unsetImageForButton:(UIButton *)button {
@@ -188,7 +228,6 @@
 
 - (void)prepareBeforeGameProcess {
     [self clearTable];
-    [self changeCornerRadiusOfBetButtons];
     [self resetValueOfGenralVariable];
     [self lockTheBetButtons];
 }
@@ -231,6 +270,8 @@
     [self.callButton setEnabled:YES];
     [self.raiseButton setEnabled:YES];
 }
+
+
 
 
 - (void)rotateRightPrivateCardOfPlayers: (int)countOfPlayers
@@ -292,6 +333,14 @@
     [self setCornerRadius:self.showCombinationButton andRadius:CORNER_RADIUS_CARD];
     
     [self setCornerRadius:_sendMessageButton andRadius:CORNER_RADIUS_CARD];
+    
+    //rotate sliderRate
+        [self.raiseRateSlider removeConstraints:self.raiseRateSlider.constraints];
+        [self.raiseRateSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
+    self.raiseRateSlider.transform = CGAffineTransformRotate(self.raiseRateSlider.transform, 270.0/180*M_PI);
+    
+    [self setCornerRadius:_raiseRateSlider andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:_currentPossibleBetLabel andRadius:CORNER_RADIUS_CARD];
 }
 
 - (NSDictionary *)downloadedJSONData {
@@ -331,8 +380,11 @@
         [self openCardsOnTheTable:isAllCards];
         [self collectionsOfGamersBets];
     } else if([titleOfJsonData isEqualToString:@"InfoAboutWinner"]) { //current GAMER OR HIM BET
-        NSDictionary *info = [JSONParser getNSDictionaryWithObject:dictionary[@"information"]];
-        [self parseInfoAboutWinner:info];
+            NSDictionary *info = [JSONParser getNSDictionaryWithObject:dictionary[@"information"]];
+            [self parseInfoAboutWinner:info];
+            return;
+    } else if([titleOfJsonData isEqualToString:@"InfoAboutLastGamer"]) {
+        [self parseInfoAboutWinnerWithUnnamedCards:dictionary];
         return;
     } else {
         [self parseAndRenderInfoAboutCurrentGamer:dictionary andTitle:titleOfJsonData];
@@ -358,6 +410,18 @@
     
     [self renderingWinnersCombination:arrayOfBestCard andNumberOfWinner:[numberOfBestGamer intValue] andPriorityOfCombination:[priority intValue]];
 }
+- (void)parseInfoAboutWinnerWithUnnamedCards:(NSDictionary *)dictionary {
+    NSNumber *numberOfGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfWinner"]];
+    int index = [numberOfGamer intValue];
+    [self setAlphaForAllGamersIconsExceptWinner:index];
+    [self collectionsOfGamersBets];
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:index];
+    [self addMessageToConsole:[NSString stringWithFormat:@"%@ wins with unnamed cards.", gamer.name]];
+    [self updateGamerBetAndMoneyOnTheTable:index andValue:_moneyOnTheTable andIsBank:YES];
+    
+    [self waitAfterRaund];
+}
+
 
 - (void)setAlphaForAllGamersIconsExceptWinner:(int)indexOfWinner {
     for(int i=0; i < [self.arrayOfPlayersOnTheTable count]; i++) {
@@ -475,7 +539,7 @@
 
 - (void)waitAfterRaund {
     _timer = nil;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(updateValueAfterRound) userInfo:nil repeats:NO];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(updateValueAfterRound) userInfo:nil repeats:NO];
 }
 
 - (void)updateValueAfterRound {
@@ -521,7 +585,7 @@
 
 - (void)addMessageToConsole:(NSString *)message
 {
-    NSString *outMessage = [NSString stringWithFormat:@"%@\n%@", _consoleTextField.text,  message];
+    NSString *outMessage = [NSString stringWithFormat:@"%@ %@\n%@", [self currentTime],_consoleTextField.text,  message];
     [_consoleTextField setText:outMessage];
 }
 

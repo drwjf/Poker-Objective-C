@@ -221,9 +221,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-uB-rEs">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="633"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.59999999999999964" contentMode="scaleToFill" fixedFrame="YES" text="GAME" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Welcom to Texas Holdem !" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
                                 <rect key="frame" x="0.0" y="633" width="421" height="135"/>
-                                <color key="backgroundColor" red="0.22864763012704928" green="0.22295713907772241" blue="0.23020006611798949" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.4822715716319268" green="0.47500114592893289" blue="0.48954199733492065" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -919,6 +919,7 @@
                                 </state>
                                 <connections>
                                     <action selector="gamerHandAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="bks-80-pgm"/>
+                                    <action selector="raiseRateWithSliderAction:" destination="kjp-7Y-F12" eventType="touchDragInside" id="rOx-Vv-QY9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8E-Al-wpo">
@@ -986,6 +987,23 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <slider opaque="NO" alpha="0.89999999999999991" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="wOf-te-Me4" userLabel="fdssdf">
+                                <rect key="frame" x="807" y="569" width="189" height="31"/>
+                                <color key="backgroundColor" red="0.87264384920634919" green="0.31108677681491925" blue="0.20099037506714548" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.1782751789" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="1" green="0.83304155322268081" blue="0.090480218018526903" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="changePossibleRateAction:" destination="kjp-7Y-F12" eventType="valueChanged" id="eJF-Di-mw8"/>
+                                    <action selector="touchDragExit:" destination="kjp-7Y-F12" eventType="touchDragExit" id="C6T-Pi-cgc"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CurrentBet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqs-OI-QQ8">
+                                <rect key="frame" x="825" y="474" width="153" height="21"/>
+                                <color key="backgroundColor" red="0.87264384920000004" green="0.31108677680000002" blue="0.20099037510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.9324115328" blue="0.070773461709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -995,11 +1013,13 @@
                         <outlet property="callButton" destination="HHh-nf-97p" id="pFN-qR-uDn"/>
                         <outlet property="checkButton" destination="C6B-0n-RiG" id="aO0-Et-4Pk"/>
                         <outlet property="consoleTextField" destination="l6F-kh-dLe" id="gHX-kz-4gl"/>
+                        <outlet property="currentPossibleBetLabel" destination="Qqs-OI-QQ8" id="vae-f8-aza"/>
                         <outlet property="foldButton" destination="2Bz-0f-dNa" id="gE4-iS-ayD"/>
                         <outlet property="generalBankLabel" destination="KYj-7P-Qxf" id="IV4-XL-AJj"/>
                         <outlet property="makeScreenshortButton" destination="asg-fS-CSu" id="BTo-MQ-LIW"/>
                         <outlet property="messageFromServerLabel" destination="GvL-6n-M22" id="ul4-KP-Riv"/>
                         <outlet property="raiseButton" destination="sJQ-uo-NJr" id="kdL-b8-QFY"/>
+                        <outlet property="raiseRateSlider" destination="wOf-te-Me4" id="Fqp-P8-tNe"/>
                         <outlet property="sendMessageButton" destination="NDm-Ur-1JT" id="hJL-gT-hqm"/>
                         <outlet property="showCombinationButton" destination="yIp-wB-h3g" id="KGr-FU-63f"/>
                         <outletCollection property="arrayOfPlayersImages" destination="cQ9-jx-a3h" id="PuC-DM-pH2"/>

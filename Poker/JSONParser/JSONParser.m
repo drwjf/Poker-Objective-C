@@ -77,7 +77,8 @@
         return (NSDictionary *)object;
     } else
         [NSException raise:@"Object is not a NSDictionary !" format:@"object %@ a NSDictionary", object];
-        return nil;
+    
+    return nil;
 }
 
 + (BOOL)getBOOLValueWithObject:(id)object {
