@@ -328,6 +328,7 @@
     NSMutableArray *arrayOfBestCard = [[NSMutableArray alloc] init];
     
     NSNumber *numberOfBestGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfWinner"]];
+    NSNumber *priority = [JSONParser getNSNumberWithObject:dictionary[@"priority"]];
     
     for(int i=0; i < 5; i++) {
         NSString *key = [NSString stringWithFormat:@"bestCard %i", i+1];
@@ -340,43 +341,7 @@
     gamerWinner.secondPrivateCard = (int)[[JSONParser getNSNumberWithObject:dictionary[@"secondPrivateCard"]] longValue];
     
     [self renderingWinnersCombination:arrayOfBestCard andNumberOfWinner:[numberOfBestGamer intValue]];
-}
-
-- (void)renderingWinnersCombination:(NSMutableArray *)winnerCombination andNumberOfWinner:(int)number {
-    Gamer *winner = [self.arrayOfPlayersOnTheTable objectAtIndex:number];
-    
-    UIImageView *firstPrivateCardOfWinnerImageView = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:2 * number];
-    UIImageView *secondPrivateCardOfWinnerImageView = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:2 * number + 1];
-
-    [firstPrivateCardOfWinnerImageView  setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", winner.firstPrivateCard]]];
-    [secondPrivateCardOfWinnerImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", winner.secondPrivateCard]]];
-    
-    for(int i=0; i < 5; i++) {
-        NSNumber *cardOnTheTable = [self.arrayOfCardsOnTheTable objectAtIndex:i];
-        BOOL isWinnerCard = NO;
-        for(NSNumber *bestCard in winnerCombination) {
-            if([cardOnTheTable isEqual:bestCard])  {
-                isWinnerCard = YES;
-                break;
-            }
-        }
-        if(!isWinnerCard)  [[self.arrayOfImagesCardsOnTheTable  objectAtIndex:i] setAlpha:0.5];
-        isWinnerCard = NO;
-    }
-    
-    for(int i=0; i < 2; i++) {
-        NSNumber *firstPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
-        NSNumber *secondPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
-        BOOL isFirstPrivateCardBest = NO;
-        BOOL isSecondPrivateCardBest = NO;
-        
-        for(NSNumber *bestCard in winnerCombination) {
-            if([firstPrivateCardOfWinner isEqual:bestCard]) isFirstPrivateCardBest = YES;
-            if([secondPrivateCardOfWinner isEqual:bestCard]) isSecondPrivateCardBest = YES;
-        }
-        if(!isFirstPrivateCardBest)  [firstPrivateCardOfWinnerImageView setAlpha:0.5];
-        if(!isSecondPrivateCardBest) [secondPrivateCardOfWinnerImageView setAlpha:0.5];
-    }
+    [self createMessageInConsoleAboutWinner:winnerCombination andPriorityOfCombination:[priority intValue]];
 }
 
 - (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
@@ -428,6 +393,69 @@
 #define COUNT_OPENED_CARDS_ON_FIRST_FLOP 3
 #define COUNT_OPENED_CARDS_ON_ANOTHERE_FLOPS 1
 
+- (void)renderingWinnersCombination:(NSMutableArray *)winnerCombination andNumberOfWinner:(int)number {
+    Gamer *winner = [self.arrayOfPlayersOnTheTable objectAtIndex:number];
+    
+    UIImageView *firstPrivateCardOfWinnerImageView = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:2 * number];
+    UIImageView *secondPrivateCardOfWinnerImageView = [self.arrayOfImagesPrivatePlayersCard objectAtIndex:2 * number + 1];
+    
+    [firstPrivateCardOfWinnerImageView  setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", winner.firstPrivateCard]]];
+    [secondPrivateCardOfWinnerImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%i", winner.secondPrivateCard]]];
+    
+    for(int i=0; i < COUNT_CARDS_ON_THE_TABLE; i++) {
+        NSNumber *cardOnTheTable = [self.arrayOfCardsOnTheTable objectAtIndex:i];
+        BOOL isWinnerCard = NO;
+        for(NSNumber *bestCard in winnerCombination) {
+            if([cardOnTheTable isEqual:bestCard])  {
+                isWinnerCard = YES;
+                break;
+            }
+        }
+        if(!isWinnerCard)  [[self.arrayOfImagesCardsOnTheTable  objectAtIndex:i] setAlpha:0.5];
+        isWinnerCard = NO;
+    }
+    
+    const int countOfPrivateCardOfGamer = 2;
+    for(int i=0; i < countOfPrivateCardOfGamer; i++) {
+        NSNumber *firstPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
+        NSNumber *secondPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
+        BOOL isFirstPrivateCardBest = NO;
+        BOOL isSecondPrivateCardBest = NO;
+        
+        for(NSNumber *bestCard in winnerCombination) {
+            if([firstPrivateCardOfWinner isEqual:bestCard]) isFirstPrivateCardBest = YES;
+            if([secondPrivateCardOfWinner isEqual:bestCard]) isSecondPrivateCardBest = YES;
+        }
+        if(!isFirstPrivateCardBest)  [firstPrivateCardOfWinnerImageView setAlpha:0.5];
+        if(!isSecondPrivateCardBest) [secondPrivateCardOfWinnerImageView setAlpha:0.5];
+    }
+}
+
+
+#define CARD_OF_ONE_SUIT 13
+
+- (NSString *)rankAndSuitForCard:(int)card {
+    NSArray *arrayOfRank = @[@"2", @"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"J",@"Q",@"K", @"A"];
+    NSArray *arrayOfSuit = @[@"♣️", @"♠️", @"♦️", @"♥️"];
+    
+    int suit = card/CARD_OF_ONE_SUIT;
+    int rank = card%CARD_OF_ONE_SUIT;
+    
+    if(suit < [arrayOfSuit count])
+        return [NSString stringWithFormat:@"%@%@", [arrayOfRank objectAtIndex:rank], [arrayOfSuit objectAtIndex:suit]];
+    
+    return nil;
+}
+
+- (void)createMessageInConsoleAboutWinner:(NSMutableArray *)array
+                 andPriorityOfCombination:(int)priority
+                        andNumberOfWinner:(int)index
+{
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:index];
+    
+    NSString *messageToConsole = [NSString stringWithFormat:@"%@ wins with ", gamer.name, ];
+}
+
 - (void)openCardsOnTheTable:(BOOL)isAllCards {
     int countOfCardNeedOpen = _openedCardsOnTheTable ? COUNT_OPENED_CARDS_ON_ANOTHERE_FLOPS : COUNT_OPENED_CARDS_ON_FIRST_FLOP;
     
@@ -448,8 +476,6 @@
             image.transform = CGAffineTransformMakeScale(1.0, 1.0);
             [image setImage:[UIImage imageNamed:pictureOfCard]];
         }];
-
-   // NSLog(@"card :  !!! --->>>   %@   | %i", pictureOfCard, numberInArray);
 }
 
 
@@ -465,7 +491,6 @@
         card = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[keyWord]];
         
         [_arrayOfCardsOnTheTable addObject:card];
-        NSLog(@" -> card : %@", card);
     }
     NSNumber *firstPrivateCard  = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[@"firstPrivateCard"]];
     NSNumber *secondPrivateCard = [JSONParser getNSNumberWithObject:dictionaryWithInfoAboutCards[@"secondPrivateCard"]];
@@ -474,8 +499,6 @@
     [self renderingPrivateCardsOfGeneralGamer];
    // [self openCardsOnTheTable:YES];
 }
-
-
 - (void)parseAndRenderInfoAboutCurrentGamer:(NSDictionary *)dictionary andTitle:(NSString *)title{
     if([title isEqualToString:@"InformationAboutCurrentGamer"]) {
         
@@ -523,8 +546,6 @@
     } else
         [self setFoldForGamerAtIndex:indexOfGamer];
 }
-
-
 - (void)collectionsOfGamersBets {
     long bets = 0;
     for(Gamer *gamer in self.arrayOfPlayersOnTheTable) {
@@ -553,7 +574,7 @@
     
     NSString *message;
     if(generalGamer.rate == [self.currentMinBet intValue])
-        message = [NSString stringWithFormat:@"CHECK $%@ or RAISE ?", _currentMinBet];
+        message = [NSString stringWithFormat:@"CHECK or RAISE ?"];
     else
         message = [NSString stringWithFormat:@"CALL $%@ or RAISE", _currentMinBet];
     
