@@ -44,10 +44,7 @@
 @property (nonatomic) int numberOfCurrentProgressView;
 @property (nonatomic) int openedCardsOnTheTable;
 
-@property (nonatomic) BOOL isCheckFold;
-@property (nonatomic) BOOL isCallAny;
-@property (nonatomic) BOOL isCheck;
-@property (nonatomic) BOOL isFold;
+@property (nonatomic, strong) NSArray *arrayOfCheckedBetButtons;
 
 @property (nonatomic,strong) NSNumber *currentMinBet;
 @property (nonatomic, strong)NSNumber *moneyOnTheTable;
@@ -69,32 +66,29 @@
 @property (strong, nonatomic) IBOutlet UITextView *consoleTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
-
 @end
 
 @implementation PlayGameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _arrayOfCheckedBetButtons = [NSArray arrayWithObjects:_callAnyButton, _CheckFoldButton, _foldButton, _checkButton, nil];
+    
+    
     [self setViewUnvisible:_raiseRateSlider];
     [self setViewUnvisible:_currentPossibleBetLabel];
-    
     [self changeCornerRadiusOfBetButtons];
     [self prepareBeforeGameProcess];
     [self readInformationAboutGamersOnTheTable];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self setDefaultGamerMoney];
-}
+
 - (void)setDefaultGamerMoney {
     Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:gamer.money forKey:@"money"];
 }
-
 - (long)differenceCurrentGamerRateAndMinBet {
     Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
     long diff = [self.currentMinBet longValue] - generalGamer.rate;
@@ -102,27 +96,40 @@
     return diff;
 }
 
+#pragma mark - Make bet IBAction methods
+
 #define BET_CHECK 0
 #define BET_FOLD -1
 
 - (IBAction)gamerHandAction:(UIButton *)sender {
     NSData *jsonData = nil;
     long currentBet = 0;
-    
-    if([sender isEqual:_foldButton]) {
+    NSString *currentSound;
+
+    if([sender isEqual:_foldButton])   {
+        if(![self shouldIMakeTheBet])  { [self checkUncheckForButton:sender]; return; }
+        
          currentBet = BET_FOLD;
          jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:BET_FOLD]];
+         currentSound = @"Pass.caf";
     } else
-    if([sender isEqual:_checkButton]) {
-         currentBet = BET_CHECK;
+    if([sender isEqual:_checkButton])  {
+        if(![self shouldIMakeTheBet])  { [self checkUncheckForButton:sender]; return; }
+        
+        currentBet = BET_CHECK;
          jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:BET_CHECK]];
+         currentSound = @"Check.caf";
     } else
     if ([sender isEqual:_callButton]) {
         currentBet = [self differenceCurrentGamerRateAndMinBet];
+        currentSound = @"Raise.caf";
+        
         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
     } else
     if ([sender isEqual:_raiseButton]) {
         currentBet = [self.currentMinBet longValue] * 2;
+        currentSound = @"Raise.caf";
+        
         if(![self doIHaveSoMoneyInWallet:currentBet]) return; //I haven't got so much money to raise X2.
         
         jsonData = [self createJSONGamerAnswerWithBet:[NSNumber numberWithLong:currentBet]];
@@ -130,35 +137,12 @@
     
     if([self shouldIMakeTheBet])  {
         [self makeBetAndUpdateDataWithView:jsonData andBet:currentBet];
+        [self playSound:currentSound];
     }
 }
-
-- (void)makeBetAndUpdateDataWithView:(NSData *)jsonData andBet:(long)bet {
-    [self sendInfoAboutBet:jsonData];
-    [self stopCurrentProgressView];
-    [self updateGamerBetAndMoneyOnTheTable:_numberOfMeInGamersList andValue:[NSNumber numberWithLong:bet] andIsBank:NO];
-    [self setViewUnvisible:_messageFromServerLabel];
-    [self lockTheBetButtons];
+- (IBAction)checkFold_CallAny_Action:(UIButton *)sender {
+    [self checkUncheckForButton:sender];
 }
-
-- (BOOL)doIHaveSoMoneyInWallet:(long)summ {
-    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
-    
-    return ([gamer.money longValue] >= summ) ? YES : NO;
-}
-
-
-- (IBAction)callAnyAction:(UIButton *)sender {
-    _isCallAny = !_isCallAny;
-    [self setImageForButton:sender andCheck:_isCallAny];
-    [self unsetImageForButton:sender];
-}
-
-- (IBAction)checkFoldAction:(UIButton *)sender {
-    _isCheckFold = !_isCheckFold;
-    [self setImageForButton:sender andCheck:_isCheckFold];
-}
-
 - (IBAction)raiseRateWithSliderAction:(UIButton *)sender {
     [self setViewVisible:_raiseRateSlider];
     [self setViewVisible:_currentPossibleBetLabel];
@@ -166,13 +150,11 @@
     [_raiseRateSlider setMinimumValue:[self.currentMinBet longValue]];
     [_raiseRateSlider setMaximumValue:[[self getMyMoneyInMyWallet] longValue]];
 }
-
 - (IBAction)changePossibleRateAction:(UISlider *)sender {
     NSString *betOfGamerString = [self prepareGamerMoneyBeforeRendering:[NSNumber numberWithFloat:sender.value]];
     
     [_currentPossibleBetLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfGamerString]];
 }
-
 - (IBAction)touchDragExit:(UISlider *)sender {
     long value = (long)sender.value;
     
@@ -185,15 +167,94 @@
 }
 
 
+- (void)checkUncheckForButton:(UIButton *)sender {
+    sender.tag = !sender.tag;
+    [self setImageForButton:sender andCheck:sender.tag];
+    [self resetCheckForAllBetButtonsExcept:sender];
+}
+- (void)resetCheckForAllBetButtonsExcept:(UIButton *)sender {
+    for(UIButton *button in self.arrayOfCheckedBetButtons) {
+        if(![sender isEqual:button]) {
+            button.tag = 0;
+            [self setImageForButton:button andCheck:NO];
+        }
+    }
+}
+
+
+- (void)makeBetAndUpdateDataWithView:(NSData *)jsonData andBet:(long)bet {
+    [self sendInfoAboutBet:jsonData];
+    [self stopCurrentProgressView];
+    [self updateGamerBetAndMoneyOnTheTable:_numberOfMeInGamersList andValue:[NSNumber numberWithLong:bet] andIsBank:NO];
+    [self setViewUnvisible:_messageFromServerLabel];
+    [self resetCheckForAllBetButtonsExcept:nil];
+    [self lockNeedButtonsPrematureMakingBet];
+}
+
+
+- (BOOL)doIHaveSoMoneyInWallet:(long)summ {
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
+    
+    return ([gamer.money longValue] >= summ) ? YES : NO;
+}
+
+
+
+- (void)lockNeesBetButtonsBeforeMakingBet {
+    BOOL check = [_currentMinBet longValue] == BET_CHECK;
+    
+    [_checkButton setEnabled:check];
+        
+    [_callButton setEnabled:YES];
+    [_foldButton setEnabled:YES];
+    [_raiseButton setEnabled:YES];
+    
+    [self.CheckFoldButton setEnabled:NO];
+    [self.callAnyButton setEnabled:NO];
+}
+- (void)lockNeedButtonsPrematureMakingBet {
+    [_callAnyButton setEnabled:YES];
+    [_CheckFoldButton setEnabled:YES];
+    [_checkButton setEnabled:YES];
+    [_foldButton setEnabled:YES];
+    
+    [_callButton setEnabled:NO];
+    [_raiseButton setEnabled:NO];
+}
+
+
+- (BOOL)makePrematureBet {
+    BOOL flag = NO;
+    
+    for(UIButton *betButton in self.arrayOfCheckedBetButtons) {
+        if(!betButton.tag) continue;
+        
+        if([betButton isEqual:_CheckFoldButton]  || [betButton isEqual:_checkButton]) {
+            if([_currentMinBet longValue] == BET_CHECK) {
+                [self gamerHandAction:_checkButton]; flag = YES;
+            } else if (![betButton isEqual:_checkButton]) {
+                [self gamerHandAction:_foldButton];  flag = YES;
+            }
+        } else if([betButton isEqual:_foldButton]) {
+            [self gamerHandAction:_foldButton];  flag = YES;
+        } else { [self gamerHandAction:_callButton];   flag = YES; }
+    }
+    
+    return flag;
+}
+
 - (NSNumber *)getMyMoneyInMyWallet {
     Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
     return gamer.money;
 }
 
-- (void)unsetImageForButton:(UIButton *)button {
-    [button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    [button reloadInputViews];
+
+- (NSArray *)arrayOfCheckedBetButtons {
+    if (_arrayOfCheckedBetButtons) _arrayOfCheckedBetButtons = [NSArray arrayWithObjects:_callAnyButton, _CheckFoldButton, _foldButton, _checkButton, nil];
+    
+    return _arrayOfCheckedBetButtons;
 }
+
 - (void)setImageForButton:(UIButton *)button andCheck:(BOOL)isChecked {
     if(isChecked)
         [button setImage:[UIImage imageNamed:@"OSX-Checkbox-ON"] forState:UIControlStateNormal];
@@ -213,6 +274,8 @@
 }
 
 
+#pragma mark - Methods for sending data with tag
+
 - (void)sendInfoAboutBet:(NSData*)data {
     TCPConnection *connection = [TCPConnection sharedInstance];
     [connection sendDataWithTag:data andTag:DATA_ABOUT_BETS];
@@ -227,16 +290,19 @@
     [connection readDataWithTag:GET_INFO_ABOUT_BETS];
 }
 
+#pragma mark - Render scene methods in start of round
+
 - (void)prepareBeforeGameProcess {
     [self clearTable];
     [self resetValueOfGenralVariable];
-    [self lockTheBetButtons];
+    [self resetCheckForAllBetButtonsExcept:nil];
 }
 
 - (void)resetValueOfGenralVariable {
     _countOfPlayersOnTheTable = 0;
     _moneyOnTheTable = [NSNumber numberWithLong:0];
     _countOfPlayersOnTheTable = 0;
+    _openedCardsOnTheTable = 0;
 }
 
 - (void)clearTable
@@ -259,31 +325,11 @@
         [self setViewUnvisible:image];
         [image setImage:[UIImage imageNamed:@"shirt"]];
     }
+    
+    for(UIImageView *imageOfPrivateCard in self.arrayOfImagesPrivatePlayersCard)
+        [imageOfPrivateCard setImage:[UIImage imageNamed:@"shirt"]];
+    
 }
-
-- (void)lockTheBetButtons
-{
-    [self.foldButton setEnabled:NO];
-    [self.CheckFoldButton setEnabled:NO];
-    [self.checkButton setEnabled:NO];
-    [self.raiseButton setEnabled:NO];
-    [self.callAnyButton setEnabled:NO];
-    [self.callButton setEnabled:NO];
-    [self.raiseButton setEnabled:NO];
-}
-- (void)unlockTheBetButtons
-{
-    [self.foldButton setEnabled:YES];
-    [self.CheckFoldButton setEnabled:YES];
-    [self.checkButton setEnabled:YES];
-    [self.raiseButton setEnabled:YES];
-    [self.callAnyButton setEnabled:YES];
-    [self.callButton setEnabled:YES];
-    [self.raiseButton setEnabled:YES];
-}
-
-
-
 
 - (void)rotateRightPrivateCardOfPlayers: (int)countOfPlayers
 {
@@ -294,6 +340,8 @@
         card.transform = CGAffineTransformRotate(card.transform, M_PI_4/4);
     }
 }
+
+#pragma mark - Methods fr changing corner radius of views'
 
 - (void)setCornerRadius:(UIView *)view andRadius:(int)radius
 {
@@ -361,6 +409,8 @@
     return dictionary;
 }
 
+#pragma mark - Parse JSONData from server DELEGATES
+
 - (void)parseGameInformationFromServer {
     NSDictionary *dictionary = [self downloadedJSONData];
     
@@ -382,11 +432,10 @@
     
     NSString *titleOfJsonData = [JSONParser getNSStringWithObject:dictionary[@"title"]];
     [self stopCurrentProgressView];
-    [self lockTheBetButtons];
     
     if([titleOfJsonData isEqualToString:@"InformationAboutBlinds"]) {
                 [self renderingBlindsOfGamers: dictionary[@"blinds"]];
-    } else if ([titleOfJsonData isEqualToString:@"OpenCardsOnTheTable"]) {
+    } else if ([titleOfJsonData isEqualToString:@"OpenCardsOnTheTable"]){
         BOOL isAllCards = [JSONParser getBOOLValueWithObject:dictionary[@"allCards"]];
         [self collectionsOfGamersBets];
         [self openCardsOnTheTable:isAllCards];
@@ -420,12 +469,14 @@
     gamerWinner.secondPrivateCard = (int)[[JSONParser getNSNumberWithObject:dictionary[@"secondPrivateCard"]] longValue];
     
     [self renderingWinnersCombination:arrayOfBestCard andNumberOfWinner:[numberOfBestGamer intValue] andPriorityOfCombination:[priority intValue]];
+    
 }
 - (void)parseInfoAboutWinnerWithUnnamedCards:(NSDictionary *)dictionary {
     NSNumber *numberOfGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfWinner"]];
     int index = [numberOfGamer intValue];
     [self setAlphaForAllGamersIconsExceptWinner:index];
     [self collectionsOfGamersBets];
+    
     Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:index];
     [self addMessageToConsole:[NSString stringWithFormat:@"%@ wins with unnamed cards.", gamer.name]];
     [self updateGamerBetAndMoneyOnTheTable:index andValue:_moneyOnTheTable andIsBank:YES];
@@ -462,6 +513,8 @@
     
     [self updateGamerBetAndMoneyOnTheTable:numberOfGamerWithBigBlind andValue:valueOfBigBlind andIsBank:NO];
     [self updateGamerBetAndMoneyOnTheTable:numberOfGamerWithSmallBlind andValue:valueOfSmallBlind andIsBank:NO];
+    
+    [self showFirstThreeCardOnTheFlop];
 }
 
 - (int)numberOfGamerWithName:(NSString *)gamerName {
@@ -529,7 +582,7 @@
     const int countOfPrivateCardOfGamer = 2;
     for(int i=0; i < countOfPrivateCardOfGamer; i++) {
         NSNumber *firstPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
-        NSNumber *secondPrivateCardOfWinner = [NSNumber numberWithInt:winner.firstPrivateCard];
+        NSNumber *secondPrivateCardOfWinner = [NSNumber numberWithInt:winner.secondPrivateCard];
         BOOL isFirstPrivateCardBest = NO;
         BOOL isSecondPrivateCardBest = NO;
         
@@ -543,12 +596,13 @@
     [self createMessageInConsoleAboutWinner:winnerCombination andPriorityOfCombination:priority andNumberOfWinner:number];
     [self setAlphaForAllGamersIconsExceptWinner:number];
     
-    
+    [self collectionsOfGamersBets];
     [self updateGamerBetAndMoneyOnTheTable:number andValue:_moneyOnTheTable andIsBank:YES];
     [self waitAfterRaund];
 }
 
 - (void)waitAfterRaund {
+    [self playSound:@"winnerMusic.caf"];
     _timer = nil;
     _timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(updateValueAfterRound) userInfo:nil repeats:NO];
 }
@@ -560,21 +614,9 @@
     [self readInformationAboutGamersOnTheTable];
 }
 
+#pragma mark - Something wrong !
 
 #define CARD_OF_ONE_SUIT 13
-
-- (NSString *)rankAndSuitForCard:(int)card {
-    NSArray *arrayOfRank = @[@"2", @"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"J",@"Q",@"K", @"A"];
-    NSArray *arrayOfSuit = @[@"♣️", @"♠️", @"♦️", @"♥️"];
-    
-    int suit = card/CARD_OF_ONE_SUIT;
-    int rank = card%CARD_OF_ONE_SUIT;
-    
-    if(suit < [arrayOfSuit count])
-        return [NSString stringWithFormat:@"%@%@", [arrayOfRank objectAtIndex:rank], [arrayOfSuit objectAtIndex:suit]];
-    
-    return nil;
-}
 
 - (void)createMessageInConsoleAboutWinner:(NSMutableArray *)array
                  andPriorityOfCombination:(int)priority
@@ -619,24 +661,23 @@
     [UIView animateWithDuration:1.0 animations:^{
         [self setViewVisible:image];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1.5 animations:^{
+        [UIView animateWithDuration:1.0 animations:^{
             image.transform = CGAffineTransformMakeScale(0.01, 1.0);
         } completion:^(BOOL finished) {
             image.transform = CGAffineTransformMakeScale(1.0, 1.0);
             [image setImage:[UIImage imageNamed:pictureOfCard]];
         }];
     }];
-    
 }
 
 - (void)showFirstThreeCardOnTheFlop {
     for(int i=0; i < 3; i++) {
         UIImageView *card = [self.arrayOfImagesCardsOnTheTable objectAtIndex:i];
+        [self playSound:@"ShowCard.caf"];
         
         [UIView animateWithDuration:1.0 animations:^{
             [self setViewVisible:card];
         } completion:^(BOOL finished) {
-            [self playSound:@"ShowCard.caf"];
             [self startProgressViewAtIndex:_numberOfCurrentProgressView];
         }];
     }
@@ -664,19 +705,23 @@
     [self renderingPrivateCardsOfGeneralGamer];
    // [self openCardsOnTheTable:YES];
 }
+
 - (void)parseAndRenderInfoAboutCurrentGamer:(NSDictionary *)dictionary andTitle:(NSString *)title{
+    [self setViewUnvisible:_messageFromServerLabel];
+    
     if([title isEqualToString:@"InformationAboutCurrentGamer"]) {
-        
         NSNumber *numberOfCurrentGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfCurrentGamer"]];
 
         [self startProgressViewAtIndex:[numberOfCurrentGamer intValue]];
         
         if([self shouldIMakeTheBet]) {
             self.currentMinBet = [JSONParser getNSNumberWithObject:dictionary[@"minBet"]];
-            [self unlockTheBetButtons];
+            if([self makePrematureBet]) return; //If gamer maked premature bet
+            
+            [self lockNeesBetButtonsBeforeMakingBet];
             [self updateMessageFromServerLabel];
-        }
-        
+        } else
+            [self lockNeedButtonsPrematureMakingBet];
     } else if([title isEqualToString:@"CurrentBetOfGamer"]) {
         
         [self stopCurrentProgressView];
@@ -684,7 +729,6 @@
         NSNumber *numberOfPlayer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfCurrentGamer"]];
         
         [self updateGamerBetAndMoneyOnTheTable:[numberOfPlayer intValue] andValue:betOfGamer andIsBank:NO];
-        //[self lockTheBetButtons];
     }
 }
 
@@ -700,7 +744,7 @@
         Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:indexOfGamer];
         gamer.rate  += bet;
         
-        if(isBank) bet *= -1; //If Gamer wins money
+        if(isBank)  { bet *= -1; _generalBankLabel.text = @""; }  //If Gamer wins money
         
         gamer.money = [NSNumber numberWithLong:[gamer.money longValue] - bet];
         
@@ -726,8 +770,9 @@
     NSString *bankOnTheTable = [self prepareGamerMoneyBeforeRendering:_moneyOnTheTable];
     [self.generalBankLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:bankOnTheTable]];
     
-    [self setViewUnvisible:_generalBankLabel];
     [self hideAllGamersBets];
+    
+    [self playSound:@"Collect.caf"];
 }
 
 - (void)hideAllGamersBets { for(UILabel *rate in self.arrayOfLabelsGamerRates) [self setViewUnvisible:rate]; }
@@ -744,9 +789,9 @@
     
     NSString *message;
     if(generalGamer.rate == [self.currentMinBet intValue])
-        message = [NSString stringWithFormat:@"CHECK or RAISE ?"];
+        message = @"CHECK or RAISE ?";
     else
-        message = [NSString stringWithFormat:@"CALL $%@ or RAISE", _currentMinBet];
+        message = @"CALL or RAISE";
     
     [self.messageFromServerLabel setText:message];
     [self setViewVisible:_messageFromServerLabel];
@@ -860,6 +905,8 @@
     [generalGamer setPrivateCards:[firstPrivateCard intValue] andSecondCard:[secondPrivateCard intValue]];
 }
 
+#pragma mark - Get currentTime(format: HH:mm)
+
 -(NSString*)currentTime {
     NSDate *currentDate = [NSDate date];
 
@@ -870,6 +917,7 @@
     return strDate;
 }
 
+#pragma mark - Custom ProgressView methods
 
 - (void)updateProgressView:(NSTimer *)timer
 {
@@ -914,6 +962,9 @@
                                                 repeats:YES];
 }
 
+
+#pragma mark - Methods for getting card and best combination
+
 - (NSString *)combinationAtPriority:(int)priority {
     NSArray *arrayOfCombination  = @[@"HighCard", @"Pair", @"Two Pair", @"Threeofa Kind", @"Straight", @"Flush", @"Full House",@"Fourofa Kind", @"Straight  Flush"];
     
@@ -922,12 +973,28 @@
     return nil;
 }
 
--(void)playSound:(NSString*)file {
+- (NSString *)rankAndSuitForCard:(int)card {
+    NSArray *arrayOfRank = @[@"2", @"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"J",@"Q",@"K", @"A"];
+    NSArray *arrayOfSuit = @[@"♣️", @"♠️", @"♦️", @"♥️"];
+    
+    int suit = card/CARD_OF_ONE_SUIT;
+    int rank = card%CARD_OF_ONE_SUIT;
+    
+    if(suit < [arrayOfSuit count])
+        return [NSString stringWithFormat:@"%@%@", [arrayOfRank objectAtIndex:rank], [arrayOfSuit objectAtIndex:suit]];
+    
+    return nil;
+}
 
+
+#pragma mark - Play sound method
+
+-(void)playSound:(NSString*)file {
 #if (TARGET_IPHONE_SIMULATOR)
     return;
-#endif
+#else
     [[SoundManager sharedManager] playSound:file looping:NO];
+#endif
 }
 
 /*

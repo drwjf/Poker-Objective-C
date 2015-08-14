@@ -221,13 +221,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-uB-rEs">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="633"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Welcom to Texas Holdem !" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
-                                <rect key="frame" x="0.0" y="633" width="421" height="135"/>
-                                <color key="backgroundColor" red="0.4822715716319268" green="0.47500114592893289" blue="0.48954199733492065" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hdX-qc-yLm">
                                 <rect key="frame" x="4" y="730" width="324" height="30"/>
                                 <color key="backgroundColor" red="0.76961914519999997" green="0.82675059669999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -930,7 +923,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="callAnyAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="lYz-Aq-v6Q"/>
+                                    <action selector="checkFold_CallAny_Action:" destination="kjp-7Y-F12" eventType="touchUpInside" id="Crw-YM-57c"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asg-fS-CSu">
@@ -968,7 +961,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <action selector="checkFoldAction:" destination="kjp-7Y-F12" eventType="touchUpInside" id="KYJ-Fj-t8g"/>
+                                    <action selector="checkFold_CallAny_Action:" destination="kjp-7Y-F12" eventType="touchUpInside" id="RId-CP-izb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvL-6n-M22">
@@ -1004,6 +997,13 @@
                                 <color key="textColor" red="1" green="0.9324115328" blue="0.070773461709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Welcom to Texas Holdem !" translatesAutoresizingMaskIntoConstraints="NO" id="l6F-kh-dLe">
+                                <rect key="frame" x="0.0" y="633" width="421" height="135"/>
+                                <color key="backgroundColor" red="0.4822715716319268" green="0.47500114592893289" blue="0.48954199733492065" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
