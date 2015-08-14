@@ -10,6 +10,7 @@
 #import "EAColourfulProgressView.h"
 #import "Gamer.h"
 #import "JSONParser.h"
+#import "SoundManager.h"
 
 //---tags----
 #define GET_INFO_ABOUT_GAMERS 3
@@ -249,7 +250,17 @@
     for(UILabel *rateLabel in self.arrayOfLabelsGamerRates)     [self setViewUnvisible:rateLabel];
     
     [self setViewUnvisible:_messageFromServerLabel];
+    
+    [self resetImageOfCardsOnTheTable];
 }
+
+- (void)resetImageOfCardsOnTheTable {
+    for (UIImageView *image in self.arrayOfImagesCardsOnTheTable) {
+        [self setViewUnvisible:image];
+        [image setImage:[UIImage imageNamed:@"shirt"]];
+    }
+}
+
 - (void)lockTheBetButtons
 {
     [self.foldButton setEnabled:NO];
@@ -339,8 +350,8 @@
         [self.raiseRateSlider setTranslatesAutoresizingMaskIntoConstraints:YES];
     self.raiseRateSlider.transform = CGAffineTransformRotate(self.raiseRateSlider.transform, 270.0/180*M_PI);
     
-    [self setCornerRadius:_raiseRateSlider andRadius:CORNER_RADIUS_CARD];
-    [self setCornerRadius:_currentPossibleBetLabel andRadius:CORNER_RADIUS_CARD];
+    [self setCornerRadius:_raiseRateSlider andRadius:CORNER_RADIUS_CARD * 2];
+    [self setCornerRadius:_currentPossibleBetLabel andRadius:CORNER_RADIUS_CARD * 2];
 }
 
 - (NSDictionary *)downloadedJSONData {
@@ -377,8 +388,8 @@
                 [self renderingBlindsOfGamers: dictionary[@"blinds"]];
     } else if ([titleOfJsonData isEqualToString:@"OpenCardsOnTheTable"]) {
         BOOL isAllCards = [JSONParser getBOOLValueWithObject:dictionary[@"allCards"]];
-        [self openCardsOnTheTable:isAllCards];
         [self collectionsOfGamersBets];
+        [self openCardsOnTheTable:isAllCards];
     } else if([titleOfJsonData isEqualToString:@"InfoAboutWinner"]) { //current GAMER OR HIM BET
             NSDictionary *info = [JSONParser getNSDictionaryWithObject:dictionary[@"information"]];
             [self parseInfoAboutWinner:info];
@@ -585,7 +596,7 @@
 
 - (void)addMessageToConsole:(NSString *)message
 {
-    NSString *outMessage = [NSString stringWithFormat:@"%@ %@\n%@", [self currentTime],_consoleTextField.text,  message];
+    NSString *outMessage = [NSString stringWithFormat:@"%@\n[%@] %@", _consoleTextField.text,  [self currentTime], message];
     [_consoleTextField setText:outMessage];
 }
 
@@ -596,19 +607,40 @@
     
     for(int i=_openedCardsOnTheTable; i < _openedCardsOnTheTable + countOfCardNeedOpen; i++)
     {
+        [self playSound:@"ShowCard.caf"];
         [self rotateCardOnTheTableAtIndex:i andImage:[self.arrayOfImagesCardsOnTheTable objectAtIndex:i]];
     }
     _openedCardsOnTheTable += countOfCardNeedOpen;
 }
+
 - (void)rotateCardOnTheTableAtIndex:(int)numberInArray andImage:(UIImageView *)image {
     NSString *pictureOfCard = [[NSString alloc]initWithFormat:@"%@", [self.arrayOfCardsOnTheTable objectAtIndex:numberInArray]];
     
-        [UIView animateWithDuration:2.0 animations:^{
+    [UIView animateWithDuration:1.0 animations:^{
+        [self setViewVisible:image];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1.5 animations:^{
             image.transform = CGAffineTransformMakeScale(0.01, 1.0);
         } completion:^(BOOL finished) {
             image.transform = CGAffineTransformMakeScale(1.0, 1.0);
             [image setImage:[UIImage imageNamed:pictureOfCard]];
         }];
+    }];
+    
+}
+
+- (void)showFirstThreeCardOnTheFlop {
+    for(int i=0; i < 3; i++) {
+        UIImageView *card = [self.arrayOfImagesCardsOnTheTable objectAtIndex:i];
+        
+        [UIView animateWithDuration:1.0 animations:^{
+            [self setViewVisible:card];
+        } completion:^(BOOL finished) {
+            [self playSound:@"ShowCard.caf"];
+            [self startProgressViewAtIndex:_numberOfCurrentProgressView];
+        }];
+    }
+    
 }
 
 
@@ -694,6 +726,7 @@
     NSString *bankOnTheTable = [self prepareGamerMoneyBeforeRendering:_moneyOnTheTable];
     [self.generalBankLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:bankOnTheTable]];
     
+    [self setViewUnvisible:_generalBankLabel];
     [self hideAllGamersBets];
 }
 
@@ -887,6 +920,14 @@
     if(priority <= [arrayOfCombination count])
         return [arrayOfCombination objectAtIndex:priority-1];
     return nil;
+}
+
+-(void)playSound:(NSString*)file {
+
+#if (TARGET_IPHONE_SIMULATOR)
+    return;
+#endif
+    [[SoundManager sharedManager] playSound:file looping:NO];
 }
 
 /*
