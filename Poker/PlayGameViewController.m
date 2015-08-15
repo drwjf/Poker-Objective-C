@@ -939,7 +939,8 @@
         [timer invalidate];
         timer = nil;
         [self hideCurrentProgressView];
-        if([self shouldIMakeTheBet]) //[self passHand];
+        
+        if([self shouldIMakeTheBet]) [self gamerHandAction:_foldButton];
         return;
     } else {
         newCurrentValue = self.currentProgressView.currentValue - 1;

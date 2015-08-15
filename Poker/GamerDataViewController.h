@@ -23,6 +23,8 @@
 @property (strong, nonatomic) IBOutlet UITextView *rulesOfPokerTextView;
 @property (strong, nonatomic) IBOutlet UISwitch *enableAcceslerometerSwitcher;
 
+@property (strong, nonatomic) IBOutlet UIButton *sendEMessageButton;
+
 
 @property(nonatomic,strong)AVAudioPlayer *audioPlayer;
 

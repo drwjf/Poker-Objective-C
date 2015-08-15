@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *annotationAboutAccelerometerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *imageOfPlayerButton;
 
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityAnswerFromServerView;
+
 
 @end
 
@@ -45,12 +47,22 @@
 #endif
 }
 
--(void)setViewParameters {
-    
-    [_playButton.layer setMasksToBounds:YES];
-    [_playButton.layer setCornerRadius:50];
-    
+#define DEFAULT_CORNER_RADIUS 50
+
+- (void)setCornerRadius:(UIView *)view andRadius:(int)radius
+{
+    [view.layer setMasksToBounds:YES];
+    [view.layer setCornerRadius:radius];
 }
+
+-(void)setViewParameters {
+    [self setCornerRadius:_sendEMessageButton andRadius:DEFAULT_CORNER_RADIUS / 10];
+    [self setCornerRadius:_playButton andRadius:DEFAULT_CORNER_RADIUS];
+    [self setCornerRadius:_imageOfPlayerButton andRadius:DEFAULT_CORNER_RADIUS / 10];
+}
+
+#pragma mark - IBAction methods
+
 
 - (IBAction)sendMessageClick:(id)sender {
 #if (TARGET_IPHONE_SIMULATOR)
@@ -61,14 +73,39 @@
 #endif
 }
 
-- (UIAlertView *)createAlertViewAboutSuccesefullSendingMail {
-    return ([[UIAlertView alloc] initWithTitle:@"Success !"
-                               message:@"Благодарственное письмо отправлено !"
-                              delegate:self
-                     cancelButtonTitle:@"OK"
-                     otherButtonTitles:nil]);
+- (IBAction)requestToInvitationInTheGame:(id)sender {
+    TCPConnection *connection = [TCPConnection sharedInstance];
+    connection.delegateForGamerVC = self;
+
+    NSDictionary *requestDictiionary = [self createRequestAboutInvitationInGame];
+    [connection sendDataWithTag:[JSONParser convertNSDictionaryToJSONdata:requestDictiionary] andTag:GET_INVITE_TO_THE_GAME];
     
+    [_activityAnswerFromServerView startAnimating];
 }
+
+- (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
+
+- (IBAction)pickImageForGamer {
+#if (TARGET_IPHONE_SIMULATOR)
+    return;
+#else
+    
+    if([self isPhotoLibraryAvaible]) {
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+        
+        if([self canUserPickPhotosFromThotoLibrary]) {
+            [mediaTypes addObject:(__bridge NSString*)kUTTypeImage];
+        }
+        controller.mediaTypes = mediaTypes;
+        controller.delegate = self;
+        [self.navigationController presentModalViewController:controller animated:YES];
+    }
+#endif
+}
+
+#pragma mark - Methods for sending emails'
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result
@@ -136,35 +173,18 @@
     }
 }
 
-- (IBAction)requestToInvitationInTheGame:(id)sender {
-    TCPConnection *connection = [TCPConnection sharedInstance];
-    connection.delegateForGamerVC = self;
-
-    NSDictionary *requestDictiionary = [self createRequestAboutInvitationInGame];
-    [connection sendDataWithTag:[JSONParser convertNSDictionaryToJSONdata:requestDictiionary] andTag:GET_INVITE_TO_THE_GAME];
-}
-
-- (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
-
-- (IBAction)pickImageForGamer {
-#if (TARGET_IPHONE_SIMULATOR)
-    return;
-#else
+- (UIAlertView *)createAlertViewAboutSuccesefullSendingMail {
+    return ([[UIAlertView alloc] initWithTitle:@"Success !"
+                                       message:@"Благодарственное письмо отправлено !"
+                                      delegate:self
+                             cancelButtonTitle:@"OK"
+                             otherButtonTitles:nil]);
     
-    if([self isPhotoLibraryAvaible]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-        
-        if([self canUserPickPhotosFromThotoLibrary]) {
-            [mediaTypes addObject:(__bridge NSString*)kUTTypeImage];
-        }
-        controller.mediaTypes = mediaTypes;
-        controller.delegate = self;
-        [self.navigationController presentModalViewController:controller animated:YES];
-    }
-#endif
 }
+
+
+#pragma mark - Methods for set Attributed text
+
 
 #define DEFAULT_TEXT_LENGTH_GAMERS_ICON_VIEW 8
 #define DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW 30
@@ -177,7 +197,6 @@
     
     return needSize > DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW ? DEFAULT_TEXT_SIZE_GAMER_ICON_VIEW : needSize;
 }
-
 
 - (NSAttributedString *)attributedStringForGamerMoney {
     UIColor *darkGreen = [UIColor colorWithRed:0.0 green:107.0f / 255.0f blue:41.0f / 255.0f alpha:1.0];
@@ -222,6 +241,8 @@
 }
 
 
+#pragma mark - Methods for set and check default parameters'
+
 -(void)checkDefaultParameters{
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -239,6 +260,7 @@
     [_gamersLevel setAttributedText:[self attributedStringForGamerLevel]];
 }
 
+#pragma mark - Methods get&set defaultInfo
 
 - (void)setNewGamerName       {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -259,18 +281,16 @@
     return [userDefaults objectForKey:@"name"];
 }
 
+#pragma mark - Additional methods for create and send JSON
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (UIAlertView *)createAlertViewAboutError {
+    return ([[UIAlertView alloc] initWithTitle:@"Error :("
+                                       message:@"Check connection to WiFi and repeat again"
+                                      delegate:self
+                             cancelButtonTitle:@"OK"
+                             otherButtonTitles:nil]);
 }
-
-#pragma mark ConnectionToServer Delegate Methods
-
--(void)returnOnPreviusView {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 
 - (NSDictionary *)createInformationAboutPlayer {
@@ -299,6 +319,8 @@
     [connection sendDataWithTag:[JSONParser convertNSDictionaryToJSONdata:dictionary] andTag:GET_ACCEPT];
 }
 
+#pragma mark - ConnectionToServerDelegateForGamerDataViewController
+
 - (void)parseResponseFromServer {
 
     NSDictionary *dictionary = [JSONParser convertJSONdataToNSDictionary:[self downloadedData]];
@@ -316,20 +338,12 @@
 }
 
 
-- (void)segueToGeneralViewController { [self performSegueWithIdentifier:@"segueToPlayGameVC" sender:self]; }
-
-- (UIAlertView *)createAlertViewAboutError {
-    return ([[UIAlertView alloc] initWithTitle:@"Error :("
-                                        message:@"Check connection to WiFi and repeat again"
-                                       delegate:self
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil]);
+- (void)segueToGeneralViewController {
+    [_activityAnswerFromServerView stopAnimating];
+    [self performSegueWithIdentifier:@"segueToPlayGameVC" sender:self];
 }
 
-#pragma mark ConnectionToServerDelegateForGamerDataViewController
-
-
-#pragma mark UIImagePickerController delegate
+#pragma mark -  UIImagePickerController delegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
@@ -376,6 +390,10 @@
     PlayGameViewController *secVC = [segue destinationViewController];
     secVC.isUseAccelerometer = [_enableAcceslerometerSwitcher isOn];
     secVC.hashValueOfGamerName = [[self getPlayersName] hash];
+}
+
+-(void)returnOnPreviusView {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

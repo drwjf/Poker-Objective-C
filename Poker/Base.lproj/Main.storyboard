@@ -111,18 +111,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="casinoRoyal" translatesAutoresizingMaskIntoConstraints="NO" id="T1C-7Z-505">
                                 <rect key="frame" x="310" y="28" width="704" height="191"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPA-bY-TQe">
-                                <rect key="frame" x="737" y="696" width="210" height="52"/>
-                                <color key="backgroundColor" red="0.50451561970000003" green="0.8260671356" blue="0.96839864419999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Send e.Message">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendMessageClick:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="xsd-nS-AMF"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLJ-bq-Rhk">
                                 <rect key="frame" x="163" y="396" width="63" height="43"/>
                                 <state key="normal" image="accelerometer_icon">
@@ -184,13 +172,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPA-bY-TQe">
+                                <rect key="frame" x="798" y="696" width="210" height="52"/>
+                                <color key="backgroundColor" red="0.46928885761333916" green="0.54702804990663834" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Send e.Message">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendMessageClick:" destination="hLE-3w-1Ce" eventType="touchUpInside" id="xsd-nS-AMF"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9xk-wu-567">
+                                <rect key="frame" x="494" y="366" width="37" height="37"/>
+                                <color key="color" red="0.96021412039999998" green="0.019540357500000001" blue="0.056707457619999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.84077460883831745" green="0.7021935882380691" blue="0.49419461046859148" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="9xk-wu-567" secondAttribute="centerX" id="Ox6-zW-ggB"/>
+                            <constraint firstAttribute="centerY" secondItem="9xk-wu-567" secondAttribute="centerY" id="REQ-on-fjZ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3ft-ZO-8Qe"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="activityAnswerFromServerView" destination="9xk-wu-567" id="4yt-LP-ml5"/>
                         <outlet property="annotationAboutAccelerometerLabel" destination="f3N-NH-lin" id="Qtn-0h-TOq"/>
                         <outlet property="enableAcceslerometerSwitcher" destination="PUA-e5-Tfq" id="dRO-9N-hST"/>
                         <outlet property="gamerMoneyLabel" destination="nMw-B4-bLv" id="H70-Wv-dRP"/>
@@ -199,6 +208,7 @@
                         <outlet property="imageOfPlayerButton" destination="65g-kO-1EZ" id="R5V-Jl-DzJ"/>
                         <outlet property="playButton" destination="Cm2-Bs-PNW" id="U2C-SG-jni"/>
                         <outlet property="rulesOfPokerTextView" destination="j3d-GE-7Y8" id="5UZ-iL-ja2"/>
+                        <outlet property="sendEMessageButton" destination="YPA-bY-TQe" id="D8X-4M-5cN"/>
                         <segue destination="kjp-7Y-F12" kind="show" identifier="segueToPlayGameVC" id="aCG-B8-6FG"/>
                     </connections>
                 </viewController>
@@ -971,15 +981,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
-                                <rect key="frame" x="336" y="730" width="76" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Send">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <slider opaque="NO" alpha="0.89999999999999991" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="wOf-te-Me4" userLabel="fdssdf">
                                 <rect key="frame" x="807" y="569" width="189" height="31"/>
                                 <color key="backgroundColor" red="0.87264384920634919" green="0.31108677681491925" blue="0.20099037506714548" alpha="1" colorSpace="calibratedRGB"/>
@@ -1004,6 +1005,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" alpha="0.44999999999999962" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NDm-Ur-1JT">
+                                <rect key="frame" x="336" y="730" width="76" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
