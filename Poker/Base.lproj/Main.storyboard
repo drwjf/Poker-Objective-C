@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yEq-nY-L4F">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--viewController-->
@@ -936,13 +937,6 @@
                                     <action selector="checkFold_CallAny_Action:" destination="kjp-7Y-F12" eventType="touchUpInside" id="Crw-YM-57c"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asg-fS-CSu">
-                                <rect key="frame" x="962" y="648" width="52" height="46"/>
-                                <color key="backgroundColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="camera-icon">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIp-wB-h3g">
                                 <rect key="frame" x="962" y="700" width="52" height="48"/>
                                 <color key="backgroundColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1013,6 +1007,19 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asg-fS-CSu">
+                                <rect key="frame" x="962" y="648" width="52" height="46"/>
+                                <color key="backgroundColor" red="1" green="0.80024726130000001" blue="0.064544324989999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="camera-icon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="makeScrenShortAction" destination="kjp-7Y-F12" eventType="touchUpInside" id="Bcv-Xb-xzD"/>
+                                    <segue destination="dqg-22-x0n" kind="popoverPresentation" popoverAnchorView="asg-fS-CSu" id="xkT-AL-fwZ">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1841,9 +1848,6 @@
                             </textField>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEM-Cb-tlG">
                                 <rect key="frame" x="319" y="245" width="382" height="182"/>
-                                <connections>
-                                    <segue destination="dL0-l0-S9l" kind="embed" id="sTH-DX-qUp"/>
-                                </connections>
                             </containerView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ROV-il-DYb" customClass="EAColourfulProgressView">
                                 <rect key="frame" x="826" y="397" width="101" height="15"/>
@@ -1995,43 +1999,53 @@
             <point key="canvasLocation" x="3879" y="1053"/>
         </scene>
         <!--Screenshort View Controller-->
-        <scene sceneID="orW-h4-SwZ">
+        <scene sceneID="KMQ-bD-hDN">
             <objects>
-                <viewController id="dL0-l0-S9l" customClass="screenshortViewController" sceneMemberID="viewController">
+                <viewController id="dqg-22-x0n" customClass="screenshortViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FXl-5n-C1p"/>
-                        <viewControllerLayoutGuide type="bottom" id="J0N-mz-BVE"/>
+                        <viewControllerLayoutGuide type="top" id="hNN-5o-ZDq"/>
+                        <viewControllerLayoutGuide type="bottom" id="ddS-mh-dkk"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WdQ-1s-PJ9">
-                        <rect key="frame" x="0.0" y="0.0" width="382" height="182"/>
+                    <view key="view" contentMode="center" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="vRh-gh-Goe">
+                        <rect key="frame" x="0.0" y="0.0" width="360" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6X-2R-0aJ">
-                                <rect key="frame" x="234" y="8" width="132" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6X-2R-0aJ">
+                                <rect key="frame" x="212" y="20" width="132" height="26"/>
                                 <color key="backgroundColor" red="0.4654168058" green="0.45183864210000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="H5f-zx-2kU"/>
+                                    <constraint firstAttribute="width" constant="132" id="Z16-9Z-sLX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Facebook">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="facebookSharingAction:" destination="dL0-l0-S9l" eventType="touchUpInside" id="G4b-Uz-eQK"/>
+                                    <action selector="facebookSharingAction:" destination="dqg-22-x0n" eventType="touchUpInside" id="3mK-pl-fuR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dal-7K-uLl">
-                                <rect key="frame" x="234" y="49" width="132" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dal-7K-uLl">
+                                <rect key="frame" x="212" y="59" width="132" height="28"/>
                                 <color key="backgroundColor" red="0.4654168058" green="0.45183864210000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="IC7-gT-JVR"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Email">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="emailSendAction:" destination="dL0-l0-S9l" eventType="touchUpInside" id="fXU-z3-vgi"/>
+                                    <action selector="emailSendAction:" destination="dqg-22-x0n" eventType="touchUpInside" id="fTI-4c-naV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5e-hq-rL6">
-                                <rect key="frame" x="234" y="93" width="132" height="33"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-9z-NiT">
+                                <rect key="frame" x="9" y="6" width="195" height="144"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5e-hq-rL6">
+                                <rect key="frame" x="212" y="100" width="132" height="28"/>
                                 <color key="backgroundColor" red="0.401959542" green="0.49942734519999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Add to album">
@@ -2039,25 +2053,39 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="saveInLibraryAction:" destination="dL0-l0-S9l" eventType="touchUpInside" id="JhX-pi-ZN6"/>
+                                    <action selector="saveInLibraryAction:" destination="dqg-22-x0n" eventType="touchUpInside" id="7d1-6Y-c5q"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-9z-NiT">
-                                <rect key="frame" x="10" y="8" width="206" height="166"/>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.78929838248729112" green="0.88520922672163627" blue="0.94498877762430944" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.57463626139793" green="0.74219423365834514" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="f8f-9z-NiT" firstAttribute="centerY" secondItem="vRh-gh-Goe" secondAttribute="centerY" id="6rD-B8-nMm"/>
+                            <constraint firstItem="I6X-2R-0aJ" firstAttribute="leading" secondItem="Dal-7K-uLl" secondAttribute="leading" id="8zZ-Zn-7nA"/>
+                            <constraint firstItem="z5e-hq-rL6" firstAttribute="top" secondItem="Dal-7K-uLl" secondAttribute="bottom" constant="14" id="Akj-IW-CMc"/>
+                            <constraint firstItem="f8f-9z-NiT" firstAttribute="leading" secondItem="vRh-gh-Goe" secondAttribute="leadingMargin" id="CPf-b1-n4d"/>
+                            <constraint firstItem="Dal-7K-uLl" firstAttribute="trailing" secondItem="I6X-2R-0aJ" secondAttribute="trailing" id="I1G-hx-BTZ"/>
+                            <constraint firstItem="I6X-2R-0aJ" firstAttribute="leading" secondItem="f8f-9z-NiT" secondAttribute="trailing" constant="10" id="NfC-Gi-8mc"/>
+                            <constraint firstItem="z5e-hq-rL6" firstAttribute="leading" secondItem="Dal-7K-uLl" secondAttribute="leading" id="OrW-yG-SbI"/>
+                            <constraint firstItem="Dal-7K-uLl" firstAttribute="trailing" secondItem="vRh-gh-Goe" secondAttribute="trailingMargin" id="QDi-NS-HtW"/>
+                            <constraint firstItem="ddS-mh-dkk" firstAttribute="top" secondItem="f8f-9z-NiT" secondAttribute="bottom" constant="17" id="buJ-Dy-hTa"/>
+                            <constraint firstItem="z5e-hq-rL6" firstAttribute="trailing" secondItem="Dal-7K-uLl" secondAttribute="trailing" id="gf5-db-MRA"/>
+                            <constraint firstItem="Dal-7K-uLl" firstAttribute="top" secondItem="I6X-2R-0aJ" secondAttribute="bottom" constant="21" id="lGG-Bb-NAF"/>
+                            <constraint firstItem="ddS-mh-dkk" firstAttribute="top" secondItem="z5e-hq-rL6" secondAttribute="bottom" constant="33" id="wUA-xx-07n"/>
+                            <constraint firstItem="I6X-2R-0aJ" firstAttribute="top" secondItem="hNN-5o-ZDq" secondAttribute="bottom" constant="16" id="yUt-VJ-5xq"/>
+                        </constraints>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="380" height="200"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="360" height="160"/>
                     <connections>
-                        <outlet property="addToLibraryButton" destination="z5e-hq-rL6" id="2gc-cZ-TBw"/>
-                        <outlet property="emailButton" destination="Dal-7K-uLl" id="rX5-lk-0V4"/>
-                        <outlet property="facebookButton" destination="I6X-2R-0aJ" id="Cwx-EB-qw9"/>
-                        <outlet property="screenImage" destination="f8f-9z-NiT" id="Oor-Rq-Tk0"/>
+                        <outlet property="emailButton" destination="Dal-7K-uLl" id="JBK-LJ-OXD"/>
+                        <outlet property="faceBookButton" destination="I6X-2R-0aJ" id="VRD-S1-0ZH"/>
+                        <outlet property="screenImageView" destination="f8f-9z-NiT" id="tEX-nH-5lu"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gPh-aT-z9O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gzO-vy-at9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4487" y="-110"/>
+            <point key="canvasLocation" x="3937" y="-262"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k66-2A-HOu">

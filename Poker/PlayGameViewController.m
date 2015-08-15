@@ -11,6 +11,7 @@
 #import "Gamer.h"
 #import "JSONParser.h"
 #import "SoundManager.h"
+#import "screenshortViewController.h"
 
 //---tags----
 #define GET_INFO_ABOUT_GAMERS 3
@@ -66,6 +67,8 @@
 @property (strong, nonatomic) IBOutlet UITextView *consoleTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
+
+@property (strong, nonatomic) UIImage *bufferImage;
 @end
 
 @implementation PlayGameViewController
@@ -96,6 +99,20 @@
     
     return diff;
 }
+
+#pragma mark Make Screenshort method
+
+- (IBAction)makeScrenShortAction {
+    if([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+                UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, [UIScreen mainScreen].scale);
+            } else {
+                UIGraphicsBeginImageContext(self.view.bounds.size);
+            }
+            [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+            _bufferImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+}
+
 
 #pragma mark - Make bet IBAction methods
 
@@ -500,7 +517,6 @@
             [[self.arrayOfImagesPrivatePlayersCard objectAtIndex:i*2 + 1] setAlpha:0.5];
         }
     }
-    
 }
 
 - (void)renderingBlindsOfGamers:(NSDictionary *)dictionary {
@@ -1009,14 +1025,19 @@
 #endif
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.destinationViewController isKindOfClass:[screenshortViewController class]]) {
+        screenshortViewController *scrnVC = (screenshortViewController *)segue.destinationViewController;
+        
+        scrnVC.theImage = _bufferImage;
+        
+    }
+    
 }
-*/
+
 
 @end

@@ -12,10 +12,12 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface screenshortViewController ()
-@property (strong, nonatomic) IBOutlet UIButton *facebookButton;
-@property (strong, nonatomic) IBOutlet UIButton *emailButton;
-@property (strong, nonatomic) IBOutlet UIButton *addToLibraryButton;
+@interface screenshortViewController () <MFMailComposeViewControllerDelegate>
+@property (strong, nonatomic) IBOutlet UIImageView *screenImageView;
+
+@property (weak, nonatomic) IBOutlet UIButton *faceBookButton;
+@property (weak, nonatomic) IBOutlet UIButton *emailButton;
+
 
 @end
 
@@ -23,67 +25,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view.layer setMasksToBounds:YES];
-    [self.view.layer setCornerRadius:15];
-    
-    [_facebookButton.layer setMasksToBounds:YES];
-    [_facebookButton.layer setCornerRadius:10];
-    
-    [_emailButton.layer setMasksToBounds:YES];
-    [_emailButton.layer setCornerRadius:10];
-    
-    [_addToLibraryButton.layer setMasksToBounds:YES];
-    [_addToLibraryButton.layer setCornerRadius:10];
-    
-    [_screenImage.layer setMasksToBounds:YES];
-    [_screenImage.layer setCornerRadius:5];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImage:) name:@"TestNotification" object:nil];
-    // Do any additional setup after loading the view.
+    [self updateUI];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#define DEFAULT_CORNER_RASIUS_FOR_BUTTONS 10
+
+- (void)updateUI {
+        [_screenImageView setImage:_theImage];
+        [_screenImageView reloadInputViews];
+    
+    [self setCornerRadius:_faceBookButton andRadius:DEFAULT_CORNER_RASIUS_FOR_BUTTONS];
+}
+- (void)setCornerRadius:(UIView *)view andRadius:(int)radius
+{
+    [view.layer setMasksToBounds:YES];
+    [view.layer setCornerRadius:radius];
 }
 
--(void)reloadImage:(NSNotification*)notification {
-    if([[notification name] isEqualToString:@"TestNotification"]) {
-        NSLog(@"received");
-        NSDictionary *userInfo = notification.userInfo;
-        UIImage *image = [userInfo objectForKey:@"image"];
-        _theImage = image;
-        [_screenImage setImage:image];
-        [_screenImage reloadInputViews];
-    }
-}
 
-- (IBAction)quitClick:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
+#pragma mark - FaceBook poste NOTE method
 
 
 - (IBAction)facebookSharingAction:(id)sender {
-    dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(dispatchQueue, ^(void) {
         FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-        photo.image = _theImage;
+        photo.image = [UIImage imageNamed:@"shirt"];
         photo.userGenerated = YES;
         FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
         content.photos = @[photo];
         [FBSDKShareDialog showFromViewController:self
                                      withContent:content
                                         delegate:nil];
-    });
 }
 
 
+
+#pragma mark - Send email with sceenshort
+
 - (IBAction)emailSendAction:(id)sender {
-    dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    dispatch_async(dispatchQueue, ^(void) {
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
             picker.mailComposeDelegate = self;
@@ -102,7 +81,8 @@
             NSString *emailBody = @"Look at ! I advice you to download. I think, that you will not regret !";
             [picker setMessageBody:emailBody isHTML:NO];
             
-            [self presentModalViewController:picker animated:YES];
+           // [self presentModalViewController:picker animated:YES];
+            [self presentViewController:picker animated:YES completion:nil];
         } else {
             NSString *ccRecipients = @"schurik77799@gmail.com,AAA777SSS@yandex.ru";
             NSString *subject = @"Hello from best poker in the World !";
@@ -116,7 +96,6 @@
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
         }
-    });
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
@@ -146,20 +125,19 @@
     
     NSLog(@"%@", message);
     
-    [self dismissModalViewControllerAnimated:YES];
+    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - IBAction method "Save in album"
 
 - (IBAction)saveInLibraryAction:(id)sender {
-    dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    dispatch_async(dispatchQueue, ^(void) {
-        SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
+      SEL selectorToCall = @selector(imageWasSavedSuccessfully:didFinishSavingWithError:contextInfo:);
         
         UIImageWriteToSavedPhotosAlbum(_theImage, self, selectorToCall, NULL);
-    });
 }
 
--(void) imageWasSavedSuccessfully:(UIImage*)paramImage didFinishSavingWithError:(NSError*)paramError contextInfo:(void*)paramContextInfo {
+- (void) imageWasSavedSuccessfully:(UIImage*)paramImage didFinishSavingWithError:(NSError*)paramError contextInfo:(void*)paramContextInfo {
     if(paramError == nil) {
         NSLog(@"Image was saved successfully");
     } else {
@@ -171,18 +149,5 @@
         [alertMy show];
     }
 }
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
