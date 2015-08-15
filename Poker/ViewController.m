@@ -12,9 +12,6 @@
 
 @interface ViewController () 
 
-
-- (void)redrawGameTimerView:(NSTimer *)timer;
-
 @end
 
 @implementation ViewController
@@ -23,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _ipAdressTextField.text = @"192.168.1.6";
+    _ipAdressTextField.text = @"192.168.1.4";
     _portTextField.text = @"9999";
     
 #if !(TARGET_IPHONE_SIMULATOR)

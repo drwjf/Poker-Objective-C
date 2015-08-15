@@ -88,6 +88,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:gamer.money forKey:@"money"];
+    [userDefaults synchronize];
 }
 - (long)differenceCurrentGamerRateAndMinBet {
     Gamer *generalGamer = [self.arrayOfPlayersOnTheTable objectAtIndex:self.numberOfMeInGamersList];
@@ -366,7 +367,7 @@
     }
 }
 
-#define CORNER_RADIUS_CARD 4
+#define CORNER_RADIUS_CARD 6
 
 - (void)changeCornerRadiusOfCards: (int)countOfPlayers
 {
@@ -530,8 +531,12 @@
 - (BOOL)isCurrentGamerMe:(NSString *)gamerName { return ([gamerName hash] == self.hashValueOfGamerName) ? YES : NO; }
 - (BOOL)shouldIMakeTheBet { return (_numberOfMeInGamersList == _numberOfCurrentProgressView) ? YES : NO; }
 
+
+#define MIN_COUNT_OF_GAMERS 2
+
 - (void)parseInformationAboutGamers:(NSDictionary *)dictionary {
-    self.countOfPlayersOnTheTable = [[JSONParser getNSNumberWithObject:dictionary[@"countOfGamers"]] intValue];
+    int count = [[JSONParser getNSNumberWithObject:dictionary[@"countOfGamers"]] intValue];
+    _countOfPlayersOnTheTable = count ? count : MIN_COUNT_OF_GAMERS;
     
     for (int i=0; i<self.countOfPlayersOnTheTable; i++) {
         NSString *gamerOfNumber = [NSString stringWithFormat:@"gamer%i", i+1];
@@ -602,9 +607,9 @@
 }
 
 - (void)waitAfterRaund {
+    
     [self playSound:@"winnerMusic.caf"];
-    _timer = nil;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(updateValueAfterRound) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(updateValueAfterRound) userInfo:nil repeats:NO];
 }
 
 - (void)updateValueAfterRound {
@@ -678,7 +683,7 @@
         [UIView animateWithDuration:1.0 animations:^{
             [self setViewVisible:card];
         } completion:^(BOOL finished) {
-            [self startProgressViewAtIndex:_numberOfCurrentProgressView];
+            //[self startProgressViewAtIndex:_numberOfCurrentProgressView];
         }];
     }
     
@@ -735,9 +740,9 @@
 
 - (void)updateGamerBetAndMoneyOnTheTable:(int)indexOfGamer andValue:(NSNumber *)currentBet andIsBank:(BOOL)isBank {
    long bet = [currentBet longValue];
+    UILabel *betLabel = [self.arrayOfLabelsGamerRates objectAtIndex:indexOfGamer];
     
     if(bet >= 0) {
-        UILabel *betLabel = [self.arrayOfLabelsGamerRates objectAtIndex:indexOfGamer];
         UILabel *moneyLabel = [self.arrayOfLabelsPlayersMoneys objectAtIndex:indexOfGamer];
         
         
@@ -751,12 +756,18 @@
         NSString *moneyOfGamerString = [self prepareGamerMoneyBeforeRendering:gamer.money];
         NSString *betOfGamerString = [self prepareGamerMoneyBeforeRendering:[NSNumber numberWithLong:gamer.rate]];
     
-        [betLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfGamerString]];
+        if(bet != 0 || isBank)
+            [betLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:betOfGamerString]];
+        else [betLabel setText:@"check"];
         [moneyLabel setAttributedText:[self attributedStringForInfoAboutGamerInView:moneyOfGamerString]];
         
         [self setViewVisible:betLabel];
-    } else
+    } else {
         [self setFoldForGamerAtIndex:indexOfGamer];
+        [betLabel setText:@"fold"];
+    }
+    
+    [self setDefaultGamerMoney];
 }
 
 - (void)collectionsOfGamersBets {
@@ -955,7 +966,7 @@
 - (void)hideCurrentProgressView {  [self.currentProgressView setAlpha:0.0];  }
 - (void)showCurrentProgressView {  [self.currentProgressView setAlpha:1.0];  }
 - (void)setTimerA {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                  target:self
                                                selector:@selector(updateProgressView:)
                                                userInfo:nil
