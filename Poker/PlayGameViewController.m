@@ -12,6 +12,7 @@
 #import "JSONParser.h"
 #import "SoundManager.h"
 #import "screenshortViewController.h"
+#import "MessageFromGamersViewController.h"
 
 //---tags----
 #define GET_INFO_ABOUT_GAMERS 3
@@ -66,9 +67,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *messageFromServerLabel;
 @property (strong, nonatomic) IBOutlet UITextView *consoleTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
+@property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 
 
-@property (strong, nonatomic) UIImage *bufferImage;
+@property (strong, nonatomic) UIImage *bufferImage; //UIImage for screenshort
+@property (strong, nonatomic) UIPopoverController *popover;
+
 @end
 
 @implementation PlayGameViewController
@@ -77,15 +81,19 @@
     [super viewDidLoad];
     _arrayOfCheckedBetButtons = [NSArray arrayWithObjects:_callAnyButton, _CheckFoldButton, _foldButton, _checkButton, nil];
     
-    
+    [self setUpUDPConnection];
     [self setViewUnvisible:_raiseRateSlider];
     [self setViewUnvisible:_currentPossibleBetLabel];
     [self changeCornerRadiusOfBetButtons];
+    
     [self prepareBeforeGameProcess];
     [self readInformationAboutGamersOnTheTable];
 }
 
-
+- (void)setUpUDPConnection {
+    UDPConnection *udpConnection = [UDPConnection sharedInstance];
+    udpConnection.delegate = self;
+}
 - (void)setDefaultGamerMoney {
     Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
     
@@ -99,6 +107,42 @@
     
     return diff;
 }
+
+- (void)sendMessageToGamers:(NSData *)jsonDatagramPacket {
+    UDPConnection *udpConnection = [UDPConnection sharedInstance];
+    [_messageTextField setText:@""];
+    
+    Gamer *sender = [_arrayOfPlayersOnTheTable objectAtIndex:_numberOfMeInGamersList];
+    
+    for(Gamer *gamer in _arrayOfPlayersOnTheTable) {
+        if([sender isEqual:gamer]) continue;
+        
+        [udpConnection sendDataWithTag:jsonDatagramPacket andIP:gamer.ipAddress andUdpPort:gamer.port];
+        
+        NSLog(@"ip %@", gamer.ipAddress);
+        NSLog(@"port : %i", gamer.port);
+    }
+}
+
+#pragma mark Send message to anothere gamers
+
+- (NSDictionary *)dictionaryWithInfoAboutGamerMessage:(NSString *)message {
+    return @{
+             @"numberOfGamer" : [NSNumber numberWithInt:_numberOfMeInGamersList],
+             @"message" : message
+             };
+}
+
+- (IBAction)sendMessageToGamersAction {
+    NSString *message = [_messageTextField text];
+    
+    if(![message length]) return;
+    
+        NSDictionary *dictionary = [self dictionaryWithInfoAboutGamerMessage:message];
+        [self sendMessageToGamers:[JSONParser convertNSDictionaryToJSONdata:dictionary]];
+}
+
+
 
 #pragma mark Make Screenshort method
 
@@ -199,6 +243,27 @@
     }
 }
 
+
+
+
+
+
+- (void)updateUIWithMessageFromGamer:(NSDictionary *)dictionary {
+    
+    NSNumber *numberOfGamer = [JSONParser getNSNumberWithObject:dictionary[@"numberOfGamer"]];
+    NSString *messageOfGamer = [JSONParser getNSStringWithObject:dictionary[@"message"]];
+    
+    UILabel *nameLabelGamerAtNumber = [self.arrayOfLabelsPlayersNames objectAtIndex:[numberOfGamer intValue]];
+    
+    Gamer *gamer = [self.arrayOfPlayersOnTheTable objectAtIndex:[numberOfGamer intValue]];
+    [self addMessageToConsole:[NSString stringWithFormat:@"%@ : %@", gamer.name,messageOfGamer]];
+    
+    MessageFromGamersViewController *viewController = [[MessageFromGamersViewController alloc] initWithMessage:messageOfGamer];
+    _popover = [[UIPopoverController alloc] initWithContentViewController:viewController];
+    _popover.delegate = self;
+    _popover.popoverContentSize = CGSizeMake(150, 150);
+    [_popover presentPopoverFromRect:nameLabelGamerAtNumber.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+}
 
 - (void)makeBetAndUpdateDataWithView:(NSData *)jsonData andBet:(long)bet {
     [self sendInfoAboutBet:jsonData];

@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "PlayGameViewController.h"
+#import "UDPConnection.h"
 
-@interface PlayGameViewController : ViewController <ConnectionToServerDelegateForPlayGameVC>
+@interface PlayGameViewController : ViewController <ConnectionToServerDelegateForPlayGameVC, UDPConnectionDelegates, UIPopoverControllerDelegate>
 
 
 @property(nonatomic, readwrite)NSUInteger hashValueOfGamerName;

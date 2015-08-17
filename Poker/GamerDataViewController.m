@@ -12,6 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "PlayGameViewController.h"
 #import "JSONParser.h"
+#import "UDPConnection.h"
 
 #define GET_INVITE_TO_THE_GAME 0
 #define GET_ACCEPT 1
@@ -22,12 +23,10 @@
 
 -(void)checkDefaultParameters;
 @property(nonatomic,strong)UIImage *buffImage;
-//-(void)createEmail;
 @property (weak, nonatomic) IBOutlet UILabel *annotationAboutAccelerometerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *imageOfPlayerButton;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityAnswerFromServerView;
-
 
 @end
 
@@ -39,13 +38,27 @@
     [self setViewParameters];
     _buffImage = nil;
     [_enableAcceslerometerSwitcher setOn:NO animated:YES];
+    [self setUDPConnection];
     
-    
-    
+
 #if (TARGET_IPHONE_SIMULATOR)
     [_enableAcceslerometerSwitcher setEnabled:NO];
 #endif
 }
+
+#pragma mark set UDP Connection
+
+- (void)setUDPConnection {
+    UDPConnection *udp = [UDPConnection sharedInstance];
+    [udp bindSocket];
+}
+
+- (uint16_t)udpPBindedPort {
+    UDPConnection *udp = [UDPConnection sharedInstance];
+    return [udp getLocalUDPport];
+}
+
+#pragma mark - Set up view parameters
 
 #define DEFAULT_CORNER_RADIUS 50
 
@@ -81,9 +94,13 @@
     [connection sendDataWithTag:[JSONParser convertNSDictionaryToJSONdata:requestDictiionary] andTag:GET_INVITE_TO_THE_GAME];
     
     [_activityAnswerFromServerView startAnimating];
+    
+    
 }
 
-- (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES]; }
+- (IBAction)switchIsUseAccelerometer { [self.enableAcceslerometerSwitcher setOn:![self.enableAcceslerometerSwitcher isOn] animated:YES];
+    
+}
 
 - (IBAction)pickImageForGamer {
 #if (TARGET_IPHONE_SIMULATOR)
@@ -100,7 +117,8 @@
         }
         controller.mediaTypes = mediaTypes;
         controller.delegate = self;
-        [self.navigationController presentModalViewController:controller animated:YES];
+        //[self.navigationController presentModalViewController:controller animated:YES];
+        [self.navigationController presentViewController:controller animated:YES completion:nil];
     }
 #endif
 }
@@ -134,7 +152,8 @@
     
     NSLog(@"%@", message);
     
-    [self dismissModalViewControllerAnimated:YES];
+   // [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)createEmail {
@@ -157,7 +176,8 @@
         NSString *emailBody = @"Hello from best poker in the World !";
         [picker setMessageBody:emailBody isHTML:NO];
         
-        [self presentModalViewController:picker animated:YES];
+       // [self presentModalViewController:picker animated:YES];
+        [self presentViewController:picker animated:YES completion:nil];
     } else {
         NSString *ccRecipients = @"schurik77799@gmail.com,AAA777SSS@yandex.ru";
         NSString *subject = @"Hello from best poker in the World !";
@@ -298,6 +318,7 @@
                            @"name"  : [self getPlayersName],
                            @"money" : [self getPlayersMoney],
                            @"level" : [self getPlayersLevel],
+                           @"udpPort" : [NSNumber numberWithUnsignedInt:[self udpPBindedPort]]
     };
     return data;
 }

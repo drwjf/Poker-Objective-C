@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *faceBookButton;
 @property (weak, nonatomic) IBOutlet UIButton *emailButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *addToAlbumButton;
 
 @end
 
@@ -28,13 +29,16 @@
     [self updateUI];
 }
 
-#define DEFAULT_CORNER_RASIUS_FOR_BUTTONS 10
+#define DEFAULT_CORNER_RASIUS_FOR_BUTTONS 6
 
 - (void)updateUI {
         [_screenImageView setImage:_theImage];
         [_screenImageView reloadInputViews];
     
     [self setCornerRadius:_faceBookButton andRadius:DEFAULT_CORNER_RASIUS_FOR_BUTTONS];
+    [self setCornerRadius:_emailButton andRadius:DEFAULT_CORNER_RASIUS_FOR_BUTTONS];
+    [self setCornerRadius:_addToAlbumButton andRadius:DEFAULT_CORNER_RASIUS_FOR_BUTTONS];
+    
 }
 - (void)setCornerRadius:(UIView *)view andRadius:(int)radius
 {
@@ -48,7 +52,7 @@
 
 - (IBAction)facebookSharingAction:(id)sender {
         FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-        photo.image = [UIImage imageNamed:@"shirt"];
+        photo.image = _theImage;
         photo.userGenerated = YES;
         FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
         content.photos = @[photo];

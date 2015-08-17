@@ -7,9 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GCDAsyncUdpSocket.h"
 
 
-@interface UDPConnection : NSObject
+@protocol UDPConnectionDelegates
+@required
+- (void)updateUIWithMessageFromGamer:(NSDictionary *)dictionary;
+@end
 
+@interface UDPConnection : NSObject <GCDAsyncUdpSocketDelegate>
+
+
+
+@property(assign, nonatomic) id<UDPConnectionDelegates> delegate;
+@property(strong, nonatomic)GCDAsyncUdpSocket *asyncSocket;
+
+
++ (id)sharedInstance;
+- (void)sendDataWithTag:(NSData *)jsonData andIP:(NSString *)host andUdpPort:(uint16_t)port;
+- (void)bindSocket;
+- (uint16_t)getLocalUDPport;
 
 @end

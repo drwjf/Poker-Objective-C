@@ -57,7 +57,6 @@
 -(void)setParameters:(NSString*)ip andPort:(NSString*)myPort;
 -(void)connectToServer;
 -(void)sendDataWithTag:(NSData *)data andTag:(int)tag;
-//-(void)receiveDataWithCompletionBlock:(void (^)(NSString *name))copmpletionsBlock;
 -(void)readDataWithTag:(int)tag;
 -(void)readDataWithTagLongTime:(int)tag andDurationWaiting:(int)duration;
 
